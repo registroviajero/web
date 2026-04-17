@@ -1,11 +1,11 @@
 ---
 title: "Qué es el Real Decreto 933/2021 y cómo afecta a los alojamientos turísticos"
-description: "Guía completa sobre la normativa de registro de viajeros en España. Qué datos debes recoger, cómo enviarlos al Ministerio del Interior y cómo evitar sanciones."
+description: "Todo lo que necesitas saber sobre la normativa de registro de viajeros en España: qué datos debes recoger, cómo enviarlos al Ministerio del Interior y cómo evitar sanciones."
 date: 2026-04-17
 author: "RegistroViajero"
 ---
 
-El **Real Decreto 933/2021** establece las obligaciones de registro documental e información de las personas físicas o jurídicas que ejercen actividades de hospedaje y alquiler de vehículos a motor en España. Si gestionas un alojamiento turístico — ya sea un hotel, apartamento, casa rural o cualquier tipo de alojamiento reglado — esta normativa te afecta directamente.
+El **Real Decreto 933/2021** establece las obligaciones de registro documental e información de las personas físicas o jurídicas que ejercen actividades de hospedaje en España. Si gestionas un alojamiento turístico — ya sea un hotel, apartamento, casa rural o cualquier tipo de alojamiento reglado — esta normativa te afecta directamente.
 
 ## ¿Qué exige la normativa?
 
@@ -42,7 +42,7 @@ Para acceder a SES.HOSPEDAJES necesitas:
 
 - Un **código de arrendador** proporcionado por las autoridades.
 - Un **código de establecimiento** para cada propiedad.
-- Credenciales de acceso (usuario y contraseña) proporcionadas por la Policía Nacional o la Guardia Civil.
+- **Credenciales de acceso** (usuario y contraseña) proporcionadas por la Policía Nacional o la Guardia Civil.
 
 ## ¿Qué se envía al Ministerio?
 
@@ -55,7 +55,7 @@ Ambas se envían juntas al Ministerio. Una vez procesadas, recibes una confirmac
 
 ## ¿Qué pasa si no cumplo?
 
-El incumplimiento de las obligaciones del RD 933/2021 puede acarrear sanciones administrativas. La cuantía depende de la gravedad y reiteración de la infracción, pero se enmarca en la legislación de seguridad ciudadana.
+El incumplimiento de las obligaciones del RD 933/2021 puede acarrear **sanciones administrativas**. La cuantía depende de la gravedad y reiteración de la infracción, pero se enmarca en la legislación de seguridad ciudadana.
 
 Más allá de las sanciones, el registro correcto de viajeros es una obligación legal que contribuye a la seguridad pública y es responsabilidad de todo titular de alojamiento turístico.
 
@@ -76,6 +76,6 @@ Si tu alojamiento está en alguna de estas comunidades, necesitarás utilizar lo
 2. **Validación automática**: el sistema comprueba que todos los campos obligatorios están completos y son válidos antes de permitir el envío.
 3. **Envío directo a SES.HOSPEDAJES**: genera y envía automáticamente los partes al Ministerio con un clic. Sin intervención manual.
 4. **Seguimiento del estado**: consulta automáticamente el resultado de cada envío y te notifica si hay errores o rechazos.
-5. **Importación de reservas**: sincroniza automáticamente tus reservas desde Booking.com, Airbnb, VRBO, Expedia, Tripadvisor y Google Calendar mediante iCal.
+5. **Importación de reservas**: sincroniza automáticamente tus reservas desde Booking.com, Airbnb, VRBO, Expedia, Tripadvisor y Google Calendar.
 
 Si gestionas alojamientos turísticos en España y quieres cumplir con la normativa sin complicaciones, puedes [crear una cuenta gratuita](https://app.registroviajero.com/register) y probar el servicio durante 15 días sin compromiso.

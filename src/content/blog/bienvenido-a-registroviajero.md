@@ -26,4 +26,4 @@ Ofrecemos **15 días de prueba gratuita** con acceso completo a todas las funcio
 
 [Crear cuenta gratis](https://app.registroviajero.com/register)
 
-Esperamos que RegistroViajero te haga la vida más fácil. Si tienes dudas, consulta nuestro [Centro de Ayuda](https://help.registroviajero.com) o escríbenos a legal@registroviajero.com.
+Esperamos que RegistroViajero te haga la vida más fácil. Si tienes dudas, consulta nuestro [Centro de Ayuda](https://help.registroviajero.com).
