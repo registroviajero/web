@@ -1,0 +1,40 @@
+# RegistroViajero
+
+> Software SaaS para agencias de alojamiento turístico en España. Automatiza el cumplimiento del Real Decreto 933/2021: check-in digital para huéspedes, envío directo de partes de viajeros a SES.HOSPEDAJES (Ministerio del Interior) y sincronización de reservas vía iCal.
+
+Idioma principal: español (es-ES). Cobertura geográfica: España peninsular, Baleares y Canarias (SES.HOSPEDAJES del Ministerio del Interior). No cubre Cataluña (Mossos d'Esquadra) ni País Vasco (Ertzaintza) — integraciones en desarrollo.
+
+## Producto
+
+- Aplicación web: https://app.registroviajero.com
+- Centro de ayuda: https://help.registroviajero.com
+- Sitio público: https://registroviajero.com
+
+## Precios
+
+Plan Pro: 5 €/puesto/mes, facturación mensual. Prueba gratuita de 15 días sin tarjeta de crédito. Pagos gestionados por Polar (polar.sh). Check-in de huéspedes nunca bloqueado por estado de suscripción.
+
+## Funcionalidades clave
+
+- Check-in digital con enlace único por huésped en 9 idiomas (español, inglés, francés, alemán, italiano, portugués, gallego, euskera, catalán)
+- Subida de foto del documento de identidad desde la cámara del móvil
+- Firma digital de declaración de veracidad por el huésped
+- Importación automática de reservas vía iCal (Booking.com, Airbnb, VRBO, Expedia, Tripadvisor, Google Calendar)
+- Generación y envío automático de partes de viajeros y reservas de hospedaje a SES.HOSPEDAJES
+- Gestión de equipo con roles (propietario, administrador, miembro)
+- Exportación PDF y CSV
+- Códigos QR para check-in presencial
+- Panel de control con calendario de llegadas y estado de envíos
+- Cumplimiento RGPD: cifrado AES-256-GCM, argon2id, retención automática de 3 años
+
+## Normativa
+
+RegistroViajero está diseñado para el cumplimiento del Real Decreto 933/2021, de 26 de octubre, por el que se regulan las obligaciones de registro documental e información de las personas físicas o jurídicas que ejercen actividades de hospedaje y alquiler de vehículos a motor. La obligación de envío telemático a SES.HOSPEDAJES entró en vigor en diciembre de 2024.
+
+## Contenido
+
+- [Blog](https://registroviajero.com/blog): artículos sobre normativa, cumplimiento y gestión de alojamientos
+- [Feed RSS](https://registroviajero.com/rss.xml)
+- [Centro de Ayuda](https://help.registroviajero.com): guías y tutoriales paso a paso
+- [Política de Privacidad](https://registroviajero.com/legal/privacidad)
+- [Términos de Uso](https://registroviajero.com/legal/terminos)
