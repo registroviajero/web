@@ -1,8 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import { getCollection } from 'astro:content'
 
 const APP_URL = 'https://app.registroviajero.com'
 const HELP_URL = 'https://help.registroviajero.com'
+const SITE_URL = 'https://registroviajero.com'
+
+const latestPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3)
 
 const steps = [
   { num: '1', title: 'Registra tus alojamientos', desc: 'Configura cada propiedad con su dirección, tipo y código de establecimiento del Ministerio.' },
@@ -21,6 +27,25 @@ const features = [
   { title: 'Panel de control', desc: 'Calendario de llegadas, estados de reserva, alertas de errores y actividad reciente en un vistazo.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />' },
 ]
 
+const segments = [
+  {
+    title: 'Apartamentos turísticos',
+    desc: 'Check-in 100 % remoto. El huésped rellena sus datos antes de llegar y tú recibes el parte validado listo para enviar.',
+  },
+  {
+    title: 'Hoteles y pensiones',
+    desc: 'Pre-check-in desde el móvil antes de llegar a recepción. Menos tiempo en el mostrador y menos errores de transcripción.',
+  },
+  {
+    title: 'Casas rurales y vivienda vacacional',
+    desc: 'Estancias de grupo con un enlace por huésped y un enlace grupal único para compartir por WhatsApp o email.',
+  },
+  {
+    title: 'Gestores y agencias',
+    desc: 'Varias propiedades y propietarios en una sola cuenta. Credenciales SES separadas por propietario, roles para tu equipo.',
+  },
+]
+
 const platforms = [
   { name: 'Booking.com', color: '#003580' },
   { name: 'Airbnb', color: '#FF5A5F' },
@@ -33,10 +58,75 @@ const platforms = [
 const faqs = [
   { q: '¿Mis huéspedes necesitan instalar algo?', a: 'No. Reciben un enlace que abren en su navegador. Sin app, sin registro, sin descargas.' },
   { q: '¿Funciona en Cataluña y País Vasco?', a: 'Todavía no. Estas comunidades usan sistemas propios (Mossos d\'Esquadra y Ertzaintza). La integración está en desarrollo.' },
+  { q: '¿Qué pasa si no envío los partes al Ministerio?', a: 'El incumplimiento del RD 933/2021 puede acarrear sanciones administrativas conforme a la Ley Orgánica 4/2015 de Seguridad Ciudadana. Más allá de las multas, es una obligación legal del titular del alojamiento.' },
+  { q: '¿Qué documentos acepta el formulario de check-in?', a: 'DNI, NIE, pasaporte, certificado de registro UE, documento de identidad extranjero y documento de viaje. DNI y NIE requieren segundo apellido y número de soporte.' },
   { q: '¿Qué pasa si caduca mi suscripción?', a: 'Los huéspedes siempre pueden completar sus datos. El check-in nunca se bloquea por el estado de tu plan.' },
   { q: '¿Puedo gestionar múltiples propiedades?', a: 'Sí. Desde una misma cuenta de agencia puedes gestionar todas tus propiedades, cada una con sus propias credenciales SES.' },
   { q: '¿En cuántos idiomas funciona el check-in?', a: 'El formulario de check-in para huéspedes está disponible en 9 idiomas: español, inglés, francés, alemán, italiano, portugués, gallego, euskera y catalán.' },
+  { q: '¿Cuánto tardo en tenerlo operativo?', a: 'Crear la cuenta y añadir un alojamiento lleva unos minutos. Para enviar al Ministerio necesitas tus credenciales SES (usuario, contraseña y código de arrendador) — puedes configurarlas más tarde sin perder el trabajo hecho.' },
 ]
+
+const softwareApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'RegistroViajero',
+  url: SITE_URL,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  description: 'Software para cumplir con el Real Decreto 933/2021. Registro digital de viajeros, envío automático de partes de hospedaje a SES.HOSPEDAJES del Ministerio del Interior.',
+  inLanguage: 'es-ES',
+  offers: [
+    {
+      '@type': 'Offer',
+      name: 'Prueba gratuita',
+      price: '0',
+      priceCurrency: 'EUR',
+      description: '15 días de prueba, sin tarjeta de crédito',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Plan Pro',
+      price: '5',
+      priceCurrency: 'EUR',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: '5',
+        priceCurrency: 'EUR',
+        unitText: 'alojamiento/mes',
+      },
+      description: '5 € por alojamiento/mes, facturación mensual',
+    },
+  ],
+  featureList: [
+    'Check-in digital para huéspedes en 9 idiomas',
+    'Envío automático a SES.HOSPEDAJES',
+    'Importación iCal (Booking.com, Airbnb, VRBO, Expedia, Tripadvisor, Google Calendar)',
+    'Exportación PDF y CSV',
+    'Equipo con roles y permisos',
+    'Cumplimiento RGPD',
+    'Códigos QR para check-in presencial',
+    'Firma digital de declaración de veracidad',
+    'Registro de auditoría inmutable',
+  ],
+  publisher: {
+    '@type': 'Organization',
+    name: 'RegistroViajero',
+    url: SITE_URL,
+  },
+}
+
+const faqPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.a,
+    },
+  })),
+}
 ---
 
 <Layout
@@ -158,8 +248,28 @@ const faqs = [
     </div>
   </section>
 
+  <!-- Segments -->
+  <section id="para-quien-es" class="py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Para quién es RegistroViajero</h2>
+        <p class="mt-4 text-lg text-gray-600">
+          Diseñado para cualquier alojamiento reglado en España sujeto al RD 933/2021.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {segments.map((s) => (
+          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900">{s.title}</h3>
+            <p class="mt-2 text-gray-600 leading-relaxed text-sm">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Pricing -->
-  <section id="precios" class="py-20">
+  <section id="precios" class="py-20 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center max-w-2xl mx-auto mb-16">
         <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Precio simple y transparente</h2>
@@ -223,7 +333,7 @@ const faqs = [
   </section>
 
   <!-- Security / Trust -->
-  <section class="py-20 bg-gray-50">
+  <section class="py-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center max-w-2xl mx-auto mb-12">
         <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Seguridad y cumplimiento</h2>
@@ -263,7 +373,7 @@ const faqs = [
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="py-20">
+  <section id="faq" class="py-20 bg-gray-50">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
       <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">Preguntas frecuentes</h2>
       <div class="space-y-4">
@@ -282,6 +392,44 @@ const faqs = [
       </p>
     </div>
   </section>
+
+  {latestPosts.length > 0 && (
+    <section class="py-20">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+          <div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Desde el blog</h2>
+            <p class="mt-3 text-gray-600">Normativa, guías y novedades sobre el registro de viajeros.</p>
+          </div>
+          <a href="/blog" class="text-sm font-medium text-primary-600 hover:underline">Ver todos los artículos →</a>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {latestPosts.map((post) => (
+            <article class="group">
+              <a href={`/blog/${post.id}`} class="block">
+                <time
+                  datetime={post.data.date.toISOString().split('T')[0]}
+                  class="text-sm text-gray-500"
+                >
+                  {post.data.date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                <h3 class="mt-2 text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors duration-150 leading-snug">
+                  {post.data.title}
+                </h3>
+                <p class="mt-2 text-sm text-gray-600 leading-relaxed line-clamp-3">
+                  {post.data.description}
+                </p>
+                <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary-600">
+                  Leer más
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                </span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- CTA -->
   <section class="py-20 bg-primary-600">
@@ -338,29 +486,6 @@ const faqs = [
     </div>
   </footer>
 
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "RegistroViajero",
-    "url": "https://registroviajero.com",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web",
-    "description": "Software para cumplir con el Real Decreto 933/2021. Registro digital de viajeros, envío automático de partes de hospedaje a SES.HOSPEDAJES del Ministerio del Interior.",
-    "offers": {
-      "@type": "Offer",
-      "price": "5",
-      "priceCurrency": "EUR",
-      "description": "Plan Pro — por alojamiento/mes"
-    },
-    "featureList": [
-      "Check-in digital para huéspedes en 9 idiomas",
-      "Envío automático a SES.HOSPEDAJES",
-      "Importación iCal (Booking.com, Airbnb, VRBO)",
-      "Exportación PDF y CSV",
-      "Equipo con roles y permisos",
-      "Cumplimiento RGPD",
-      "Códigos QR para check-in presencial"
-    ]
-  })} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqPageSchema)} />
 </Layout>
