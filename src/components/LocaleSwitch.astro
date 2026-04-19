@@ -1,0 +1,52 @@
+---
+import { LOCALE_META, LOCALES, type Locale } from '../i18n/config'
+import { getLocaleFromUrl, localizedPath, stripLocalePrefix } from '../i18n/utils'
+import { UI } from '../i18n/ui'
+
+interface Props {
+  locale?: Locale
+}
+
+const current: Locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const t = UI[current].localeSwitch
+
+const logicalPath = stripLocalePrefix(Astro.url.pathname)
+
+const targets = LOCALES
+  .filter((l) => l !== current)
+  .map((l) => ({
+    locale: l,
+    href: localizedPath(l, logicalPath),
+    label: LOCALE_META[l].shortLabel,
+    fullLabel: LOCALE_META[l].label,
+  }))
+---
+
+<div class="flex items-center gap-1 text-xs font-medium text-gray-500" aria-label={t.ariaLabel}>
+  <span aria-hidden="true" class="hidden md:inline uppercase tracking-wider">{LOCALE_META[current].shortLabel}</span>
+  {targets.map((target) => (
+    <a
+      href={target.href}
+      hreflang={LOCALE_META[target.locale].htmlLang}
+      data-locale-switch={target.locale}
+      data-umami-event="locale-switch"
+      aria-label={`${t.switchTo} — ${target.fullLabel}`}
+      class="px-2 py-1 rounded hover:bg-gray-100 hover:text-gray-900 uppercase tracking-wider transition-colors duration-150"
+    >
+      {target.label}
+    </a>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll('[data-locale-switch]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const target = (el as HTMLElement).dataset.localeSwitch
+      if (target) {
+        try {
+          localStorage.setItem('preferred-locale', target)
+        } catch {}
+      }
+    })
+  })
+</script>

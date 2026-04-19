@@ -3,6 +3,8 @@ title: "Cómo obtener las credenciales de SES.HOSPEDAJES paso a paso"
 description: "Guía práctica para solicitar el código de arrendador, dar de alta tus establecimientos y conseguir el usuario y contraseña que necesitas para enviar partes de viajeros al Ministerio del Interior."
 date: 2026-04-18
 author: "RegistroViajero"
+lang: "es"
+translationKey: "ses-credentials"
 ---
 
 Antes de poder enviar un solo parte de viajeros al Ministerio del Interior, necesitas tres cosas: un **código de arrendador**, un **código de establecimiento** por cada propiedad, y **credenciales de acceso** (usuario y contraseña) a la plataforma SES.HOSPEDAJES. Sin estos tres elementos, cualquier software de cumplimiento — incluido el nuestro — es incapaz de conectarse.

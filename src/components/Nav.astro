@@ -1,30 +1,45 @@
 ---
-const APP_URL = 'https://app.registroviajero.com'
-const HELP_URL = 'https://help.registroviajero.com'
+import { APP_URL, HELP_URL, type Locale } from '../i18n/config'
+import { getLocaleFromUrl, localizedPath } from '../i18n/utils'
+import { UI } from '../i18n/ui'
+import { LANDING } from '../i18n/content'
+import LocaleSwitch from './LocaleSwitch.astro'
+
+interface Props {
+  locale?: Locale
+}
+
+const locale: Locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const t = UI[locale].nav
+const sections = LANDING[locale].sections
 
 const pathname = Astro.url.pathname
-const isHome = pathname === '/'
-const isBlog = pathname.startsWith('/blog')
+const homePath = localizedPath(locale, '/')
+const blogPath = localizedPath(locale, '/blog')
+const isHome = pathname === homePath || pathname === `${homePath}/`
+const isBlog = pathname.startsWith(blogPath)
 
-const anchor = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`)
+const homeHash = homePath === '/' ? '/' : homePath
+const anchor = (hash: string) => (isHome ? `#${hash}` : `${homeHash}#${hash}`)
 ---
 
 <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2" aria-label="RegistroViajero — Inicio">
+    <a href={homePath} class="flex items-center gap-2" aria-label={t.ariaHome}>
       <img src="/logo.svg" alt="RegistroViajero" class="h-8" width="40" height="40" />
     </a>
     <div class="hidden sm:flex items-center gap-6 text-sm font-medium text-gray-600">
-      <a href={anchor('funcionalidades')} class="hover:text-gray-900 transition-colors duration-150">Funcionalidades</a>
-      <a href={anchor('como-funciona')} class="hover:text-gray-900 transition-colors duration-150">Cómo funciona</a>
-      <a href={anchor('precios')} class="hover:text-gray-900 transition-colors duration-150">Precios</a>
-      <a href="/blog" class={isBlog ? 'text-gray-900' : 'hover:text-gray-900 transition-colors duration-150'}>Blog</a>
-      <a href={HELP_URL} class="hover:text-gray-900 transition-colors duration-150">Ayuda</a>
+      <a href={anchor(sections.featuresId)} class="hover:text-gray-900 transition-colors duration-150">{t.features}</a>
+      <a href={anchor(sections.howItWorksId)} class="hover:text-gray-900 transition-colors duration-150">{t.howItWorks}</a>
+      <a href={anchor(sections.pricingId)} class="hover:text-gray-900 transition-colors duration-150">{t.pricing}</a>
+      <a href={blogPath} class={isBlog ? 'text-gray-900' : 'hover:text-gray-900 transition-colors duration-150'}>{t.blog}</a>
+      <a href={HELP_URL} class="hover:text-gray-900 transition-colors duration-150">{t.help}</a>
     </div>
     <div class="flex items-center gap-3">
-      <a href={`${APP_URL}/login`} class="hidden sm:inline-flex text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-150">Iniciar sesión</a>
+      <LocaleSwitch locale={locale} />
+      <a href={`${APP_URL}/login`} class="hidden sm:inline-flex text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-150">{t.login}</a>
       <a href={`${APP_URL}/register`} data-umami-event="cta-nav-register" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors duration-150">
-        Prueba gratis
+        {t.register}
       </a>
     </div>
   </div>

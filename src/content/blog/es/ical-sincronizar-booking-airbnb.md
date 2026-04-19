@@ -3,6 +3,8 @@ title: "Sincronizar Booking, Airbnb y VRBO con iCal: guía para automatizar tus 
 description: "Qué es un iCal, cómo obtener el enlace en cada portal y cómo sincronizarlo con tu software de gestión para que las reservas entren solas sin tener que copiarlas a mano."
 date: 2026-04-18
 author: "RegistroViajero"
+lang: "es"
+translationKey: "ical-sync"
 ---
 
 Si gestionas un alojamiento turístico, probablemente conoces el dolor: una misma noche ocupada en Booking, otra en Airbnb, otra directa por WhatsApp, y el miedo constante a la **doble reserva**. La solución no es trabajar más rápido: es **sincronizar** los calendarios entre sí a través de un formato estándar que la industria lleva usando desde hace décadas — el **iCal**.

@@ -1,0 +1,78 @@
+---
+import { DEFAULT_LOCALE, LOCALES, type Locale } from '../i18n/config'
+import { getLocaleFromUrl, localizedPath, stripLocalePrefix } from '../i18n/utils'
+import { UI } from '../i18n/ui'
+
+interface Props {
+  locale?: Locale
+}
+
+const current: Locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const logicalPath = stripLocalePrefix(Astro.url.pathname)
+
+const banners = LOCALES
+  .filter((l) => l !== current)
+  .map((l) => {
+    const t = UI[l].localeBanner
+    return { locale: l, href: localizedPath(l, logicalPath), message: t.message, cta: t.cta, dismiss: t.dismiss }
+  })
+---
+
+<div id="locale-banner" data-current={current} hidden class="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 backdrop-blur-md shadow-lg">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center gap-3 text-sm">
+    {banners.map((b) => (
+      <div data-locale-banner-for={b.locale} hidden class="flex flex-wrap items-center gap-3 w-full">
+        <span class="text-gray-700 flex-1 min-w-0">{b.message}</span>
+        <a href={b.href} data-umami-event="locale-banner-cta" class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md transition-colors duration-150">
+          {b.cta}
+        </a>
+        <button type="button" data-locale-banner-dismiss class="text-gray-500 hover:text-gray-700 px-2 py-1 text-sm" aria-label={b.dismiss}>
+          {b.dismiss}
+        </button>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  (() => {
+    const banner = document.getElementById('locale-banner') as HTMLElement | null
+    if (!banner) return
+
+    const current = banner.dataset.current
+    if (!current) return
+    const DISMISS_KEY = 'locale-banner-dismissed'
+    const PREF_KEY = 'preferred-locale'
+
+    let dismissed = false
+    let preferred: string | null = null
+    try {
+      dismissed = localStorage.getItem(DISMISS_KEY) === '1'
+      preferred = localStorage.getItem(PREF_KEY)
+    } catch {}
+
+    if (dismissed || preferred === current) return
+
+    const nav = (navigator.language || '').toLowerCase()
+    let suggested: string | null = null
+    if (nav.startsWith('es')) suggested = 'es'
+    else if (nav.startsWith('en')) suggested = 'en'
+
+    if (!suggested || suggested === current) return
+
+    const panel = banner.querySelector(`[data-locale-banner-for="${suggested}"]`) as HTMLElement | null
+    if (!panel) return
+
+    panel.hidden = false
+    banner.hidden = false
+
+    banner.querySelectorAll('[data-locale-banner-dismiss]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        banner.hidden = true
+        try {
+          localStorage.setItem(DISMISS_KEY, '1')
+        } catch {}
+      })
+    })
+  })()
+</script>

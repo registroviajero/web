@@ -3,6 +3,8 @@ title: "Bienvenido a RegistroViajero"
 description: "Presentamos RegistroViajero, la plataforma que simplifica el registro de viajeros y el cumplimiento del RD 933/2021 para alojamientos turísticos en España."
 date: 2026-04-16
 author: "RegistroViajero"
+lang: "es"
+translationKey: "welcome"
 ---
 
 Hoy lanzamos oficialmente **RegistroViajero**, una plataforma diseñada para que las agencias de alojamiento turístico en España cumplan con el Real Decreto 933/2021 sin complicaciones.

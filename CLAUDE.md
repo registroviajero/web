@@ -6,7 +6,7 @@ Marketing site for RegistroViajero — published at **registroviajero.com**. Sta
 
 - **Stealth commits.** Never include `Co-Authored-By: Claude` or any other Claude/Anthropic signature in commit messages or PR descriptions. Commit as the configured git user, nothing more.
 - **Honest claims only.** This is a marketing site, but every factual claim (pricing, trial length, supported platforms, coverage, locales) must match the actual product. Cataluña and País Vasco are **not** supported — do not imply they are. If the app changes, update the landing copy in the same PR.
-- **Spanish only.** All published content is in `es-ES`. Preserve Spanish domain terms (`parte de viajeros`, `reserva de hospedaje`, `SES.HOSPEDAJES`, `Real Decreto 933/2021`).
+- **Bilingual site.** Spanish (`es-ES`) at the root (`/`) and US English (`en-US`) under `/en/`. Spanish is the default locale and the authoritative source for legal content — English legal pages are courtesy translations and must carry the reference-translation disclaimer rendered by `ContentPage.astro`. Preserve Spanish domain terms across both locales where they are proper names (`SES.HOSPEDAJES`, `Real Decreto 933/2021`, `DNI`, `NIE`, `Mossos d'Esquadra`, `Ertzaintza`). When adding or editing copy in one locale, mirror the change in the other.
 - **One intent per change.** No drive-by copy rewrites, no design riffs. If a copy overhaul is worth doing, it earns its own PR.
 - **Keep the three surfaces consistent.** Marketing site, help center (`help.registroviajero.com`), and app (`app.registroviajero.com`) must tell the same story about features and limits. Check the main repo's `CLAUDE.md` (`/Users/asur/Code/registroviajero.com/CLAUDE.md`) before claiming a behavior.
 
@@ -37,60 +37,87 @@ Node/runtime: **Bun** (engine pin is Node ≥22.12 for tooling compatibility onl
 ```
 src/
 ├── pages/
-│   ├── index.astro           # Landing (hero, features, segments, pricing, FAQ, latest posts)
-│   ├── 404.astro             # Branded 404 with nav + footer
-│   ├── rss.xml.ts            # RSS 2.0 endpoint — hand-written, no extra dep
+│   ├── index.astro           # Spanish landing (thin wrapper around <Landing locale="es"/>)
+│   ├── 404.astro             # Spanish 404
+│   ├── rss.xml.ts            # Spanish RSS feed
 │   ├── blog/
-│   │   ├── index.astro       # Blog list
-│   │   └── [...slug].astro   # Dynamic route, computes readingTime from post.body
-│   └── legal/
-│       ├── aviso-legal.md    # layout: ContentPage
-│       ├── privacidad.md
-│       ├── terminos.md
-│       └── cookies.md
+│   │   ├── index.astro       # Spanish blog list
+│   │   └── [...slug].astro   # Spanish blog post (filters lang==='es')
+│   ├── legal/                # Spanish legal pages (authoritative)
+│   │   ├── aviso-legal.md
+│   │   ├── privacidad.md
+│   │   ├── terminos.md
+│   │   └── cookies.md
+│   └── en/
+│       ├── index.astro       # English landing (<Landing locale="en"/>)
+│       ├── 404.astro
+│       ├── rss.xml.ts        # English RSS
+│       ├── blog/
+│       │   ├── index.astro
+│       │   └── [...slug].astro
+│       └── legal/            # English courtesy translations
+│           ├── legal-notice.md
+│           ├── privacy.md
+│           ├── terms.md
+│           └── cookies.md
 ├── content/
-│   └── blog/*.md             # Blog collection (schema in content.config.ts)
-├── content.config.ts         # defineCollection({ blog }) — title/description/date/author
+│   └── blog/
+│       ├── es/*.md           # Spanish posts
+│       └── en/*.md           # English translations (translationKey links them)
+├── content.config.ts         # blog schema with lang + translationKey
+├── i18n/
+│   ├── config.ts             # LOCALES, DEFAULT_LOCALE, LOCALE_META, SITE_URL/APP_URL/HELP_URL
+│   ├── ui.ts                 # Chrome strings per locale (nav, footer, blog, 404, disclaimers)
+│   ├── content.ts            # Landing content per locale (hero/sections/features/faqs/schema)
+│   ├── utils.ts              # getLocaleFromUrl, localizedPath, formatDate, getAlternates
+│   └── blog.ts               # getPostsByLocale, getSlug, findTranslation
 ├── layouts/
-│   ├── Layout.astro          # Base: head, meta, OG, Organization + WebSite JSON-LD, Umami
-│   ├── ContentPage.astro     # Legal / static prose pages with nav + footer
-│   └── BlogPost.astro        # Blog article with BlogPosting + BreadcrumbList JSON-LD + CTA
-├── components/               # Empty for now; add islands only when needed
+│   ├── Layout.astro          # Base head, locale-aware OG + hreflang + JSON-LD
+│   ├── ContentPage.astro     # Legal / static prose; auto-disclaimer for EN
+│   └── BlogPost.astro        # Localized article with BlogPosting + Breadcrumb JSON-LD
+├── components/
+│   ├── Nav.astro             # Dict-driven, embeds LocaleSwitch
+│   ├── Footer.astro          # Dict-driven
+│   ├── Landing.astro         # Shared landing rendered for both locales
+│   ├── LocaleSwitch.astro    # ES/EN toggle; persists preferred-locale in localStorage
+│   └── LocaleBanner.astro    # First-visit banner if browser language doesn't match (no redirect)
 └── styles/
-    └── global.css            # Tailwind import + @theme tokens (primary-*)
+    └── global.css
 public/
 ├── favicon.ico, favicon.svg, logo.svg
-├── og-image.png              # 1200×630, referenced by Layout
-├── robots.txt                # Allow all + explicit AI bot allowlist + sitemap hint
-├── llms.txt                  # AI discoverability summary (product + links)
+├── og-image.png              # 1200×630, used by both locales (no per-locale variant yet)
+├── robots.txt
+├── llms.txt                  # Bilingual AI-discoverability summary
 └── .well-known/
-    └── security.txt          # security@registroviajero.com, expires 2027-04-18
-astro.config.mjs              # site + sitemap with per-route priority/changefreq
+    └── security.txt          # Expires 2027-04-18
+astro.config.mjs              # site + i18n (defaultLocale: es, prefixDefaultLocale: false) + sitemap i18n + per-route priority
 ```
 
 ## Configuration conventions
 
 - **`site` is `https://registroviajero.com`.** Sitemap, canonical URLs, and absolute OG URLs depend on it. Do not change without updating the deploy domain.
 - **Brand palette lives in `src/styles/global.css`** as `@theme { --color-primary-50…900 }`. Primary-600 (`#2563eb`) is the brand blue — same value used by the app and the help center. Use `text-primary-600`, `bg-primary-600`, etc. Do not introduce ad-hoc hex values in components.
-- **Cross-site URL constants.** Layouts declare `APP_URL = 'https://app.registroviajero.com'` and `HELP_URL = 'https://help.registroviajero.com'` locally. When adding a page that links to app/help, re-declare these constants at the top of the Astro file rather than hardcoding the URL inline.
-- **Nav and footer are duplicated** across `index.astro`, `blog/index.astro`, `layouts/ContentPage.astro`, `layouts/BlogPost.astro`. Any change to links, labels, or structure must be applied to **all four**. If this duplication grows painful, extract a component — don't let them drift.
-- **Legal pages use `layout: ../../layouts/ContentPage.astro`** in frontmatter. They're markdown with `title` and `description`. Do not convert to `.astro` unless you need interactivity.
-- **Blog collection schema** (`src/content.config.ts`): `title: string`, `description: string`, `date: z.coerce.date()`, `author: string (default "RegistroViajero")`. Keep the schema strict — validation failures break the build.
-- **Blog post id = slug.** `src/content/blog/foo.md` → `/blog/foo`. File name is the permalink — be deliberate, never rename without a redirect plan.
+- **Cross-site URL constants live in `src/i18n/config.ts`** (`APP_URL`, `HELP_URL`, `SITE_URL`). Import from there instead of redeclaring.
+- **Nav and Footer are shared components** (`src/components/Nav.astro`, `Footer.astro`), dict-driven from `src/i18n/ui.ts`. Pages pass `locale` explicitly; components fall back to `getLocaleFromUrl(Astro.url)`. Both use `LocaleSwitch.astro` + `LocaleBanner.astro` for locale UX.
+- **Legal pages use `layout: ../../layouts/ContentPage.astro`** (Spanish, two `../`) or `layout: ../../../layouts/ContentPage.astro` (English, three `../`). Markdown frontmatter: `title`, `description`, optional `locale: "en"` to force the courtesy-translation disclaimer.
+- **Blog collection schema** (`src/content.config.ts`): `title`, `description`, `date`, `author` (default `"RegistroViajero"`), plus `lang: z.enum(LOCALES)` and `translationKey: string`. `lang` gates the post by locale; `translationKey` links a Spanish post to its English counterpart so hreflang alternates can be emitted.
+- **Blog folder structure.** `src/content/blog/es/*.md` and `src/content/blog/en/*.md`. The file stem is the URL slug per locale — they do NOT need to match across languages. Example: `es/sanciones-rd-933-2021.md` → `/blog/sanciones-rd-933-2021`; `en/royal-decree-933-2021-penalties.md` → `/en/blog/royal-decree-933-2021-penalties`. Both share `translationKey: "penalties"`.
+- **Landing content** lives in `src/i18n/content.ts` as `LANDING: Record<Locale, LandingContent>`. The Spanish and English landing pages are thin wrappers that render `<Landing locale="es"/>` / `<Landing locale="en"/>`. Edit `content.ts` (not the pages) when changing landing copy.
+- **Locale URLs.** Spanish is the default and lives at the root (`/`, `/blog`, `/legal/privacidad`, `/rss.xml`). English is prefixed with `/en/` (`/en/`, `/en/blog`, `/en/legal/privacy`, `/en/rss.xml`). `prefixDefaultLocale: false` in `astro.config.mjs` — never enable it without redirecting the indexed Spanish URLs.
 
 ## SEO + meta
 
-- **`Layout.astro` centralizes** `<title>`, description, canonical, OG, Twitter card, theme-color `#2563eb`, favicon, Umami, RSS `<link rel="alternate">`, preconnect/dns-prefetch for analytics, and the sitewide `Organization` + `WebSite` JSON-LD.
-- **Title pattern:** `{Page} — RegistroViajero`. Layout doesn't enforce it — each page passes its own `title` prop.
+- **`Layout.astro` centralizes** `<title>`, description, canonical, hreflang alternates (including `x-default` → Spanish), OG locale + alternates, Twitter card, theme-color `#2563eb`, favicon, Umami, RSS `<link rel="alternate">` (per locale), preconnect/dns-prefetch for analytics, and the sitewide `Organization` + `WebSite` JSON-LD. It takes `locale`, `logicalPath`, and optional `availableLocales` so pages with no counterpart (e.g. Spanish-only post) emit only one hreflang.
+- **Title pattern:** `{Page} — RegistroViajero`. Each page passes its own localized `title`.
 - **`type="article"` + `publishedDate`** is only for blog posts (handled by `BlogPost.astro`).
-- **Keywords meta** is broad and intentional: `registro viajeros, parte de viajeros, reserva hospedaje, SES hospedajes, Real Decreto 933/2021, RD 933, alojamiento turístico, check-in online, software hospedaje, envío partes ministerio`. Edit only when the product scope changes.
+- **Keywords meta** is locale-aware — Spanish keyword set at the root, English keyword set under `/en/`. Edit in `Layout.astro` when product scope changes.
 - **JSON-LD map** (avoid duplicates on the same page):
-  - `Layout.astro` → `Organization`, `WebSite` (site-wide).
-  - `index.astro` → `SoftwareApplication` with `offers` array (trial + paid), `FAQPage` mirroring the visible FAQ list, and `HowTo` built from the `steps` array.
-  - `BlogPost.astro` → `BlogPosting` + `BreadcrumbList`.
-- **FAQPage schema must mirror visible FAQ.** Google penalizes mismatches. The `faqs` array at the top of `index.astro` is the single source — it renders both the `<details>` list and the JSON-LD. If you edit one, edit the other.
-- **Sitemap** is generated by `@astrojs/sitemap` with per-route priority/changefreq set in `astro.config.mjs` (home 1.0 weekly, `/blog` 0.8 weekly, `/blog/*` 0.7 monthly, `/legal/*` 0.3 yearly, `/404` excluded). Don't set these on each page — keep the rule centralized.
-- **RSS** is served from `src/pages/rss.xml.ts` — hand-written XML endpoint, no new dep. It reads the `blog` collection sorted by date desc. If you add a new post, it appears automatically.
+  - `Layout.astro` → `Organization`, `WebSite` (site-wide, localized `inLanguage`).
+  - `Landing.astro` → `SoftwareApplication` (with `offers` array), `FAQPage`, and `HowTo` — all fed from `LANDING[locale]`. Per-locale `inLanguage`.
+  - `BlogPost.astro` → `BlogPosting` + `BreadcrumbList` with the post's `inLanguage`.
+- **FAQPage schema must mirror visible FAQ.** Google penalizes mismatches. The `faqs` array in `src/i18n/content.ts` is the single source per locale — it renders both the `<details>` list and the JSON-LD. Edit one, both change.
+- **Sitemap** uses `@astrojs/sitemap` with its `i18n` option (`defaultLocale: 'es'`, `locales: { es: 'es-ES', en: 'en-US' }`) to emit `xhtml:link` alternates. Per-route priority/changefreq is applied in the `serialize` hook after stripping the `/en/` prefix (home 1.0 weekly, `/blog` 0.8 weekly, `/blog/*` 0.7 monthly, `/legal/*` 0.3 yearly, `/404` excluded).
+- **RSS per locale.** `src/pages/rss.xml.ts` (Spanish, at `/rss.xml`) and `src/pages/en/rss.xml.ts` (English, at `/en/rss.xml`). Both read from the shared blog collection and filter by `lang`.
 - **`llms.txt`** at the root is an AI-discoverability summary (product overview + pricing + feature links). Keep it short and factual; update alongside major product changes.
 - **`robots.txt`** allows all crawlers. AI bots (`GPTBot`, `ClaudeBot`, `PerplexityBot`, `Google-Extended`) are explicitly allowed — marketing content is intentionally public. If policy changes, update here first.
 - **`security.txt`** lives at `/.well-known/security.txt`. `Expires` is 2027-04-18 — renew before that date.
@@ -130,10 +157,11 @@ These must match the app + help center:
 
 ### Legal pages
 
-- **Placeholder titular name.** `aviso-legal.md` and `privacidad.md` currently contain `<!-- TODO: nombre completo -->`. Do **not** silently remove these TODOs — the legal name must be filled before a real launch. If you edit those pages, either fill the name (when authorized) or leave the TODO intact.
-- **Last-updated line.** Legal pages end with `*Última actualización: {mes año}*`. Update this line whenever the substantive content changes, not for typo fixes.
-- **RGPD language must stay accurate.** Do not rewrite legal basis (RGPD art. 6.1.b / 6.1.c / 6.1.f), recipients (Ministerio del Interior, Polar, Contabo), or retention periods without checking with someone legally responsible. When in doubt, ask.
-- **LSSI-CE art. 10 data** is mandatory in `aviso-legal.md`. If you remove a field, have a reason.
+- **Spanish is authoritative.** English legal pages under `src/pages/en/legal/` are courtesy translations. `ContentPage.astro` automatically renders a reference-translation disclaimer when `locale === 'en'` (pulled from `UI.en.legalDisclaimer` in `src/i18n/ui.ts`). Do not remove the disclaimer; do not claim the English version is legally binding.
+- **Placeholder titular name.** `aviso-legal.md` / `privacidad.md` (Spanish) and `legal-notice.md` / `privacy.md` (English) contain `<!-- TODO: nombre completo -->`. Do **not** silently remove these TODOs — the legal name must be filled before a real launch. Keep both locales in sync.
+- **Last-updated line.** Legal pages end with `*Última actualización: {mes año}*` (ES) or `*Last updated: {Month Year}*` (EN). Update on substantive changes in both locales — never edit one without the other.
+- **RGPD/GDPR language must stay accurate.** Do not rewrite legal basis (GDPR art. 6.1.b / 6.1.c / 6.1.f), recipients (Ministry of the Interior, Polar, Contabo), or retention periods without checking with someone legally responsible. When in doubt, ask.
+- **LSSI-CE art. 10 data** is mandatory in `aviso-legal.md` (ES). The English `legal-notice.md` mirrors those fields.
 
 ### Blog
 
@@ -169,5 +197,5 @@ These must match the app + help center:
 - Don't add cookie banners or consent UI — we deliberately avoid cookie-based tracking (`privacidad.md` claims this; the claim must remain true).
 - Don't hardcode URLs to `app.registroviajero.com` or `help.registroviajero.com` throughout templates. Use the `APP_URL` / `HELP_URL` local constants.
 - Don't change `site` in `astro.config.mjs` or the canonical domain without updating every place the URL is hardcoded (Layout, OG, robots.txt, sitemap config).
-- Don't translate content to English or add another locale. This site is `es-ES` only.
+- Don't introduce a third locale without updating `LOCALES`, `LOCALE_META`, `LANDING`, `UI`, and every page mirror under `src/pages/`. Adding a locale is a full sweep, not a drive-by.
 - Don't delete a legal section ("Plazo de conservación", "Base legal", "Derechos del interesado", etc.) — these are compliance-mandated.

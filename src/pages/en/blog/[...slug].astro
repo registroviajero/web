@@ -1,10 +1,10 @@
 ---
 import { render } from 'astro:content'
-import BlogPost from '../../layouts/BlogPost.astro'
-import { getPostsByLocale, getReadingTime, getSlug } from '../../i18n/blog'
+import BlogPost from '../../../layouts/BlogPost.astro'
+import { getPostsByLocale, getReadingTime, getSlug } from '../../../i18n/blog'
 
 export async function getStaticPaths() {
-  const posts = await getPostsByLocale('es')
+  const posts = await getPostsByLocale('en')
   return posts.map((post) => ({
     params: { slug: getSlug(post) },
     props: { post },
@@ -23,7 +23,7 @@ const { Content } = await render(post)
   author={post.data.author}
   readingTime={getReadingTime(post)}
   slug={getSlug(post)}
-  locale="es"
+  locale="en"
   translationKey={post.data.translationKey}
 >
   <Content />

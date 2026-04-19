@@ -1,8 +1,33 @@
 ---
-const APP_URL = 'https://app.registroviajero.com'
-const HELP_URL = 'https://help.registroviajero.com'
+import { APP_URL, HELP_URL, type Locale } from '../i18n/config'
+import { getLocaleFromUrl, localizedPath } from '../i18n/utils'
+import { UI, LEGAL_SLUGS } from '../i18n/ui'
+import { LANDING } from '../i18n/content'
+
+interface Props {
+  locale?: Locale
+}
+
+const locale: Locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const t = UI[locale].footer
+const sections = LANDING[locale].sections
+const slugs = LEGAL_SLUGS[locale]
 
 const year = new Date().getFullYear()
+
+const legalPages = [
+  { label: t.legalNotice, href: slugs.legalNotice },
+  { label: t.privacy, href: slugs.privacy },
+  { label: t.terms, href: slugs.terms },
+  { label: t.cookies, href: slugs.cookies },
+]
+
+const home = localizedPath(locale, '/')
+const homeRoot = home === '/' ? '' : home
+const featuresHash = `${homeRoot}/#${sections.featuresId}`
+const pricingHash = `${homeRoot}/#${sections.pricingId}`
+const blogHref = localizedPath(locale, '/blog')
+const rssHref = localizedPath(locale, '/rss.xml')
 ---
 
 <footer class="bg-gray-900 py-12">
@@ -11,38 +36,37 @@ const year = new Date().getFullYear()
       <div>
         <img src="/logo.svg" alt="RegistroViajero" class="h-8 brightness-0 invert opacity-80" width="40" height="40" />
         <p class="mt-4 text-sm text-gray-400 leading-relaxed">
-          Software de registro de viajeros y partes de hospedaje para agencias de alojamiento turístico en España.
+          {t.tagline}
         </p>
       </div>
       <div>
-        <h4 class="text-white font-semibold text-sm mb-4">Producto</h4>
+        <h4 class="text-white font-semibold text-sm mb-4">{t.productHeading}</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="/#funcionalidades" class="text-gray-400 hover:text-white transition-colors duration-150">Funcionalidades</a></li>
-          <li><a href="/#precios" class="text-gray-400 hover:text-white transition-colors duration-150">Precios</a></li>
-          <li><a href="/blog" class="text-gray-400 hover:text-white transition-colors duration-150">Blog</a></li>
-          <li><a href="/rss.xml" class="text-gray-400 hover:text-white transition-colors duration-150">RSS</a></li>
-          <li><a href={HELP_URL} class="text-gray-400 hover:text-white transition-colors duration-150">Centro de Ayuda</a></li>
+          <li><a href={featuresHash} class="text-gray-400 hover:text-white transition-colors duration-150">{UI[locale].nav.features}</a></li>
+          <li><a href={pricingHash} class="text-gray-400 hover:text-white transition-colors duration-150">{UI[locale].nav.pricing}</a></li>
+          <li><a href={blogHref} class="text-gray-400 hover:text-white transition-colors duration-150">{UI[locale].nav.blog}</a></li>
+          <li><a href={rssHref} class="text-gray-400 hover:text-white transition-colors duration-150">{t.rss}</a></li>
+          <li><a href={HELP_URL} class="text-gray-400 hover:text-white transition-colors duration-150">{t.helpCenter}</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="text-white font-semibold text-sm mb-4">Legal</h4>
+        <h4 class="text-white font-semibold text-sm mb-4">{t.legalHeading}</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="/legal/aviso-legal" class="text-gray-400 hover:text-white transition-colors duration-150">Aviso legal</a></li>
-          <li><a href="/legal/privacidad" class="text-gray-400 hover:text-white transition-colors duration-150">Privacidad</a></li>
-          <li><a href="/legal/terminos" class="text-gray-400 hover:text-white transition-colors duration-150">Términos de uso</a></li>
-          <li><a href="/legal/cookies" class="text-gray-400 hover:text-white transition-colors duration-150">Cookies</a></li>
+          {legalPages.map((p) => (
+            <li><a href={p.href} class="text-gray-400 hover:text-white transition-colors duration-150">{p.label}</a></li>
+          ))}
         </ul>
       </div>
       <div>
-        <h4 class="text-white font-semibold text-sm mb-4">Acceso</h4>
+        <h4 class="text-white font-semibold text-sm mb-4">{t.accessHeading}</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href={`${APP_URL}/login`} class="text-gray-400 hover:text-white transition-colors duration-150">Iniciar sesión</a></li>
-          <li><a href={`${APP_URL}/register`} data-umami-event="cta-footer-register" class="text-gray-400 hover:text-white transition-colors duration-150">Crear cuenta</a></li>
+          <li><a href={`${APP_URL}/login`} class="text-gray-400 hover:text-white transition-colors duration-150">{t.login}</a></li>
+          <li><a href={`${APP_URL}/register`} data-umami-event="cta-footer-register" class="text-gray-400 hover:text-white transition-colors duration-150">{t.createAccount}</a></li>
         </ul>
       </div>
     </div>
     <div class="mt-12 pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
-      &copy; {year} RegistroViajero. Cumplimiento del Real Decreto 933/2021.
+      {t.copyright(year)}
     </div>
   </div>
 </footer>

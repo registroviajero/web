@@ -1,0 +1,335 @@
+---
+import Nav from './Nav.astro'
+import Footer from './Footer.astro'
+import LocaleBanner from './LocaleBanner.astro'
+import { APP_URL, HELP_URL, LOCALE_META, SITE_URL, type Locale } from '../i18n/config'
+import { absoluteUrl, formatDate, localizedPath } from '../i18n/utils'
+import { LANDING } from '../i18n/content'
+import { UI } from '../i18n/ui'
+import { getPostsByLocale, getSlug } from '../i18n/blog'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const c = LANDING[locale]
+const hero = c.hero
+const s = c.sections
+const meta = LOCALE_META[locale]
+
+const latestPosts = (await getPostsByLocale(locale)).slice(0, 3)
+const blogPath = localizedPath(locale, '/blog')
+
+const softwareApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'RegistroViajero',
+  url: SITE_URL,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  description: c.schema.softwareDescription,
+  inLanguage: meta.htmlLang,
+  offers: [
+    {
+      '@type': 'Offer',
+      name: c.schema.trialOfferName,
+      price: '0',
+      priceCurrency: 'EUR',
+      description: c.schema.trialOfferDescription,
+    },
+    {
+      '@type': 'Offer',
+      name: c.schema.proOfferName,
+      price: '5',
+      priceCurrency: 'EUR',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: '5',
+        priceCurrency: 'EUR',
+        unitText: c.schema.priceUnitText,
+      },
+      description: c.schema.priceDescription,
+    },
+  ],
+  featureList: c.schema.featureList,
+  publisher: {
+    '@type': 'Organization',
+    name: 'RegistroViajero',
+    url: SITE_URL,
+  },
+}
+
+const faqPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: c.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.a,
+    },
+  })),
+}
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: c.schema.howToName,
+  description: c.schema.howToDescription,
+  inLanguage: meta.htmlLang,
+  totalTime: 'PT10M',
+  step: c.steps.map((st, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: st.title,
+    text: st.desc,
+  })),
+}
+---
+
+<Nav locale={locale} />
+<LocaleBanner locale={locale} />
+
+<section class="pt-32 pb-20 sm:pt-40 sm:pb-28">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 text-primary-700 text-sm font-medium mb-6">
+        {hero.pill}
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight">
+        {hero.title1}<br />
+        <span class="text-primary-600">{hero.titleAccent}</span>
+      </h1>
+      <p class="mt-6 text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl">
+        {hero.subhead}
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4">
+        <a href={`${APP_URL}/register`} data-umami-event="cta-hero-register" class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors duration-150 shadow-sm">
+          {hero.ctaPrimary}
+        </a>
+        <a href={`#${s.howItWorksId}`} data-umami-event="cta-hero-how" class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-gray-700 bg-white hover:bg-gray-50 border border-gray-300 rounded-lg transition-colors duration-150">
+          {hero.ctaSecondary}
+        </a>
+      </div>
+      <p class="mt-4 text-sm text-gray-500">{hero.disclaimer}</p>
+    </div>
+  </div>
+</section>
+
+<section id={s.featuresId} class="py-20 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">{s.featuresTitle}</h2>
+      <p class="mt-4 text-lg text-gray-600">{s.featuresIntro}</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {c.features.map((f) => (
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div class="w-10 h-10 rounded-lg bg-primary-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" set:html={f.icon} />
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900">{f.title}</h3>
+          <p class="mt-2 text-gray-600 leading-relaxed">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section id={s.howItWorksId} class="py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">{s.howItWorksTitle}</h2>
+      <p class="mt-4 text-lg text-gray-600">{s.howItWorksIntro}</p>
+    </div>
+    <div class="max-w-3xl mx-auto space-y-8">
+      {c.steps.map((st) => (
+        <div class="flex gap-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-sm">
+            {st.num}
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">{st.title}</h3>
+            <p class="mt-1 text-gray-600">{st.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">{s.platformsTitle}</h2>
+    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">{s.platformsIntro}</p>
+    <div class="mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+      {c.platforms.map((p) => (
+        <div class="flex items-center gap-2 px-5 py-3 bg-white rounded-lg border border-gray-200 shadow-sm">
+          <div class="w-3 h-3 rounded-full flex-shrink-0" style={`background-color: ${p.color}`}></div>
+          <span class="text-sm font-semibold text-gray-700 whitespace-nowrap">{p.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section id={s.segmentsId} class="py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">{s.segmentsTitle}</h2>
+      <p class="mt-4 text-lg text-gray-600">{s.segmentsIntro}</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {c.segments.map((seg) => (
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+          <h3 class="text-lg font-semibold text-gray-900">{seg.title}</h3>
+          <p class="mt-2 text-gray-600 leading-relaxed text-sm">{seg.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section id={s.pricingId} class="py-20 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">{s.pricingTitle}</h2>
+      <p class="mt-4 text-lg text-gray-600">{s.pricingIntro}</p>
+    </div>
+    <div class="max-w-lg mx-auto">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+        <div class="p-8">
+          <h3 class="text-lg font-semibold text-gray-900">{s.pricingPlan}</h3>
+          <div class="mt-4 flex items-baseline gap-1">
+            <span class="text-5xl font-bold text-gray-900">5 &euro;</span>
+            <span class="text-gray-500">{s.pricingPriceUnit}</span>
+          </div>
+          <p class="mt-2 text-sm text-gray-500">{s.pricingBillingNote}</p>
+          <a href={`${APP_URL}/register`} data-umami-event="cta-pricing-register" class="mt-8 block w-full text-center px-6 py-3 text-base font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors duration-150">
+            {s.pricingCta}
+          </a>
+          <p class="mt-3 text-center text-sm text-gray-500">{s.pricingNoCard}</p>
+        </div>
+        <div class="border-t border-gray-100 px-8 py-6 bg-gray-50">
+          <ul class="space-y-3 text-sm text-gray-600">
+            {s.pricingFeatures.map((feat) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                {feat}
+              </li>
+            ))}
+          </ul>
+          <div class="mt-6 pt-6 border-t border-gray-200 text-sm text-gray-700">
+            <p class="font-medium">{s.pricingGuaranteeTitle}</p>
+            <p class="mt-1 text-gray-500">{s.pricingGuaranteeBody}</p>
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-center text-sm text-gray-500 max-w-md mx-auto">
+        {s.pricingSanctionsNote} <a href={s.pricingSanctionsHref} class="text-primary-600 hover:underline">{s.pricingSanctionsLinkLabel}</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">{s.securityTitle}</h2>
+      <p class="mt-4 text-lg text-gray-600">{s.securityIntro}</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+      {s.securityCards.map((card, i) => (
+        <div class="bg-white rounded-xl p-6 border border-gray-100">
+          <div class="w-10 h-10 rounded-lg bg-primary-50 flex items-center justify-center mx-auto mb-3">
+            {i === 0 && <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>}
+            {i === 1 && <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>}
+            {i === 2 && <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a48.667 48.667 0 0 0-1.078 8.144M3.975 20.843c.36-.468.78-.894 1.249-1.268M12 12.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>}
+            {i === 3 && <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3H21m-3.75 3H21" /></svg>}
+          </div>
+          <p class="font-semibold text-gray-900">{card.title}</p>
+          <p class="mt-1 text-sm text-gray-600">{card.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section id={s.faqId} class="py-20 bg-gray-50">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">{s.faqTitle}</h2>
+    <div class="space-y-4">
+      {c.faqs.map((f) => (
+        <details class="group bg-white border border-gray-200 rounded-xl">
+          <summary class="flex items-center justify-between px-6 py-4 cursor-pointer text-gray-900 font-medium select-none">
+            {f.q}
+            <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform duration-200 flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          {f.html
+            ? <div class="px-6 pb-4 text-gray-600" set:html={f.html} />
+            : <div class="px-6 pb-4 text-gray-600">{f.a}</div>
+          }
+        </details>
+      ))}
+    </div>
+    <p class="mt-8 text-center text-gray-500">
+      {s.faqFooterPrefix} <a href={HELP_URL} class="text-primary-600 hover:underline">{s.faqFooterLinkLabel}</a>.
+    </p>
+  </div>
+</section>
+
+{latestPosts.length > 0 && (
+  <section class="py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">{s.latestPostsTitle}</h2>
+          <p class="mt-3 text-gray-600">{s.latestPostsIntro}</p>
+        </div>
+        <a href={blogPath} class="text-sm font-medium text-primary-600 hover:underline">{s.latestPostsAll}</a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {latestPosts.map((post) => (
+          <article class="group">
+            <a href={`${blogPath}/${getSlug(post)}`} class="block">
+              <time
+                datetime={post.data.date.toISOString().split('T')[0]}
+                class="text-sm text-gray-500"
+              >
+                {formatDate(locale, post.data.date)}
+              </time>
+              <h3 class="mt-2 text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors duration-150 leading-snug">
+                {post.data.title}
+              </h3>
+              <p class="mt-2 text-sm text-gray-600 leading-relaxed line-clamp-3">
+                {post.data.description}
+              </p>
+              <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary-600">
+                {UI[locale].blog.readMore}
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+              </span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<section class="py-20 bg-primary-600">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+    <h2 class="text-3xl sm:text-4xl font-bold text-white">{s.ctaTitle}</h2>
+    <p class="mt-4 text-lg text-primary-100">{s.ctaBody}</p>
+    <a href={`${APP_URL}/register`} data-umami-event="cta-bottom-register" class="mt-8 inline-flex items-center px-8 py-3.5 text-base font-medium text-primary-600 bg-white hover:bg-primary-50 rounded-lg transition-colors duration-150 shadow-sm">
+      {s.ctaButton}
+    </a>
+  </div>
+</section>
+
+<Footer locale={locale} />
+
+<script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(faqPageSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />

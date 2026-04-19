@@ -2,17 +2,18 @@
 
 > Software SaaS para agencias de alojamiento turístico en España. Automatiza el cumplimiento del Real Decreto 933/2021: check-in digital para huéspedes, envío directo de partes de viajeros a SES.HOSPEDAJES (Ministerio del Interior) y sincronización de reservas vía iCal.
 
-Idioma principal: español (es-ES). Cobertura geográfica: España peninsular, Baleares y Canarias (SES.HOSPEDAJES del Ministerio del Interior). No cubre Cataluña (Mossos d'Esquadra) ni País Vasco (Ertzaintza) — integraciones en desarrollo.
+Sitio bilingüe: español (es-ES, URL raíz) e inglés (en-US, prefijo `/en/`). Cobertura geográfica: España peninsular, Baleares y Canarias (SES.HOSPEDAJES del Ministerio del Interior). No cubre Cataluña (Mossos d'Esquadra) ni País Vasco (Ertzaintza) — integraciones en desarrollo.
 
 ## Producto
 
 - Aplicación web: https://app.registroviajero.com
 - Centro de ayuda: https://help.registroviajero.com
-- Sitio público: https://registroviajero.com
+- Sitio público (ES): https://registroviajero.com
+- Public site (EN): https://registroviajero.com/en/
 
 ## Precios
 
-Plan Pro: 5 € por alojamiento activo al mes, facturación mensual, sin mínimo de puestos. Prueba gratuita de 15 días sin tarjeta de crédito. Pagos gestionados por Polar (polar.sh). Check-in de huéspedes nunca bloqueado por estado de suscripción.
+Plan Pro: 5 € por alojamiento activo al mes, facturación mensual, sin mínimo. Prueba gratuita de 15 días sin tarjeta de crédito. Pagos gestionados por Polar (polar.sh). Check-in de huéspedes nunca bloqueado por estado de suscripción.
 
 ## Funcionalidades clave
 
@@ -31,10 +32,17 @@ Plan Pro: 5 € por alojamiento activo al mes, facturación mensual, sin mínimo
 
 RegistroViajero está diseñado para el cumplimiento del Real Decreto 933/2021, de 26 de octubre, por el que se regulan las obligaciones de registro documental e información de las personas físicas o jurídicas que ejercen actividades de hospedaje y alquiler de vehículos a motor. La obligación de envío telemático a SES.HOSPEDAJES entró en vigor en diciembre de 2024.
 
-## Contenido
+## Contenido (ES)
 
 - [Blog](https://registroviajero.com/blog): artículos sobre normativa, cumplimiento y gestión de alojamientos
 - [Feed RSS](https://registroviajero.com/rss.xml)
 - [Centro de Ayuda](https://help.registroviajero.com): guías y tutoriales paso a paso
 - [Política de Privacidad](https://registroviajero.com/legal/privacidad)
 - [Términos de Uso](https://registroviajero.com/legal/terminos)
+
+## Content (EN)
+
+- [Blog](https://registroviajero.com/en/blog): articles on regulations, compliance, and accommodation management
+- [RSS feed](https://registroviajero.com/en/rss.xml)
+- [Privacy Policy](https://registroviajero.com/en/legal/privacy) (courtesy translation; Spanish version prevails)
+- [Terms of Use](https://registroviajero.com/en/legal/terms) (courtesy translation; Spanish version prevails)

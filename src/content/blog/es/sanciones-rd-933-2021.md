@@ -3,6 +3,8 @@ title: "Sanciones por incumplir el RD 933/2021: cuantías, supuestos y cómo evi
 description: "Qué multas puede imponer el Ministerio del Interior si no envías los partes de viajeros, cómo se clasifican las infracciones y qué puedes hacer para cumplir sin riesgo."
 date: 2026-04-18
 author: "RegistroViajero"
+lang: "es"
+translationKey: "penalties"
 ---
 
 Desde que el **Real Decreto 933/2021** hizo obligatorio el envío telemático de los partes de viajeros a través de SES.HOSPEDAJES, muchas agencias y propietarios se preguntan lo mismo: **¿qué pasa exactamente si no cumplo?** La respuesta corta es que las sanciones pueden ir desde unos cientos de euros hasta cientos de miles, según la gravedad. La respuesta larga requiere entender cómo se tipifican las infracciones y en qué casos se aplica cada tramo.

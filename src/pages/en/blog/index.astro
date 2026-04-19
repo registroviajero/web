@@ -1,13 +1,13 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import Nav from '../../components/Nav.astro'
-import Footer from '../../components/Footer.astro'
-import LocaleBanner from '../../components/LocaleBanner.astro'
-import { UI } from '../../i18n/ui'
-import { formatDate, localizedPath } from '../../i18n/utils'
-import { getPostsByLocale, getSlug } from '../../i18n/blog'
+import Layout from '../../../layouts/Layout.astro'
+import Nav from '../../../components/Nav.astro'
+import Footer from '../../../components/Footer.astro'
+import LocaleBanner from '../../../components/LocaleBanner.astro'
+import { UI } from '../../../i18n/ui'
+import { formatDate, localizedPath } from '../../../i18n/utils'
+import { getPostsByLocale, getSlug } from '../../../i18n/blog'
 
-const locale = 'es' as const
+const locale = 'en' as const
 const t = UI[locale].blog
 
 const posts = await getPostsByLocale(locale)

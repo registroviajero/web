@@ -25,10 +25,10 @@ RegistroViajero facilita:
 
 | Plan | Precio | Incluye |
 |------|--------|---------|
-| Prueba | 0 € (15 días) | Alojamientos ilimitados, huéspedes ilimitados, envío al Ministerio |
-| Pro | 5 €/puesto/mes | Alojamientos según puestos contratados (mín. 2), registros ilimitados, exportación CSV/PDF, soporte prioritario |
+| Prueba | 0 € (15 días) | Alojamientos ilimitados durante la prueba, huéspedes ilimitados, envío al Ministerio |
+| Pro | 5 €/alojamiento activo/mes | Pago por alojamiento activo (sin mínimo), registros ilimitados, exportación CSV/PDF, soporte prioritario |
 
-Cada puesto adicional se factura de forma prorrateada al añadirlo. Los precios pueden actualizarse con un preaviso mínimo de 30 días mediante email. Tras finalizar el periodo de prueba, es necesario contratar el plan Pro para crear alojamientos.
+Solo se facturan los alojamientos activos durante el periodo; añadir o retirar alojamientos se prorratea. Los precios pueden actualizarse con un preaviso mínimo de 30 días mediante email. Tras finalizar el periodo de prueba, es necesario contratar el plan Pro para seguir enviando partes al Ministerio.
 
 ## 4. Registro y cuenta
 
@@ -60,14 +60,14 @@ RegistroViajero actúa como **encargado del tratamiento** de los datos de huésp
 
 - Los pagos se gestionan a través de Polar (polar.sh).
 - La suscripción se renueva mensualmente de forma automática.
-- Los puestos adicionales se facturan de forma prorrateada al momento de añadirlos.
+- Los alojamientos se facturan de forma prorrateada al añadirlos o retirarlos.
 - No almacenamos datos de tarjetas de crédito.
 
 ## 9. Cancelación
 
 - El usuario puede cancelar su suscripción en cualquier momento desde la configuración de facturación.
-- Tras la cancelación, el acceso a los puestos contratados se mantiene hasta el final del período de facturación.
-- No se pueden crear nuevos alojamientos tras la cancelación.
+- Tras la cancelación, el acceso se mantiene hasta el final del período de facturación.
+- Tras la cancelación no se pueden enviar nuevos partes al Ministerio hasta reactivar el plan; el check-in de huéspedes no se bloquea.
 - El usuario puede solicitar la eliminación completa de su cuenta y datos en cualquier momento.
 
 ## 10. Reembolsos

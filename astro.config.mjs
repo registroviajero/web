@@ -8,6 +8,14 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://registroviajero.com',
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: false,
+    },
+  },
   vite: {
     plugins: [tailwindcss()]
   },
@@ -17,9 +25,16 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
+      i18n: {
+        defaultLocale: 'es',
+        locales: {
+          es: 'es-ES',
+          en: 'en-US',
+        },
+      },
       serialize: (item) => {
         const url = new URL(item.url);
-        const path = url.pathname;
+        const path = url.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 
         if (path === '/') {
           item.priority = 1.0;

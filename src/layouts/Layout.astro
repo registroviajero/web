@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css'
+import { DEFAULT_LOCALE, LOCALE_META, SITE_URL, type Locale } from '../i18n/config'
+import { getLocaleFromUrl, getAlternates, absoluteUrl, stripLocalePrefix } from '../i18n/utils'
 
 interface Props {
   title: string
@@ -8,20 +10,41 @@ interface Props {
   type?: 'website' | 'article'
   publishedDate?: string
   modifiedDate?: string
+  locale?: Locale
+  logicalPath?: string
+  availableLocales?: readonly Locale[]
 }
 
-const { title, description, canonical, type = 'website', publishedDate, modifiedDate } = Astro.props
-const siteUrl = 'https://registroviajero.com'
-const ogImage = `${siteUrl}/og-image.png`
-const canonicalUrl = canonical || Astro.url.href
+const {
+  title,
+  description,
+  canonical,
+  type = 'website',
+  publishedDate,
+  modifiedDate,
+  locale: localeProp,
+  logicalPath: logicalPathProp,
+  availableLocales,
+} = Astro.props
+
+const locale: Locale = localeProp ?? getLocaleFromUrl(Astro.url)
+const meta = LOCALE_META[locale]
+
+const logicalPath = logicalPathProp ?? stripLocalePrefix(Astro.url.pathname)
+const canonicalUrl = canonical || absoluteUrl(locale, logicalPath)
+const ogImage = `${SITE_URL}/og-image.png`
+
+const alternates = getAlternates(locale, logicalPath, availableLocales)
 
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'RegistroViajero',
-  url: siteUrl,
-  logo: `${siteUrl}/logo.svg`,
-  description: 'Software SaaS para cumplir con el Real Decreto 933/2021. Check-in digital y envío automático de partes de viajeros a SES.HOSPEDAJES.',
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.svg`,
+  description: locale === 'es'
+    ? 'Software SaaS para cumplir con el Real Decreto 933/2021. Check-in digital y envío automático de partes de viajeros a SES.HOSPEDAJES.'
+    : 'SaaS software for compliance with Spanish Royal Decree 933/2021. Digital guest check-in and automatic submission of guest reports to SES.HOSPEDAJES.',
   areaServed: {
     '@type': 'Country',
     name: 'España',
@@ -36,18 +59,25 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'RegistroViajero',
-  url: siteUrl,
-  inLanguage: 'es-ES',
+  url: SITE_URL,
+  inLanguage: meta.htmlLang,
   publisher: {
     '@type': 'Organization',
     name: 'RegistroViajero',
-    url: siteUrl,
+    url: SITE_URL,
   },
 }
+
+const keywords = locale === 'es'
+  ? 'registro viajeros, parte de viajeros, reserva hospedaje, SES hospedajes, Real Decreto 933/2021, RD 933, alojamiento turístico, check-in online, software hospedaje, envío partes ministerio'
+  : 'guest registration Spain, SES hospedajes, Royal Decree 933/2021, vacation rental software Spain, online check-in, traveler report, lodging report Spain'
+
+const rssHref = locale === DEFAULT_LOCALE ? '/rss.xml' : `/${locale}/rss.xml`
+const rssTitle = locale === 'es' ? 'Blog — RegistroViajero' : 'Blog — RegistroViajero (English)'
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={meta.htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -60,12 +90,21 @@ const websiteSchema = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
 
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
+
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content="RegistroViajero" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale" content={meta.ogLocale} />
+    {alternates
+      .filter((alt) => alt.locale !== locale && alt.hreflang !== 'x-default')
+      .map((alt) => (
+        <meta property="og:locale:alternate" content={LOCALE_META[alt.locale].ogLocale} />
+      ))}
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -77,9 +116,9 @@ const websiteSchema = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <meta name="keywords" content="registro viajeros, parte de viajeros, reserva hospedaje, SES hospedajes, Real Decreto 933/2021, RD 933, alojamiento turístico, check-in online, software hospedaje, envío partes ministerio" />
+    <meta name="keywords" content={keywords} />
 
-    <link rel="alternate" type="application/rss+xml" title="Blog — RegistroViajero" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title={rssTitle} href={rssHref} />
 
     <link rel="preconnect" href="https://analytics.registroviajero.com" crossorigin />
     <link rel="dns-prefetch" href="https://analytics.registroviajero.com" />

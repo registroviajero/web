@@ -3,6 +3,8 @@ title: "Qué es el Real Decreto 933/2021 y cómo afecta a los alojamientos turí
 description: "Todo lo que necesitas saber sobre la normativa de registro de viajeros en España: qué datos debes recoger, cómo enviarlos al Ministerio del Interior y cómo evitar sanciones."
 date: 2026-04-17
 author: "RegistroViajero"
+lang: "es"
+translationKey: "rd-933-2021"
 ---
 
 El **Real Decreto 933/2021** establece las obligaciones de registro documental e información de las personas físicas o jurídicas que ejercen actividades de hospedaje en España. Si gestionas un alojamiento turístico — ya sea un hotel, apartamento, casa rural o cualquier tipo de alojamiento reglado — esta normativa te afecta directamente.

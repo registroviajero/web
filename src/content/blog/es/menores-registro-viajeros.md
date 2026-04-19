@@ -3,6 +3,8 @@ title: "Menores en el registro de viajeros: qué datos pedir y quiénes están e
 description: "Cómo aplica el RD 933/2021 a niños y adolescentes: exención por debajo de 14 años, obligación de declarar parentesco entre 14 y 17, y qué documentos se aceptan en cada caso."
 date: 2026-04-18
 author: "RegistroViajero"
+lang: "es"
+translationKey: "minors"
 ---
 
 Cuando llega una familia con niños a un apartamento o a un hotel, surgen siempre las mismas dudas en el check-in: ¿hay que registrar al bebé? ¿qué datos le pido a un adolescente de 15 años que viaja con sus padres? ¿necesita DNI un menor? ¿qué es eso del "parentesco" que pide el formulario?
