@@ -12,7 +12,7 @@ Idioma principal: español (es-ES). Cobertura geográfica: España peninsular, B
 
 ## Precios
 
-Plan Pro: 5 €/puesto/mes, facturación mensual. Prueba gratuita de 15 días sin tarjeta de crédito. Pagos gestionados por Polar (polar.sh). Check-in de huéspedes nunca bloqueado por estado de suscripción.
+Plan Pro: 5 € por alojamiento activo al mes, facturación mensual, sin mínimo de puestos. Prueba gratuita de 15 días sin tarjeta de crédito. Pagos gestionados por Polar (polar.sh). Check-in de huéspedes nunca bloqueado por estado de suscripción.
 
 ## Funcionalidades clave
 

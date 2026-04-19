@@ -1,0 +1,31 @@
+---
+const APP_URL = 'https://app.registroviajero.com'
+const HELP_URL = 'https://help.registroviajero.com'
+
+const pathname = Astro.url.pathname
+const isHome = pathname === '/'
+const isBlog = pathname.startsWith('/blog')
+
+const anchor = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`)
+---
+
+<nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2" aria-label="RegistroViajero — Inicio">
+      <img src="/logo.svg" alt="RegistroViajero" class="h-8" width="40" height="40" />
+    </a>
+    <div class="hidden sm:flex items-center gap-6 text-sm font-medium text-gray-600">
+      <a href={anchor('funcionalidades')} class="hover:text-gray-900 transition-colors duration-150">Funcionalidades</a>
+      <a href={anchor('como-funciona')} class="hover:text-gray-900 transition-colors duration-150">Cómo funciona</a>
+      <a href={anchor('precios')} class="hover:text-gray-900 transition-colors duration-150">Precios</a>
+      <a href="/blog" class={isBlog ? 'text-gray-900' : 'hover:text-gray-900 transition-colors duration-150'}>Blog</a>
+      <a href={HELP_URL} class="hover:text-gray-900 transition-colors duration-150">Ayuda</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href={`${APP_URL}/login`} class="hidden sm:inline-flex text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-150">Iniciar sesión</a>
+      <a href={`${APP_URL}/register`} data-umami-event="cta-nav-register" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors duration-150">
+        Prueba gratis
+      </a>
+    </div>
+  </div>
+</nav>

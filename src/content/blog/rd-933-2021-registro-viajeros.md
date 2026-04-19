@@ -30,7 +30,7 @@ La normativa exige recopilar, como mínimo:
 - **Teléfono y/o email de contacto**
 - **Parentesco** con un adulto acompañante, para menores entre 14 y 17 años
 
-Los menores de 14 años están exentos de la obligación de registro individual, aunque deben constar como acompañantes.
+Los menores de 14 años están exentos de la obligación de registro individual, aunque deben constar como acompañantes. Profundizamos en cómo aplica la norma a niños y adolescentes en [Menores en el registro de viajeros](/blog/menores-registro-viajeros).
 
 ## ¿Qué es SES.HOSPEDAJES?
 
@@ -44,6 +44,8 @@ Para acceder a SES.HOSPEDAJES necesitas:
 - Un **código de establecimiento** para cada propiedad.
 - **Credenciales de acceso** (usuario y contraseña) proporcionadas por la Policía Nacional o la Guardia Civil.
 
+Explicamos cómo solicitar cada uno de estos elementos en la guía [Cómo obtener las credenciales de SES.HOSPEDAJES paso a paso](/blog/credenciales-ses-hospedajes).
+
 ## ¿Qué se envía al Ministerio?
 
 Cada envío incluye dos comunicaciones:
@@ -55,7 +57,7 @@ Ambas se envían juntas al Ministerio. Una vez procesadas, recibes una confirmac
 
 ## ¿Qué pasa si no cumplo?
 
-El incumplimiento de las obligaciones del RD 933/2021 puede acarrear **sanciones administrativas**. La cuantía depende de la gravedad y reiteración de la infracción, pero se enmarca en la legislación de seguridad ciudadana.
+El incumplimiento de las obligaciones del RD 933/2021 puede acarrear **sanciones administrativas**. La cuantía depende de la gravedad y reiteración de la infracción, pero se enmarca en la legislación de seguridad ciudadana. Las cuantías empiezan en 601 € para infracciones leves y pueden escalar a varios miles — desglosamos los tramos y supuestos en [Sanciones por incumplir el RD 933/2021](/blog/sanciones-rd-933-2021).
 
 Más allá de las sanciones, el registro correcto de viajeros es una obligación legal que contribuye a la seguridad pública y es responsabilidad de todo titular de alojamiento turístico.
 
@@ -76,6 +78,6 @@ Si tu alojamiento está en alguna de estas comunidades, necesitarás utilizar lo
 2. **Validación automática**: el sistema comprueba que todos los campos obligatorios están completos y son válidos antes de permitir el envío.
 3. **Envío directo a SES.HOSPEDAJES**: genera y envía automáticamente los partes al Ministerio con un clic. Sin intervención manual.
 4. **Seguimiento del estado**: consulta automáticamente el resultado de cada envío y te notifica si hay errores o rechazos.
-5. **Importación de reservas**: sincroniza automáticamente tus reservas desde Booking.com, Airbnb, VRBO, Expedia, Tripadvisor y Google Calendar.
+5. **Importación de reservas**: sincroniza automáticamente tus reservas desde Booking.com, Airbnb, VRBO, Expedia, Tripadvisor y Google Calendar. Aprende [cómo sincronizar los portales vía iCal](/blog/ical-sincronizar-booking-airbnb).
 
 Si gestionas alojamientos turísticos en España y quieres cumplir con la normativa sin complicaciones, puedes [crear una cuenta gratuita](https://app.registroviajero.com/register) y probar el servicio durante 15 días sin compromiso.

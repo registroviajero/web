@@ -1,5 +1,7 @@
 ---
 import Layout from './Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
 
 interface Props {
   title: string
@@ -10,34 +12,12 @@ interface Props {
   }
 }
 
-const APP_URL = 'https://app.registroviajero.com'
-const HELP_URL = 'https://help.registroviajero.com'
-
 const resolvedTitle = Astro.props.frontmatter?.title || Astro.props.title
 const resolvedDescription = Astro.props.frontmatter?.description || Astro.props.description
 ---
 
 <Layout title={`${resolvedTitle} — RegistroViajero`} description={resolvedDescription}>
-  <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2">
-        <img src="/logo.svg" alt="RegistroViajero" class="h-8" />
-      </a>
-      <div class="hidden sm:flex items-center gap-6 text-sm font-medium text-gray-600">
-        <a href="/#funcionalidades" class="hover:text-gray-900 transition-colors duration-150">Funcionalidades</a>
-        <a href="/#como-funciona" class="hover:text-gray-900 transition-colors duration-150">Cómo funciona</a>
-        <a href="/#precios" class="hover:text-gray-900 transition-colors duration-150">Precios</a>
-        <a href="/blog" class="hover:text-gray-900 transition-colors duration-150">Blog</a>
-        <a href={HELP_URL} class="hover:text-gray-900 transition-colors duration-150">Ayuda</a>
-      </div>
-      <div class="flex items-center gap-3">
-        <a href={`${APP_URL}/login`} class="hidden sm:inline-flex text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-150">Iniciar sesión</a>
-        <a href={`${APP_URL}/register`} class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors duration-150">
-          Prueba gratis
-        </a>
-      </div>
-    </div>
-  </nav>
+  <Nav />
 
   <main class="pt-28 pb-20">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
@@ -47,44 +27,5 @@ const resolvedDescription = Astro.props.frontmatter?.description || Astro.props.
     </div>
   </main>
 
-  <footer class="bg-gray-900 py-12">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div>
-          <img src="/logo.svg" alt="RegistroViajero" class="h-8 brightness-0 invert opacity-80" />
-          <p class="mt-4 text-sm text-gray-400 leading-relaxed">
-            Software de registro de viajeros y partes de hospedaje para agencias de alojamiento turístico en España.
-          </p>
-        </div>
-        <div>
-          <h4 class="text-white font-semibold text-sm mb-4">Producto</h4>
-          <ul class="space-y-2 text-sm">
-            <li><a href="/#funcionalidades" class="text-gray-400 hover:text-white transition-colors duration-150">Funcionalidades</a></li>
-            <li><a href="/#precios" class="text-gray-400 hover:text-white transition-colors duration-150">Precios</a></li>
-            <li><a href="/blog" class="text-gray-400 hover:text-white transition-colors duration-150">Blog</a></li>
-            <li><a href={HELP_URL} class="text-gray-400 hover:text-white transition-colors duration-150">Centro de Ayuda</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-white font-semibold text-sm mb-4">Legal</h4>
-          <ul class="space-y-2 text-sm">
-            <li><a href="/legal/aviso-legal" class="text-gray-400 hover:text-white transition-colors duration-150">Aviso legal</a></li>
-            <li><a href="/legal/privacidad" class="text-gray-400 hover:text-white transition-colors duration-150">Privacidad</a></li>
-            <li><a href="/legal/terminos" class="text-gray-400 hover:text-white transition-colors duration-150">Términos de uso</a></li>
-            <li><a href="/legal/cookies" class="text-gray-400 hover:text-white transition-colors duration-150">Cookies</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-white font-semibold text-sm mb-4">Acceso</h4>
-          <ul class="space-y-2 text-sm">
-            <li><a href={`${APP_URL}/login`} class="text-gray-400 hover:text-white transition-colors duration-150">Iniciar sesión</a></li>
-            <li><a href={`${APP_URL}/register`} class="text-gray-400 hover:text-white transition-colors duration-150">Crear cuenta</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="mt-12 pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
-        &copy; 2026 RegistroViajero. Cumplimiento del Real Decreto 933/2021.
-      </div>
-    </div>
-  </footer>
+  <Footer />
 </Layout>

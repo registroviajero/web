@@ -1,0 +1,48 @@
+---
+const APP_URL = 'https://app.registroviajero.com'
+const HELP_URL = 'https://help.registroviajero.com'
+
+const year = new Date().getFullYear()
+---
+
+<footer class="bg-gray-900 py-12">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div>
+        <img src="/logo.svg" alt="RegistroViajero" class="h-8 brightness-0 invert opacity-80" width="40" height="40" />
+        <p class="mt-4 text-sm text-gray-400 leading-relaxed">
+          Software de registro de viajeros y partes de hospedaje para agencias de alojamiento turístico en España.
+        </p>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Producto</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/#funcionalidades" class="text-gray-400 hover:text-white transition-colors duration-150">Funcionalidades</a></li>
+          <li><a href="/#precios" class="text-gray-400 hover:text-white transition-colors duration-150">Precios</a></li>
+          <li><a href="/blog" class="text-gray-400 hover:text-white transition-colors duration-150">Blog</a></li>
+          <li><a href="/rss.xml" class="text-gray-400 hover:text-white transition-colors duration-150">RSS</a></li>
+          <li><a href={HELP_URL} class="text-gray-400 hover:text-white transition-colors duration-150">Centro de Ayuda</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Legal</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/legal/aviso-legal" class="text-gray-400 hover:text-white transition-colors duration-150">Aviso legal</a></li>
+          <li><a href="/legal/privacidad" class="text-gray-400 hover:text-white transition-colors duration-150">Privacidad</a></li>
+          <li><a href="/legal/terminos" class="text-gray-400 hover:text-white transition-colors duration-150">Términos de uso</a></li>
+          <li><a href="/legal/cookies" class="text-gray-400 hover:text-white transition-colors duration-150">Cookies</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Acceso</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href={`${APP_URL}/login`} class="text-gray-400 hover:text-white transition-colors duration-150">Iniciar sesión</a></li>
+          <li><a href={`${APP_URL}/register`} data-umami-event="cta-footer-register" class="text-gray-400 hover:text-white transition-colors duration-150">Crear cuenta</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-12 pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+      &copy; {year} RegistroViajero. Cumplimiento del Real Decreto 933/2021.
+    </div>
+  </div>
+</footer>
