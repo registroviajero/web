@@ -107,7 +107,7 @@ The safest way to comply is not to remember to do it manually, but to **automate
 - **Immutable audit log** of every operation, downloadable for any administrative procedure.
 - **iCal synchronization** with Booking.com, Airbnb, VRBO, and Google Calendar so reservations enter the system without human intervention.
 
-You can read more about the regulatory framework in [What is Royal Decree 933/2021](/en/blog/royal-decree-933-2021-guide), about how to obtain your credentials in [SES.HOSPEDAJES credentials step by step](/en/blog/ses-hospedajes-credentials), and check the [help center](https://help.registroviajero.com) for operational questions.
+You can read more about the regulatory framework in [What is Royal Decree 933/2021](/en/blog/royal-decree-933-2021-guide/), see [how to automate guest registration](/en/blog/automate-guest-registration/) to minimise human-error risk, understand [how this applies in Catalonia and the Basque Country](/en/blog/catalonia-basque-country-guest-registration/), review [how to obtain your credentials](/en/blog/ses-hospedajes-credentials/), and check the [help center](https://help.registroviajero.com) for operational questions.
 
 If you prefer to see it in action, you can [create a free account](https://app.registroviajero.com/register) and try the system for 15 days with no credit card.
 

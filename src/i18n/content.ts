@@ -95,14 +95,14 @@ const PLATFORMS = [
 export const LANDING: Record<Locale, LandingContent> = {
   es: {
     meta: {
-      title: 'RegistroViajero — Partes de viajeros automáticos | RD 933/2021',
-      description: 'Software para cumplir con el RD 933/2021. Tus huéspedes se registran desde su móvil, tú validas y envías a SES.HOSPEDAJES con un clic. 15 días gratis.',
+      title: 'RegistroViajero — Automatiza el registro de viajeros | RD 933/2021',
+      description: 'Automatiza el registro de viajeros y los partes de hospedaje del RD 933/2021. Tus huéspedes se registran desde su móvil; tú validas y envías a SES.HOSPEDAJES con un clic. 15 días gratis, sin tarjeta.',
     },
     hero: {
       pill: 'Real Decreto 933/2021',
-      title1: 'Partes de viajeros',
-      titleAccent: 'automáticos',
-      subhead: 'Tus huéspedes se registran desde su móvil. Tú validas y envías a SES.HOSPEDAJES con un clic. Sin papeles, sin errores, sin complicaciones.',
+      title1: 'Automatiza el registro',
+      titleAccent: 'de viajeros',
+      subhead: 'Tus huéspedes se registran desde su móvil. Tú validas y envías los partes a SES.HOSPEDAJES con un clic. Sin papeles, sin errores, sin complicaciones.',
       ctaPrimary: 'Empieza gratis — 15 días',
       ctaSecondary: 'Cómo funciona',
       disclaimer: 'Sin tarjeta de crédito. Acceso ilimitado durante la prueba.',
@@ -124,7 +124,7 @@ export const LANDING: Record<Locale, LandingContent> = {
       pricingIntro: 'Empieza con 15 días de prueba gratuita. Después, un precio por alojamiento.',
       pricingPlan: 'Plan Pro',
       pricingPriceUnit: '/alojamiento/mes',
-      pricingBillingNote: 'Facturación mensual. Pagas por alojamiento activo.',
+      pricingBillingNote: 'Facturación mensual. Pagas por alojamiento activo. Sin mínimos, sin compromiso anual.',
       pricingCta: 'Empieza gratis — 15 días',
       pricingNoCard: 'Sin tarjeta de crédito',
       pricingFeatures: [
@@ -141,7 +141,7 @@ export const LANDING: Record<Locale, LandingContent> = {
       pricingGuaranteeBody: 'Aunque tu suscripción caduque, tus huéspedes pueden seguir completando sus datos. Tú solo no podrás enviar al Ministerio hasta reactivarla.',
       pricingSanctionsNote: 'Una sola sanción por incumplimiento del RD 933/2021 empieza en 601 €.',
       pricingSanctionsLinkLabel: 'Consulta los tramos y supuestos',
-      pricingSanctionsHref: '/blog/sanciones-rd-933-2021',
+      pricingSanctionsHref: '/blog/sanciones-rd-933-2021/',
       securityTitle: 'Seguridad y cumplimiento',
       securityIntro: 'Tus datos y los de tus huéspedes, siempre protegidos.',
       securityCards: [
@@ -184,13 +184,14 @@ export const LANDING: Record<Locale, LandingContent> = {
     ],
     platforms: PLATFORMS,
     faqs: [
-      { q: '¿Cuánto cuesta RegistroViajero?', a: 'El Plan Pro cuesta 5 € por alojamiento activo al mes, con facturación mensual. Incluye un periodo de prueba de 15 días con acceso ilimitado, sin tarjeta de crédito. El check-in de huéspedes nunca se bloquea por el estado de tu suscripción.' },
+      { q: '¿Cuánto cuesta RegistroViajero?', a: 'El Plan Pro cuesta 5 € por alojamiento activo al mes, con facturación mensual. Incluye un periodo de prueba de 15 días con acceso ilimitado, sin tarjeta de crédito. Sin mínimo de alojamientos y sin compromiso anual. El check-in de huéspedes nunca se bloquea por el estado de tu suscripción.' },
+      { q: '¿En qué se diferencia RegistroViajero de un PMS o channel manager?', a: 'Un PMS o channel manager gestiona reservas, calendarios, pagos, sitio web y muchas otras tareas, y suele incluir el registro de viajeros como una funcionalidad más. RegistroViajero hace solo una cosa: el cumplimiento del RD 933/2021 con SES.HOSPEDAJES. Si ya tienes un PMS o no necesitas uno, somos la opción más sencilla y económica para esta parte concreta del trabajo, desde un solo alojamiento y sin mínimos.' },
       { q: '¿Mis huéspedes necesitan instalar algo?', a: 'No. Reciben un enlace que abren en su navegador. Sin app, sin registro, sin descargas.' },
       { q: '¿Funciona en Cataluña y País Vasco?', a: 'Todavía no. Estas comunidades usan sistemas propios (Mossos d\'Esquadra y Ertzaintza). La integración está en desarrollo.' },
       {
         q: '¿Qué pasa si no envío los partes al Ministerio?',
         a: 'El incumplimiento del RD 933/2021 puede acarrear sanciones administrativas conforme a la Ley Orgánica 4/2015 de Seguridad Ciudadana. Más allá de las multas, es una obligación legal del titular del alojamiento.',
-        html: 'El incumplimiento del RD 933/2021 puede acarrear sanciones administrativas conforme a la Ley Orgánica 4/2015 de Seguridad Ciudadana. Más allá de las multas, es una obligación legal del titular del alojamiento. <a href="/blog/sanciones-rd-933-2021" class="text-primary-600 hover:underline">Consulta las cuantías y supuestos</a>.',
+        html: 'El incumplimiento del RD 933/2021 puede acarrear sanciones administrativas conforme a la Ley Orgánica 4/2015 de Seguridad Ciudadana. Más allá de las multas, es una obligación legal del titular del alojamiento. <a href="/blog/sanciones-rd-933-2021/" class="text-primary-600 hover:underline">Consulta las cuantías y supuestos</a>.',
       },
       { q: '¿Qué documentos acepta el formulario de check-in?', a: 'DNI, NIE, pasaporte, certificado de registro UE, documento de identidad extranjero y documento de viaje. DNI y NIE requieren segundo apellido y número de soporte.' },
       { q: '¿Qué pasa si caduca mi suscripción?', a: 'Los huéspedes siempre pueden completar sus datos. El check-in nunca se bloquea por el estado de tu plan.' },
@@ -199,7 +200,7 @@ export const LANDING: Record<Locale, LandingContent> = {
       {
         q: '¿Cuánto tardo en tenerlo operativo?',
         a: 'Crear la cuenta y añadir un alojamiento lleva unos minutos. Para enviar al Ministerio necesitas tus credenciales SES (usuario, contraseña y código de arrendador) — puedes configurarlas más tarde sin perder el trabajo hecho.',
-        html: 'Crear la cuenta y añadir un alojamiento lleva unos minutos. Para enviar al Ministerio necesitas tus credenciales SES (usuario, contraseña y código de arrendador) — puedes configurarlas más tarde sin perder el trabajo hecho. <a href="/blog/credenciales-ses-hospedajes" class="text-primary-600 hover:underline">Cómo obtener las credenciales paso a paso</a>.',
+        html: 'Crear la cuenta y añadir un alojamiento lleva unos minutos. Para enviar al Ministerio necesitas tus credenciales SES (usuario, contraseña y código de arrendador) — puedes configurarlas más tarde sin perder el trabajo hecho. <a href="/blog/credenciales-ses-hospedajes/" class="text-primary-600 hover:underline">Cómo obtener las credenciales paso a paso</a>.',
       },
     ],
     schema: {
@@ -255,7 +256,7 @@ export const LANDING: Record<Locale, LandingContent> = {
       pricingIntro: 'Start with a 15-day free trial. After that, one flat rate per active accommodation.',
       pricingPlan: 'Pro Plan',
       pricingPriceUnit: '/accommodation/mo',
-      pricingBillingNote: 'Billed monthly. You pay only for active accommodations.',
+      pricingBillingNote: 'Billed monthly. You pay only for active accommodations. No minimums, no annual commitment.',
       pricingCta: 'Start free — 15 days',
       pricingNoCard: 'No credit card',
       pricingFeatures: [
@@ -272,7 +273,7 @@ export const LANDING: Record<Locale, LandingContent> = {
       pricingGuaranteeBody: 'Even if your subscription lapses, your guests can still complete their registration. Only Ministry submission is paused until you reactivate.',
       pricingSanctionsNote: 'A single fine for non-compliance with Royal Decree 933/2021 starts at €601.',
       pricingSanctionsLinkLabel: 'See penalty tiers and scenarios',
-      pricingSanctionsHref: '/en/blog/royal-decree-933-2021-penalties',
+      pricingSanctionsHref: '/en/blog/royal-decree-933-2021-penalties/',
       securityTitle: 'Security and compliance',
       securityIntro: 'Your data and your guests\' data, always protected.',
       securityCards: [
@@ -315,13 +316,14 @@ export const LANDING: Record<Locale, LandingContent> = {
     ],
     platforms: PLATFORMS,
     faqs: [
-      { q: 'How much does RegistroViajero cost?', a: 'The Pro Plan costs €5 per active accommodation per month, billed monthly. It includes a 15-day free trial with full access, no credit card required. Guest check-in is never blocked by subscription status.' },
+      { q: 'How much does RegistroViajero cost?', a: 'The Pro Plan costs €5 per active accommodation per month, billed monthly. It includes a 15-day free trial with full access, no credit card required. No minimum number of accommodations and no annual commitment. Guest check-in is never blocked by subscription status.' },
+      { q: 'How does RegistroViajero differ from a PMS or channel manager?', a: 'A PMS or channel manager handles reservations, calendars, payments, websites, and dozens of other tasks, typically including guest registration as one feature among many. RegistroViajero does just one thing: RD 933/2021 compliance with SES.HOSPEDAJES. If you already have a PMS or don\'t need one, we\'re the simplest and cheapest option for this specific piece of work, starting from a single accommodation and with no minimums.' },
       { q: 'Do my guests need to install anything?', a: 'No. They receive a link that opens in their browser. No app, no sign-up, no downloads.' },
       { q: 'Does it work in Catalonia and the Basque Country?', a: 'Not yet. These regions use their own systems (Mossos d\'Esquadra and Ertzaintza). Integration is in development.' },
       {
         q: 'What happens if I don\'t file the reports?',
         a: 'Non-compliance with Royal Decree 933/2021 can result in administrative fines under Organic Law 4/2015 on Public Safety. Beyond the fines, it\'s a legal obligation for the accommodation owner.',
-        html: 'Non-compliance with Royal Decree 933/2021 can result in administrative fines under Organic Law 4/2015 on Public Safety. Beyond the fines, it\'s a legal obligation for the accommodation owner. <a href="/en/blog/royal-decree-933-2021-penalties" class="text-primary-600 hover:underline">See penalty tiers and scenarios</a>.',
+        html: 'Non-compliance with Royal Decree 933/2021 can result in administrative fines under Organic Law 4/2015 on Public Safety. Beyond the fines, it\'s a legal obligation for the accommodation owner. <a href="/en/blog/royal-decree-933-2021-penalties/" class="text-primary-600 hover:underline">See penalty tiers and scenarios</a>.',
       },
       { q: 'Which documents does the check-in form accept?', a: 'Spanish DNI, NIE, passport, EU registration certificate, foreign national ID, and travel documents. DNI and NIE require a second surname and the support number.' },
       { q: 'What happens if my subscription lapses?', a: 'Guests can always complete their data. Check-in is never blocked by your plan status.' },
@@ -330,7 +332,7 @@ export const LANDING: Record<Locale, LandingContent> = {
       {
         q: 'How long does it take to get up and running?',
         a: 'Creating an account and adding an accommodation takes a few minutes. To submit to the Ministry you need SES credentials (username, password, and lessor code) — you can configure them later without losing any setup.',
-        html: 'Creating an account and adding an accommodation takes a few minutes. To submit to the Ministry you need SES credentials (username, password, and lessor code) — you can configure them later without losing any setup. <a href="/en/blog/ses-hospedajes-credentials" class="text-primary-600 hover:underline">How to obtain credentials step by step</a>.',
+        html: 'Creating an account and adding an accommodation takes a few minutes. To submit to the Ministry you need SES credentials (username, password, and lessor code) — you can configure them later without losing any setup. <a href="/en/blog/ses-hospedajes-credentials/" class="text-primary-600 hover:underline">How to obtain credentials step by step</a>.',
       },
     ],
     schema: {

@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/ContentPage.astro
 title: Política de Privacidad
-description: Política de privacidad y protección de datos de RegistroViajero.com
+description: Cómo RegistroViajero trata tus datos y los de tus huéspedes en cumplimiento del RGPD y la normativa española de protección de datos personales.
 ---
 
 # Política de Privacidad

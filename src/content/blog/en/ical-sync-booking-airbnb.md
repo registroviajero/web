@@ -155,10 +155,11 @@ In other words, iCal is **step zero** of automation. Without iCal, you have to c
 
 To get the most out of iCal, it helps to have the adjacent topics clear as well:
 
-- [What RD 933/2021 requires](/en/blog/royal-decree-933-2021-guide) — the full regulatory framework.
-- [How to obtain SES.HOSPEDAJES credentials](/en/blog/ses-hospedajes-credentials) — without credentials, no submission is possible.
-- [Penalties for non-compliance](/en/blog/royal-decree-933-2021-penalties) — what's at stake if you don't comply.
-- [Registering minors](/en/blog/minors-guest-registration) — specific rules for children and teenagers.
+- [How to automate guest registration](/en/blog/automate-guest-registration/) — the full flow, from booking to Ministry submission.
+- [What RD 933/2021 requires](/en/blog/royal-decree-933-2021-guide/) — the full regulatory framework.
+- [How to obtain SES.HOSPEDAJES credentials](/en/blog/ses-hospedajes-credentials/) — without credentials, no submission is possible.
+- [Penalties for non-compliance](/en/blog/royal-decree-933-2021-penalties/) — what's at stake if you don't comply.
+- [Registering minors](/en/blog/minors-guest-registration/) — specific rules for children and teenagers.
 
 And if you want to see it working end to end, [create a free account](https://app.registroviajero.com/register) and connect your first iCal in 5 minutes. 15-day trial, no card required.
 

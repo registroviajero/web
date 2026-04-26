@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/ContentPage.astro
 title: Política de Cookies
-description: Política de cookies y almacenamiento local de RegistroViajero.com
+description: Política de cookies de RegistroViajero. Qué información almacena el sitio en tu navegador y cómo está configurada nuestra analítica sin cookies.
 ---
 
 # Política de Cookies

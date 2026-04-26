@@ -1,7 +1,7 @@
 ---
 layout: ../../../layouts/ContentPage.astro
 title: Terms of Use
-description: Terms and conditions for using RegistroViajero.
+description: "Terms and conditions of the RegistroViajero service: account creation, subscription, software use, responsibilities and cancellation."
 locale: "en"
 ---
 

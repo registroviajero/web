@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/ContentPage.astro
 title: Términos de uso
-description: Términos y condiciones de uso de RegistroViajero.com
+description: "Términos y condiciones del servicio de RegistroViajero: alta de cuenta, suscripción, uso del software, responsabilidades y cancelación."
 ---
 
 # Términos de uso

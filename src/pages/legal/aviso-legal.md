@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/ContentPage.astro
 title: Aviso Legal
-description: Aviso legal e información del titular de RegistroViajero.com
+description: Aviso legal de RegistroViajero conforme al artículo 10 de la LSSI-CE. Información del titular, condiciones de uso del sitio y datos de contacto.
 ---
 
 # Aviso Legal

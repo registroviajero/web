@@ -155,10 +155,11 @@ En otras palabras, iCal es el **paso 0** de la automatización. Sin iCal, tienes
 
 Para sacar el máximo partido a iCal, conviene tener también claros los puntos adyacentes:
 
-- [Qué exige el RD 933/2021](/blog/rd-933-2021-registro-viajeros) — el marco normativo completo.
-- [Cómo obtener las credenciales SES.HOSPEDAJES](/blog/credenciales-ses-hospedajes) — sin credenciales no hay envío posible.
-- [Sanciones por incumplimiento](/blog/sanciones-rd-933-2021) — qué te juegas si no cumples.
-- [Registro de menores](/blog/menores-registro-viajeros) — reglas específicas para niños y adolescentes.
+- [Cómo automatizar el registro de viajeros](/blog/automatizar-registro-viajeros/) — el flujo completo, de la reserva al envío.
+- [Qué exige el RD 933/2021](/blog/rd-933-2021-registro-viajeros/) — el marco normativo completo.
+- [Cómo obtener las credenciales SES.HOSPEDAJES](/blog/credenciales-ses-hospedajes/) — sin credenciales no hay envío posible.
+- [Sanciones por incumplimiento](/blog/sanciones-rd-933-2021/) — qué te juegas si no cumples.
+- [Registro de menores](/blog/menores-registro-viajeros/) — reglas específicas para niños y adolescentes.
 
 Y si lo quieres ver funcionar de extremo a extremo, [crea una cuenta gratuita](https://app.registroviajero.com/register) y conecta tu primer iCal en 5 minutos. 15 días de prueba, sin tarjeta.
 

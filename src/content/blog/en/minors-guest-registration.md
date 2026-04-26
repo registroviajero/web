@@ -129,7 +129,7 @@ At [RegistroViajero](https://registroviajero.com) the minor registration flow is
 - **Companion's signature** for minors, with the corresponding accuracy declaration.
 - **Configurable retention** in accordance with GDPR and RD 933/2021 (by default, automatic deletion after 3 years).
 
-You can get more context in [what RD 933/2021 requires](/en/blog/royal-decree-933-2021-guide), [the penalties provided for by the law](/en/blog/royal-decree-933-2021-penalties), and [how to obtain SES.HOSPEDAJES credentials](/en/blog/ses-hospedajes-credentials).
+You can get more context in [what RD 933/2021 requires](/en/blog/royal-decree-933-2021-guide/), [how to automate guest registration](/en/blog/automate-guest-registration/) when family groups repeat, [the penalties provided for by the law](/en/blog/royal-decree-933-2021-penalties/), and [how to obtain SES.HOSPEDAJES credentials](/en/blog/ses-hospedajes-credentials/).
 
 If you manage an accommodation with high family turnover, [creating a free account](https://app.registroviajero.com/register) lets you try the full flow for 15 days without a credit card.
 

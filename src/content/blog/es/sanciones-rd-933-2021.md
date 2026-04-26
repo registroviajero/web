@@ -107,7 +107,7 @@ La forma más segura de cumplir no es recordar hacerlo manualmente, sino **autom
 - **Audit log inmutable** de todas las operaciones, descargable para cualquier procedimiento administrativo.
 - **Sincronización iCal** con Booking.com, Airbnb, VRBO y Google Calendar para que las reservas entren al sistema sin intervención humana.
 
-Puedes leer más sobre el marco normativo en [Qué es el Real Decreto 933/2021](/blog/rd-933-2021-registro-viajeros), sobre cómo obtener tus credenciales en [Credenciales SES.HOSPEDAJES paso a paso](/blog/credenciales-ses-hospedajes), y consultar el [centro de ayuda](https://help.registroviajero.com) para dudas operativas.
+Puedes leer más sobre el marco normativo en [Qué es el Real Decreto 933/2021](/blog/rd-933-2021-registro-viajeros/), ver [cómo automatizar el registro de viajeros](/blog/automatizar-registro-viajeros/) para minimizar el riesgo de error humano, entender [cómo aplica todo esto en Cataluña y País Vasco](/blog/cataluna-pais-vasco-registro-viajeros/), repasar [cómo obtener tus credenciales](/blog/credenciales-ses-hospedajes/) y consultar el [centro de ayuda](https://help.registroviajero.com) para dudas operativas.
 
 Si prefieres verlo en acción, puedes [crear una cuenta gratuita](https://app.registroviajero.com/register) y probar el sistema durante 15 días sin tarjeta de crédito.
 

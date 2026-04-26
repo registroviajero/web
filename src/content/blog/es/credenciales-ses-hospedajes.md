@@ -138,8 +138,8 @@ Una vez tengas las credenciales, lo que sigue es **no enviar partes a mano nunca
 
 Si quieres empezar, puedes:
 
-- Leer [qué exige el RD 933/2021](/blog/rd-933-2021-registro-viajeros) para ver el panorama completo.
-- Revisar las [sanciones aplicables](/blog/sanciones-rd-933-2021) por incumplimiento.
+- Leer [qué exige el RD 933/2021](/blog/rd-933-2021-registro-viajeros/) para ver el panorama completo.
+- Revisar las [sanciones aplicables](/blog/sanciones-rd-933-2021/) por incumplimiento.
 - [Crear una cuenta gratuita](https://app.registroviajero.com/register) y probar el sistema 15 días sin tarjeta.
 
 ---

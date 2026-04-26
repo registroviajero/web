@@ -138,8 +138,8 @@ Once you have your credentials, what comes next is **never sending guest reports
 
 If you want to get started, you can:
 
-- Read [what RD 933/2021 requires](/en/blog/royal-decree-933-2021-guide) for the full picture.
-- Review the [applicable penalties](/en/blog/royal-decree-933-2021-penalties) for non-compliance.
+- Read [what RD 933/2021 requires](/en/blog/royal-decree-933-2021-guide/) for the full picture.
+- Review the [applicable penalties](/en/blog/royal-decree-933-2021-penalties/) for non-compliance.
 - [Create a free account](https://app.registroviajero.com/register) and try the system for 15 days with no card.
 
 ---

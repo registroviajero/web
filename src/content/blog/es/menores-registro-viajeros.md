@@ -129,7 +129,7 @@ En [RegistroViajero](https://registroviajero.com) el flujo de registro de menore
 - **Firma del acompañante** para menores, con la declaración de veracidad correspondiente.
 - **Retención configurable** conforme al RGPD y al RD 933/2021 (por defecto, borrado automático a los 3 años).
 
-Puedes ampliar contexto con [qué exige el RD 933/2021](/blog/rd-933-2021-registro-viajeros), [qué sanciones contempla la ley](/blog/sanciones-rd-933-2021) y [cómo obtener las credenciales SES.HOSPEDAJES](/blog/credenciales-ses-hospedajes).
+Puedes ampliar contexto con [qué exige el RD 933/2021](/blog/rd-933-2021-registro-viajeros/), [cómo automatizar el registro de viajeros](/blog/automatizar-registro-viajeros/) cuando los grupos familiares se repiten, [qué sanciones contempla la ley](/blog/sanciones-rd-933-2021/) y [cómo obtener las credenciales SES.HOSPEDAJES](/blog/credenciales-ses-hospedajes/).
 
 Si gestionas un alojamiento con alta rotación familiar, [crear una cuenta gratuita](https://app.registroviajero.com/register) te permite probar el flujo completo durante 15 días sin tarjeta.
 
