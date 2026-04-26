@@ -7,6 +7,7 @@ Marketing site for RegistroViajero — published at **registroviajero.com**. Sta
 - **Stealth commits.** Never include `Co-Authored-By: Claude` or any other Claude/Anthropic signature in commit messages or PR descriptions. Commit as the configured git user, nothing more.
 - **Honest claims only.** This is a marketing site, but every factual claim (pricing, trial length, supported platforms, coverage, locales) must match the actual product. Cataluña and País Vasco are **not** supported — do not imply they are. If the app changes, update the landing copy in the same PR.
 - **Bilingual site.** Spanish (`es-ES`) at the root (`/`) and US English (`en-US`) under `/en/`. Spanish is the default locale and the authoritative source for legal content — English legal pages are courtesy translations and must carry the reference-translation disclaimer rendered by `ContentPage.astro`. Preserve Spanish domain terms across both locales where they are proper names (`SES.HOSPEDAJES`, `Real Decreto 933/2021`, `DNI`, `NIE`, `Mossos d'Esquadra`, `Ertzaintza`). When adding or editing copy in one locale, mirror the change in the other.
+- **Slugs differ per locale on purpose.** Blog posts and most legal pages use a localized slug (`/blog/menores-registro-viajeros/` ↔ `/en/blog/minors-guest-registration/`, `/legal/privacidad/` ↔ `/en/legal/privacy/`). Hreflang/canonical/locale-switcher routing depends on per-locale path mapping — see "i18n + URL plumbing" below. Don't unify slugs to make the wiring simpler; the SEO benefit of localized slugs outweighs the convenience.
 - **One intent per change.** No drive-by copy rewrites, no design riffs. If a copy overhaul is worth doing, it earns its own PR.
 - **Keep the three surfaces consistent.** Marketing site, help center (`help.registroviajero.com`), and app (`app.registroviajero.com`) must tell the same story about features and limits. Check the main repo's `CLAUDE.md` (`/Users/asur/Code/registroviajero.com/CLAUDE.md`) before claiming a behavior.
 
@@ -66,15 +67,15 @@ src/
 │       └── en/*.md           # English translations (translationKey links them)
 ├── content.config.ts         # blog schema with lang + translationKey
 ├── i18n/
-│   ├── config.ts             # LOCALES, DEFAULT_LOCALE, LOCALE_META, SITE_URL/APP_URL/HELP_URL
-│   ├── ui.ts                 # Chrome strings per locale (nav, footer, blog, 404, disclaimers)
+│   ├── config.ts             # LOCALES, DEFAULT_LOCALE, LOCALE_META (htmlLang + hreflang + ogLocale), SITE_URL/APP_URL/HELP_URL
+│   ├── ui.ts                 # Chrome strings + LEGAL_SLUG_FRAGMENT / legalLocalePaths cross-locale legal mapping
 │   ├── content.ts            # Landing content per locale (hero/sections/features/faqs/schema)
-│   ├── utils.ts              # getLocaleFromUrl, localizedPath, formatDate, getAlternates
+│   ├── utils.ts              # localizedPath (always trailing slash), buildLocalePaths, getAlternates, formatDate
 │   └── blog.ts               # getPostsByLocale, getSlug, findTranslation
 ├── layouts/
-│   ├── Layout.astro          # Base head, locale-aware OG + hreflang + JSON-LD
-│   ├── ContentPage.astro     # Legal / static prose; auto-disclaimer for EN
-│   └── BlogPost.astro        # Localized article with BlogPosting + Breadcrumb JSON-LD
+│   ├── Layout.astro          # Base head: canonical/hreflang/OG/JSON-LD; takes localePaths + optional noindex
+│   ├── ContentPage.astro     # Legal / static prose; auto-disclaimer for EN; derives legal localePaths
+│   └── BlogPost.astro        # Localized article; derives localePaths via findTranslation()
 ├── components/
 │   ├── Nav.astro             # Dict-driven, embeds LocaleSwitch
 │   ├── Footer.astro          # Dict-driven
@@ -90,7 +91,7 @@ public/
 ├── llms.txt                  # Bilingual AI-discoverability summary
 └── .well-known/
     └── security.txt          # Expires 2027-04-18
-astro.config.mjs              # site + i18n (defaultLocale: es, prefixDefaultLocale: false) + sitemap i18n + per-route priority
+astro.config.mjs              # site + trailingSlash:'always' + i18n + sitemap i18n + LOCALE_PAIRS for cross-locale slugs + per-route priority
 ```
 
 ## Configuration conventions
@@ -101,13 +102,31 @@ astro.config.mjs              # site + i18n (defaultLocale: es, prefixDefaultLoc
 - **Nav and Footer are shared components** (`src/components/Nav.astro`, `Footer.astro`), dict-driven from `src/i18n/ui.ts`. Pages pass `locale` explicitly; components fall back to `getLocaleFromUrl(Astro.url)`. Both use `LocaleSwitch.astro` + `LocaleBanner.astro` for locale UX.
 - **Legal pages use `layout: ../../layouts/ContentPage.astro`** (Spanish, two `../`) or `layout: ../../../layouts/ContentPage.astro` (English, three `../`). Markdown frontmatter: `title`, `description`, optional `locale: "en"` to force the courtesy-translation disclaimer.
 - **Blog collection schema** (`src/content.config.ts`): `title`, `description`, `date`, `author` (default `"RegistroViajero"`), plus `lang: z.enum(LOCALES)` and `translationKey: string`. `lang` gates the post by locale; `translationKey` links a Spanish post to its English counterpart so hreflang alternates can be emitted.
-- **Blog folder structure.** `src/content/blog/es/*.md` and `src/content/blog/en/*.md`. The file stem is the URL slug per locale — they do NOT need to match across languages. Example: `es/sanciones-rd-933-2021.md` → `/blog/sanciones-rd-933-2021`; `en/royal-decree-933-2021-penalties.md` → `/en/blog/royal-decree-933-2021-penalties`. Both share `translationKey: "penalties"`.
+- **Blog folder structure.** `src/content/blog/es/*.md` and `src/content/blog/en/*.md`. The file stem is the URL slug per locale — they do NOT need to match across languages. Example: `es/sanciones-rd-933-2021.md` → `/blog/sanciones-rd-933-2021/`; `en/royal-decree-933-2021-penalties.md` → `/en/blog/royal-decree-933-2021-penalties/`. Both share `translationKey: "penalties"`. **When you add a post whose slug differs across locales, also add the cross-locale pair to `LOCALE_PAIRS` in `astro.config.mjs`** so the sitemap emits `xhtml:link` alternates (the integration's auto-pairing only matches identical paths).
 - **Landing content** lives in `src/i18n/content.ts` as `LANDING: Record<Locale, LandingContent>`. The Spanish and English landing pages are thin wrappers that render `<Landing locale="es"/>` / `<Landing locale="en"/>`. Edit `content.ts` (not the pages) when changing landing copy.
-- **Locale URLs.** Spanish is the default and lives at the root (`/`, `/blog`, `/legal/privacidad`, `/rss.xml`). English is prefixed with `/en/` (`/en/`, `/en/blog`, `/en/legal/privacy`, `/en/rss.xml`). `prefixDefaultLocale: false` in `astro.config.mjs` — never enable it without redirecting the indexed Spanish URLs.
+- **Locale URLs.** Spanish is the default and lives at the root (`/`, `/blog/`, `/legal/privacidad/`, `/rss.xml`). English is prefixed with `/en/` (`/en/`, `/en/blog/`, `/en/legal/privacy/`, `/en/rss.xml`). `prefixDefaultLocale: false` in `astro.config.mjs` — never enable it without redirecting the indexed Spanish URLs.
+
+## i18n + URL plumbing
+
+The earliest GSC reports for the site exposed two SEO bugs that all shipped at once: canonicals without trailing slashes (mismatched against the directory-style files Astro emits) and hreflang alternates pointing at non-existent slugs (the wrong-locale slug under `/en/` or under `/`). Both are fixed; the conventions below are the contract that keeps them fixed.
+
+- **Trailing slashes everywhere.** `astro.config.mjs` sets `trailingSlash: 'always'` and `build.format: 'directory'`. Every internal `<a href>` to a route — in templates, in markdown content, in `src/i18n/content.ts`, in `src/i18n/ui.ts` — must end with `/`. Files (`/rss.xml`, `/favicon.ico`, anchors-only `/#section`) keep their actual path. `localizedPath()` in `src/i18n/utils.ts` always returns a trailing slash; if you need a URL, build it through that helper rather than concatenating strings.
+- **`hreflang` is separate from `htmlLang`.** `LOCALE_META[locale].htmlLang` (`'es'` / `'en'`) drives `<html lang>` only. `LOCALE_META[locale].hreflang` (`'es-ES'` / `'en-US'`) drives every `<link rel="alternate" hreflang>`, every `og:locale`, and matches the `i18n.locales` keys in the sitemap config. They are intentionally different — short codes for the document language, BCP47 region tags for SEO targeting. Don't conflate them.
+- **`localePaths: Record<Locale, string>` is the cross-locale source of truth.** When the slug differs across locales (every blog post and most legal pages), the page must compute a `LocalePaths` map and pass it to `Layout`, `Nav`, and `LocaleBanner`. That map drives:
+  - `<link rel="canonical">` and `<link rel="alternate" hreflang>` in `Layout.astro`
+  - `og:url` and `og:locale:alternate`
+  - the `<a>` href on the locale switcher (`LocaleSwitch.astro`) — without this the switcher 404s on the wrong-locale slug
+  - the "view in your language" banner CTA (`LocaleBanner.astro`)
+  - the `xhtml:link` alternates emitted by the sitemap's `serialize` hook (via `LOCALE_PAIRS`)
+  - `BlogPost.astro` derives `localePaths` from `findTranslation(translationKey, otherLocale)`.
+  - `ContentPage.astro` derives it via `legalKeyFromSlug` + `legalLocalePaths()` from `src/i18n/ui.ts`.
+  - `Landing.astro` and any future page where the slug is identical across locales can omit the prop — `buildLocalePaths(logicalPath)` handles the symmetric case.
+- **Sitemap pairing.** `@astrojs/sitemap`'s `i18n` option auto-pairs alternates only when the URL path is identical across locales (e.g. `/blog/` ↔ `/en/blog/`, or `/legal/cookies/` ↔ `/en/legal/cookies/`). Locale-paired pages with differing slugs are wired manually via `LOCALE_PAIRS` + the `serialize` hook in `astro.config.mjs`. **Add the pair when you add the post.** If you skip it, the sitemap and the HTML hreflang will disagree.
+- **`noindex` Layout prop.** Pages that must not be indexed (404s today; thank-you / unsubscribe / preview pages tomorrow) pass `noindex` to `Layout.astro`. That emits `<meta name="robots" content="noindex,follow">` and skips hreflang alternates entirely so we never advertise URLs we don't want crawled.
 
 ## SEO + meta
 
-- **`Layout.astro` centralizes** `<title>`, description, canonical, hreflang alternates (including `x-default` → Spanish), OG locale + alternates, Twitter card, theme-color `#2563eb`, favicon, Umami, RSS `<link rel="alternate">` (per locale), preconnect/dns-prefetch for analytics, and the sitewide `Organization` + `WebSite` JSON-LD. It takes `locale`, `logicalPath`, and optional `availableLocales` so pages with no counterpart (e.g. Spanish-only post) emit only one hreflang.
+- **`Layout.astro` centralizes** `<title>`, description, canonical, hreflang alternates (including `x-default` → Spanish), OG locale + alternates, Twitter card, theme-color `#2563eb`, favicon, Umami, RSS `<link rel="alternate">` (per locale), preconnect/dns-prefetch for analytics, and the sitewide `Organization` + `WebSite` JSON-LD. Props: `locale`, `logicalPath`, optional `localePaths` (per-locale URL map; required when the slug differs across locales — see "i18n + URL plumbing"), optional `availableLocales` so pages with no counterpart (e.g. Spanish-only post) emit only one hreflang, optional `noindex`.
 - **Title pattern:** `{Page} — RegistroViajero`. Each page passes its own localized `title`.
 - **`type="article"` + `publishedDate`** is only for blog posts (handled by `BlogPost.astro`).
 - **Keywords meta** is locale-aware — Spanish keyword set at the root, English keyword set under `/en/`. Edit in `Layout.astro` when product scope changes.
@@ -116,7 +135,7 @@ astro.config.mjs              # site + i18n (defaultLocale: es, prefixDefaultLoc
   - `Landing.astro` → `SoftwareApplication` (with `offers` array), `FAQPage`, and `HowTo` — all fed from `LANDING[locale]`. Per-locale `inLanguage`.
   - `BlogPost.astro` → `BlogPosting` + `BreadcrumbList` with the post's `inLanguage`.
 - **FAQPage schema must mirror visible FAQ.** Google penalizes mismatches. The `faqs` array in `src/i18n/content.ts` is the single source per locale — it renders both the `<details>` list and the JSON-LD. Edit one, both change.
-- **Sitemap** uses `@astrojs/sitemap` with its `i18n` option (`defaultLocale: 'es'`, `locales: { es: 'es-ES', en: 'en-US' }`) to emit `xhtml:link` alternates. Per-route priority/changefreq is applied in the `serialize` hook after stripping the `/en/` prefix (home 1.0 weekly, `/blog` 0.8 weekly, `/blog/*` 0.7 monthly, `/legal/*` 0.3 yearly, `/404` excluded).
+- **Sitemap** uses `@astrojs/sitemap` with its `i18n` option (`defaultLocale: 'es'`, `locales: { es: 'es-ES', en: 'en-US' }`) to emit `xhtml:link` alternates for pages whose path is identical across locales. For pages with locale-specific slugs the `serialize` hook injects the alternates manually from `LOCALE_PAIRS` — see "i18n + URL plumbing". Per-route priority/changefreq is applied in the same hook after stripping the `/en/` prefix (home 1.0 weekly, `/blog` 0.8 weekly, `/blog/*` 0.7 monthly, `/legal/*` 0.3 yearly, `/404` excluded).
 - **RSS per locale.** `src/pages/rss.xml.ts` (Spanish, at `/rss.xml`) and `src/pages/en/rss.xml.ts` (English, at `/en/rss.xml`). Both read from the shared blog collection and filter by `lang`.
 - **`llms.txt`** at the root is an AI-discoverability summary (product overview + pricing + feature links). Keep it short and factual; update alongside major product changes.
 - **`robots.txt`** allows all crawlers. AI bots (`GPTBot`, `ClaudeBot`, `PerplexityBot`, `Google-Extended`) are explicitly allowed — marketing content is intentionally public. If policy changes, update here first.
@@ -199,3 +218,5 @@ These must match the app + help center:
 - Don't change `site` in `astro.config.mjs` or the canonical domain without updating every place the URL is hardcoded (Layout, OG, robots.txt, sitemap config).
 - Don't introduce a third locale without updating `LOCALES`, `LOCALE_META`, `LANDING`, `UI`, and every page mirror under `src/pages/`. Adding a locale is a full sweep, not a drive-by.
 - Don't delete a legal section ("Plazo de conservación", "Base legal", "Derechos del interesado", etc.) — these are compliance-mandated.
+- Don't write internal URLs without a trailing slash (in templates, markdown, JSON-LD, or i18n strings). `trailingSlash: 'always'` is non-negotiable — links without it cause canonical/sitemap drift and competing URL variants in Google's index.
+- Don't add a blog post or legal page with locale-specific slugs without wiring it through both `findTranslation`/`legalLocalePaths` (HTML hreflang) **and** `LOCALE_PAIRS` in `astro.config.mjs` (sitemap hreflang). Skipping either side means Google sees inconsistent alternate signals.

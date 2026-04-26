@@ -4,13 +4,18 @@ import Nav from '../../components/Nav.astro'
 import Footer from '../../components/Footer.astro'
 import { HELP_URL } from '../../i18n/config'
 import { UI } from '../../i18n/ui'
+import type { LocalePaths } from '../../i18n/utils'
 
 const locale = 'en' as const
 const t = UI[locale].notFound
+
+// On a 404 the same URL doesn't exist in the other locale either, so the
+// locale switch routes to that locale's home rather than to a phantom 404.
+const localePaths: LocalePaths = { es: '/', en: '/en/' }
 ---
 
-<Layout title={t.title} description={t.description} locale={locale} logicalPath="/404">
-  <Nav locale={locale} />
+<Layout title={t.title} description={t.description} locale={locale} logicalPath="/404/" noindex>
+  <Nav locale={locale} localePaths={localePaths} />
 
   <main class="pt-32 pb-20 min-h-[70vh] flex items-center">
     <div class="max-w-2xl mx-auto px-4 sm:px-6 text-center">

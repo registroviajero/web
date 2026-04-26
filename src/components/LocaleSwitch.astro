@@ -1,22 +1,24 @@
 ---
 import { LOCALE_META, LOCALES, type Locale } from '../i18n/config'
-import { getLocaleFromUrl, localizedPath, stripLocalePrefix } from '../i18n/utils'
+import { getLocaleFromUrl, localizedPath, stripLocalePrefix, type LocalePaths } from '../i18n/utils'
 import { UI } from '../i18n/ui'
 
 interface Props {
   locale?: Locale
+  localePaths?: LocalePaths
 }
 
 const current: Locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const t = UI[current].localeSwitch
 
 const logicalPath = stripLocalePrefix(Astro.url.pathname)
+const localePaths = Astro.props.localePaths
 
 const targets = LOCALES
   .filter((l) => l !== current)
   .map((l) => ({
     locale: l,
-    href: localizedPath(l, logicalPath),
+    href: localePaths?.[l] ?? localizedPath(l, logicalPath),
     label: LOCALE_META[l].shortLabel,
     fullLabel: LOCALE_META[l].label,
   }))

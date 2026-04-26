@@ -23,11 +23,13 @@ const legalPages = [
 ]
 
 const home = localizedPath(locale, '/')
-const homeRoot = home === '/' ? '' : home
-const featuresHash = `${homeRoot}/#${sections.featuresId}`
-const pricingHash = `${homeRoot}/#${sections.pricingId}`
+// home always ends in '/'. Strip it so we get '/#section' or '/en/#section'
+// rather than '//#section'.
+const homePrefix = home === '/' ? '' : home.replace(/\/$/, '')
+const featuresHash = `${homePrefix}/#${sections.featuresId}`
+const pricingHash = `${homePrefix}/#${sections.pricingId}`
 const blogHref = localizedPath(locale, '/blog')
-const rssHref = localizedPath(locale, '/rss.xml')
+const rssHref = locale === 'es' ? '/rss.xml' : `/${locale}/rss.xml`
 ---
 
 <footer class="bg-gray-900 py-12">

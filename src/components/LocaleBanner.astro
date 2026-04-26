@@ -1,20 +1,28 @@
 ---
 import { DEFAULT_LOCALE, LOCALES, type Locale } from '../i18n/config'
-import { getLocaleFromUrl, localizedPath, stripLocalePrefix } from '../i18n/utils'
+import { getLocaleFromUrl, localizedPath, stripLocalePrefix, type LocalePaths } from '../i18n/utils'
 import { UI } from '../i18n/ui'
 
 interface Props {
   locale?: Locale
+  localePaths?: LocalePaths
 }
 
 const current: Locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
 const logicalPath = stripLocalePrefix(Astro.url.pathname)
+const localePaths = Astro.props.localePaths
 
 const banners = LOCALES
   .filter((l) => l !== current)
   .map((l) => {
     const t = UI[l].localeBanner
-    return { locale: l, href: localizedPath(l, logicalPath), message: t.message, cta: t.cta, dismiss: t.dismiss }
+    return {
+      locale: l,
+      href: localePaths?.[l] ?? localizedPath(l, logicalPath),
+      message: t.message,
+      cta: t.cta,
+      dismiss: t.dismiss,
+    }
   })
 ---
 

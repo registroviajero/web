@@ -18,17 +18,22 @@ export function stripLocalePrefix(pathname: string): string {
   return '/' + segments.join('/')
 }
 
+/**
+ * Build a URL path for a locale. Always returns a leading slash and a
+ * trailing slash so that internal links match Astro's `trailingSlash: 'always'`
+ * configuration and the GitHub Pages directory-style output.
+ */
 export function localizedPath(locale: Locale, path: string): string {
   const clean = path.startsWith('/') ? path : `/${path}`
   const withoutLocale = stripLocalePrefix(clean)
-  const normalized = withoutLocale === '/' ? '' : withoutLocale
-  if (locale === DEFAULT_LOCALE) return normalized || '/'
-  return `/${locale}${normalized}`
+  // Normalize: ensure trailing slash, but keep '/' for the root
+  const normalized = withoutLocale === '/' ? '/' : (withoutLocale.endsWith('/') ? withoutLocale : `${withoutLocale}/`)
+  if (locale === DEFAULT_LOCALE) return normalized
+  return normalized === '/' ? `/${locale}/` : `/${locale}${normalized}`
 }
 
 export function absoluteUrl(locale: Locale, path: string): string {
-  const p = localizedPath(locale, path)
-  return `${SITE_URL}${p === '/' ? '' : p}`
+  return `${SITE_URL}${localizedPath(locale, path)}`
 }
 
 export function formatDate(locale: Locale, date: Date | string): string {
@@ -40,22 +45,42 @@ export function formatDate(locale: Locale, date: Date | string): string {
   }).format(d)
 }
 
+/**
+ * Map of locale → URL path, used to declare hreflang alternates and to drive
+ * the locale switcher and locale banner. For pages whose slug is identical
+ * across locales, the default builder produces the right thing. Pages with
+ * locale-specific slugs (blog posts, legal pages) must compute the map
+ * themselves and pass it in.
+ */
+export type LocalePaths = Record<Locale, string>
+
+export function buildLocalePaths(
+  logicalPath: string,
+  overrides: Partial<Record<Locale, string>> = {},
+): LocalePaths {
+  const paths = LOCALES.reduce<Partial<LocalePaths>>((acc, loc) => {
+    acc[loc] = overrides[loc] ?? localizedPath(loc, logicalPath)
+    return acc
+  }, {})
+  return paths as LocalePaths
+}
+
 export type Alternate = { locale: Locale; href: string; hreflang: string }
 
 export function getAlternates(
-  currentLocale: Locale,
-  logicalPath: string,
+  _currentLocale: Locale,
+  localePaths: LocalePaths,
   availableLocales: readonly Locale[] = LOCALES,
 ): Alternate[] {
   const alternates: Alternate[] = availableLocales.map((loc) => ({
     locale: loc,
-    href: absoluteUrl(loc, logicalPath),
-    hreflang: LOCALE_META[loc].htmlLang,
+    href: `${SITE_URL}${localePaths[loc]}`,
+    hreflang: LOCALE_META[loc].hreflang,
   }))
   if (availableLocales.includes(DEFAULT_LOCALE)) {
     alternates.push({
       locale: DEFAULT_LOCALE,
-      href: absoluteUrl(DEFAULT_LOCALE, logicalPath),
+      href: `${SITE_URL}${localePaths[DEFAULT_LOCALE]}`,
       hreflang: 'x-default',
     })
   }

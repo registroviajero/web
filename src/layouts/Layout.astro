@@ -1,7 +1,13 @@
 ---
 import '../styles/global.css'
 import { DEFAULT_LOCALE, LOCALE_META, SITE_URL, type Locale } from '../i18n/config'
-import { getLocaleFromUrl, getAlternates, absoluteUrl, stripLocalePrefix } from '../i18n/utils'
+import {
+  getLocaleFromUrl,
+  getAlternates,
+  buildLocalePaths,
+  stripLocalePrefix,
+  type LocalePaths,
+} from '../i18n/utils'
 
 interface Props {
   title: string
@@ -12,7 +18,19 @@ interface Props {
   modifiedDate?: string
   locale?: Locale
   logicalPath?: string
+  /**
+   * Per-locale URL path for this page. Required when the slug differs across
+   * locales (blog posts, legal pages) so hreflang alternates point to the
+   * right page in each locale rather than a phantom URL with the source slug.
+   * When omitted, the same logicalPath is used for every locale.
+   */
+  localePaths?: LocalePaths
   availableLocales?: readonly Locale[]
+  /**
+   * When true, emit `<meta name="robots" content="noindex">` and skip hreflang
+   * alternates entirely. Used for 404 and other pages that must not be indexed.
+   */
+  noindex?: boolean
 }
 
 const {
@@ -24,17 +42,20 @@ const {
   modifiedDate,
   locale: localeProp,
   logicalPath: logicalPathProp,
+  localePaths: localePathsProp,
   availableLocales,
+  noindex = false,
 } = Astro.props
 
 const locale: Locale = localeProp ?? getLocaleFromUrl(Astro.url)
 const meta = LOCALE_META[locale]
 
 const logicalPath = logicalPathProp ?? stripLocalePrefix(Astro.url.pathname)
-const canonicalUrl = canonical || absoluteUrl(locale, logicalPath)
+const localePaths: LocalePaths = localePathsProp ?? buildLocalePaths(logicalPath)
+const canonicalUrl = canonical || `${SITE_URL}${localePaths[locale]}`
 const ogImage = `${SITE_URL}/og-image.png`
 
-const alternates = getAlternates(locale, logicalPath, availableLocales)
+const alternates = noindex ? [] : getAlternates(locale, localePaths, availableLocales)
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -88,6 +109,7 @@ const rssTitle = locale === 'es' ? 'Blog — RegistroViajero' : 'Blog — Regist
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
     <link rel="canonical" href={canonicalUrl} />
 
     {alternates.map((alt) => (

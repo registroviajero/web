@@ -1,15 +1,17 @@
 ---
 import { APP_URL, HELP_URL, type Locale } from '../i18n/config'
-import { getLocaleFromUrl, localizedPath } from '../i18n/utils'
+import { getLocaleFromUrl, localizedPath, type LocalePaths } from '../i18n/utils'
 import { UI } from '../i18n/ui'
 import { LANDING } from '../i18n/content'
 import LocaleSwitch from './LocaleSwitch.astro'
 
 interface Props {
   locale?: Locale
+  localePaths?: LocalePaths
 }
 
 const locale: Locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url)
+const localePaths = Astro.props.localePaths
 const t = UI[locale].nav
 const sections = LANDING[locale].sections
 
@@ -19,8 +21,10 @@ const blogPath = localizedPath(locale, '/blog')
 const isHome = pathname === homePath || pathname === `${homePath}/`
 const isBlog = pathname.startsWith(blogPath)
 
-const homeHash = homePath === '/' ? '/' : homePath
-const anchor = (hash: string) => (isHome ? `#${hash}` : `${homeHash}#${hash}`)
+// homePath always ends in '/'. For hash links we trim the trailing slash so
+// we get '/#section' or '/en/#section' rather than '//#section'.
+const homePrefix = homePath === '/' ? '' : homePath.replace(/\/$/, '')
+const anchor = (hash: string) => (isHome ? `#${hash}` : `${homePrefix}/#${hash}`)
 ---
 
 <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
@@ -36,7 +40,7 @@ const anchor = (hash: string) => (isHome ? `#${hash}` : `${homeHash}#${hash}`)
       <a href={HELP_URL} class="hover:text-gray-900 transition-colors duration-150">{t.help}</a>
     </div>
     <div class="flex items-center gap-3">
-      <LocaleSwitch locale={locale} />
+      <LocaleSwitch locale={locale} localePaths={localePaths} />
       <a href={`${APP_URL}/login`} class="hidden sm:inline-flex text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-150">{t.login}</a>
       <a href={`${APP_URL}/register`} data-umami-event="cta-nav-register" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors duration-150">
         {t.register}

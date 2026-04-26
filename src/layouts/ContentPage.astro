@@ -4,8 +4,8 @@ import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import LocaleBanner from '../components/LocaleBanner.astro'
 import { type Locale } from '../i18n/config'
-import { getLocaleFromUrl, stripLocalePrefix } from '../i18n/utils'
-import { UI } from '../i18n/ui'
+import { buildLocalePaths, getLocaleFromUrl, stripLocalePrefix, type LocalePaths } from '../i18n/utils'
+import { UI, legalKeyFromSlug, legalLocalePaths } from '../i18n/ui'
 
 interface Props {
   title?: string
@@ -27,6 +27,14 @@ const locale: Locale = Astro.props.locale ?? fm?.locale ?? getLocaleFromUrl(Astr
 const showDisclaimer = fm?.showReferenceDisclaimer ?? (locale === 'en')
 const logicalPath = stripLocalePrefix(Astro.url.pathname)
 
+// If this is a legal page, map the slug across locales so hreflang alternates
+// point at the right localized slug (e.g. /legal/privacidad/ ↔ /en/legal/privacy/).
+const legalMatch = logicalPath.match(/^\/legal\/([^/]+)\/?$/)
+const legalKey = legalMatch ? legalKeyFromSlug(locale, legalMatch[1]) : undefined
+const localePaths: LocalePaths = legalKey
+  ? legalLocalePaths(legalKey)
+  : buildLocalePaths(logicalPath)
+
 const disclaimer = UI[locale].legalDisclaimer
 ---
 
@@ -35,9 +43,10 @@ const disclaimer = UI[locale].legalDisclaimer
   description={resolvedDescription}
   locale={locale}
   logicalPath={logicalPath}
+  localePaths={localePaths}
 >
-  <Nav locale={locale} />
-  <LocaleBanner locale={locale} />
+  <Nav locale={locale} localePaths={localePaths} />
+  <LocaleBanner locale={locale} localePaths={localePaths} />
 
   <main class="pt-28 pb-20">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">

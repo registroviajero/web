@@ -1,5 +1,44 @@
 import type { Locale } from './config'
 
+export type LegalKey = 'legalNotice' | 'privacy' | 'terms' | 'cookies'
+
+/**
+ * Per-locale slug fragment for each legal page (no leading or trailing slash).
+ * Used to build URL paths and to map cross-locale alternates so hreflang
+ * never points at a non-existent slug-on-wrong-locale URL.
+ */
+export const LEGAL_SLUG_FRAGMENT: Record<Locale, Record<LegalKey, string>> = {
+  es: {
+    legalNotice: 'aviso-legal',
+    privacy: 'privacidad',
+    terms: 'terminos',
+    cookies: 'cookies',
+  },
+  en: {
+    legalNotice: 'legal-notice',
+    privacy: 'privacy',
+    terms: 'terms',
+    cookies: 'cookies',
+  },
+}
+
+function buildLegalUrl(locale: Locale, key: LegalKey): string {
+  const fragment = LEGAL_SLUG_FRAGMENT[locale][key]
+  return locale === 'es' ? `/legal/${fragment}/` : `/${locale}/legal/${fragment}/`
+}
+
+export function legalKeyFromSlug(locale: Locale, slug: string): LegalKey | undefined {
+  const map = LEGAL_SLUG_FRAGMENT[locale]
+  return (Object.keys(map) as LegalKey[]).find((k) => map[k] === slug)
+}
+
+export function legalLocalePaths(key: LegalKey): Record<Locale, string> {
+  return {
+    es: buildLegalUrl('es', key),
+    en: buildLegalUrl('en', key),
+  }
+}
+
 export const LEGAL_SLUGS: Record<Locale, {
   legalNotice: string
   privacy: string
@@ -7,16 +46,16 @@ export const LEGAL_SLUGS: Record<Locale, {
   cookies: string
 }> = {
   es: {
-    legalNotice: '/legal/aviso-legal',
-    privacy: '/legal/privacidad',
-    terms: '/legal/terminos',
-    cookies: '/legal/cookies',
+    legalNotice: buildLegalUrl('es', 'legalNotice'),
+    privacy: buildLegalUrl('es', 'privacy'),
+    terms: buildLegalUrl('es', 'terms'),
+    cookies: buildLegalUrl('es', 'cookies'),
   },
   en: {
-    legalNotice: '/en/legal/legal-notice',
-    privacy: '/en/legal/privacy',
-    terms: '/en/legal/terms',
-    cookies: '/en/legal/cookies',
+    legalNotice: buildLegalUrl('en', 'legalNotice'),
+    privacy: buildLegalUrl('en', 'privacy'),
+    terms: buildLegalUrl('en', 'terms'),
+    cookies: buildLegalUrl('en', 'cookies'),
   },
 }
 
@@ -158,9 +197,9 @@ export const UI: Record<Locale, UIStrings> = {
       links: [
         { label: 'Funcionalidades', href: '/#funcionalidades' },
         { label: 'Precios', href: '/#precios' },
-        { label: 'Blog', href: '/blog' },
-        { label: 'Privacidad', href: '/legal/privacidad' },
-        { label: 'Aviso legal', href: '/legal/aviso-legal' },
+        { label: 'Blog', href: '/blog/' },
+        { label: 'Privacidad', href: '/legal/privacidad/' },
+        { label: 'Aviso legal', href: '/legal/aviso-legal/' },
       ],
     },
     legalDisclaimer: {
@@ -234,9 +273,9 @@ export const UI: Record<Locale, UIStrings> = {
       links: [
         { label: 'Features', href: '/en/#features' },
         { label: 'Pricing', href: '/en/#pricing' },
-        { label: 'Blog', href: '/en/blog' },
-        { label: 'Privacy', href: '/en/legal/privacy' },
-        { label: 'Legal notice', href: '/en/legal/legal-notice' },
+        { label: 'Blog', href: '/en/blog/' },
+        { label: 'Privacy', href: '/en/legal/privacy/' },
+        { label: 'Legal notice', href: '/en/legal/legal-notice/' },
       ],
     },
     legalDisclaimer: {

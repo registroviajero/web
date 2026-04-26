@@ -293,7 +293,7 @@ const howToSchema = {
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {latestPosts.map((post) => (
           <article class="group">
-            <a href={`${blogPath}/${getSlug(post)}`} class="block">
+            <a href={`${blogPath}${getSlug(post)}/`} class="block">
               <time
                 datetime={post.data.date.toISOString().split('T')[0]}
                 class="text-sm text-gray-500"

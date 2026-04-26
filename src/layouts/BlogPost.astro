@@ -4,9 +4,9 @@ import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import LocaleBanner from '../components/LocaleBanner.astro'
 import { APP_URL, DEFAULT_LOCALE, LOCALE_META, LOCALES, SITE_URL, type Locale } from '../i18n/config'
-import { absoluteUrl, formatDate, localizedPath } from '../i18n/utils'
+import { absoluteUrl, buildLocalePaths, formatDate, localizedPath, type LocalePaths } from '../i18n/utils'
 import { UI } from '../i18n/ui'
-import { findTranslation } from '../i18n/blog'
+import { findTranslation, getSlug } from '../i18n/blog'
 
 interface Props {
   title: string
@@ -29,8 +29,17 @@ const translated = await findTranslation(translationKey, otherLocale)
 
 const availableLocales: Locale[] = translated ? [...LOCALES] : [locale]
 
-const logicalPath = `/blog/${slug}`
+const logicalPath = `/blog/${slug}/`
 const postUrl = absoluteUrl(locale, logicalPath)
+
+// Build locale-specific URL paths so the slug used in hreflang alternates
+// matches the actual translated post slug rather than reusing this locale's slug.
+const localePaths: LocalePaths = buildLocalePaths(logicalPath, {
+  [locale]: localizedPath(locale, logicalPath),
+  ...(translated
+    ? { [otherLocale]: localizedPath(otherLocale, `/blog/${getSlug(translated)}/`) }
+    : {}),
+})
 
 const publishedIso = date.toISOString().split('T')[0]
 const modifiedIso = (updated ?? date).toISOString().split('T')[0]
@@ -61,10 +70,11 @@ const breadcrumbSchema = {
   modifiedDate={modifiedIso}
   locale={locale}
   logicalPath={logicalPath}
+  localePaths={localePaths}
   availableLocales={availableLocales}
 >
-  <Nav locale={locale} />
-  <LocaleBanner locale={locale} />
+  <Nav locale={locale} localePaths={localePaths} />
+  <LocaleBanner locale={locale} localePaths={localePaths} />
 
   <main class="pt-28 pb-20">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
