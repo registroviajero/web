@@ -1,5 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -21,6 +23,7 @@ const LOCALE_PAIRS = [
   ['/blog/bienvenido-a-registroviajero/', '/en/blog/welcome-to-registroviajero/'],
   ['/blog/automatizar-registro-viajeros/', '/en/blog/automate-guest-registration/'],
   ['/blog/cataluna-pais-vasco-registro-viajeros/', '/en/blog/catalonia-basque-country-guest-registration/'],
+  ['/blog/inteligencia-artificial-registro-viajeros/', '/en/blog/ai-vacation-rental-management/'],
   // Legal pages with locale-specific slugs
   ['/legal/aviso-legal/', '/en/legal/legal-notice/'],
   ['/legal/privacidad/', '/en/legal/privacy/'],
@@ -31,6 +34,32 @@ const PATH_TO_PAIR = new Map();
 for (const [es, en] of LOCALE_PAIRS) {
   PATH_TO_PAIR.set(es, { es, en });
   PATH_TO_PAIR.set(en, { es, en });
+}
+
+// Per-post lastmod from frontmatter. Build-time `new Date()` would tell Google
+// every page changed on every deploy, which dilutes the crawl signal — using
+// `updated || date` per file lets Google prioritise actually-edited posts.
+const POST_LASTMOD = new Map();
+const LOCALE_TO_PATH_PREFIX = { es: '/blog/', en: '/en/blog/' };
+for (const locale of ['es', 'en']) {
+  const dir = join(process.cwd(), 'src/content/blog', locale);
+  let files = [];
+  try {
+    files = readdirSync(dir).filter((f) => f.endsWith('.md'));
+  } catch {
+    continue;
+  }
+  for (const file of files) {
+    const slug = file.replace(/\.md$/, '');
+    const raw = readFileSync(join(dir, file), 'utf8');
+    const fm = raw.match(/^---\n([\s\S]*?)\n---/);
+    if (!fm) continue;
+    const updated = fm[1].match(/^updated:\s*(\S+)/m)?.[1];
+    const date = fm[1].match(/^date:\s*(\S+)/m)?.[1];
+    const stamp = updated || date;
+    if (!stamp) continue;
+    POST_LASTMOD.set(`${LOCALE_TO_PATH_PREFIX[locale]}${slug}/`, stamp);
+  }
 }
 
 // https://astro.build/config
@@ -81,6 +110,12 @@ export default defineConfig({
         } else if (path.startsWith('/legal/')) {
           item.priority = 0.3;
           item.changefreq = 'yearly';
+        }
+
+        // Per-post lastmod from frontmatter, else fall back to build time.
+        const postStamp = POST_LASTMOD.get(fullPath);
+        if (postStamp) {
+          item.lastmod = postStamp;
         }
 
         // Inject hreflang alternates for pages whose slug differs across locales.
