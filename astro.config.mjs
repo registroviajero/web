@@ -69,6 +69,18 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
+  // Cross-locale slug confusion appearing as 404s in Search Console — likely
+  // URLs Google fabricated from hreflang pairs (EN prefix + ES slug, or vice
+  // versa). Both trailing-slash variants because the source URL in GSC has no
+  // slash but `trailingSlash: 'always'` would also miss the slashed form.
+  redirects: {
+    '/en/blog/sanciones-rd-933-2021': '/en/blog/royal-decree-933-2021-penalties/',
+    '/en/blog/sanciones-rd-933-2021/': '/en/blog/royal-decree-933-2021-penalties/',
+    '/blog/minors-guest-registration': '/blog/menores-registro-viajeros/',
+    '/blog/minors-guest-registration/': '/blog/menores-registro-viajeros/',
+    '/en/blog/menores-registro-viajeros': '/en/blog/minors-guest-registration/',
+    '/en/blog/menores-registro-viajeros/': '/en/blog/minors-guest-registration/',
+  },
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
