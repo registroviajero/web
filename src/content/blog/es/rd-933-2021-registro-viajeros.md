@@ -1,87 +1,140 @@
 ---
-title: "Qué es el Real Decreto 933/2021 y cómo afecta a los alojamientos turísticos"
-description: "Todo lo que necesitas saber sobre la normativa de registro de viajeros en España: qué datos debes recoger, cómo enviarlos al Ministerio del Interior y cómo evitar sanciones."
+title: "Real Decreto 933/2021: qué datos hay que recoger y cuándo enviarlos al Ministerio"
+description: "Todo lo que necesita saber un alojamiento turístico sobre el RD 933/2021. Datos exigidos, plazo de envío, retención de 3 años, sanciones y excepciones por comunidad autónoma."
 date: 2026-04-17
+updated: 2026-05-01
 author: "RegistroViajero"
 lang: "es"
 translationKey: "rd-933-2021"
 ---
 
-El **Real Decreto 933/2021** establece las obligaciones de registro documental e información de las personas físicas o jurídicas que ejercen actividades de hospedaje en España. Si gestionas un alojamiento turístico — ya sea un hotel, apartamento, casa rural o cualquier tipo de alojamiento reglado — esta normativa te afecta directamente.
+El **Real Decreto 933/2021** establece las obligaciones de registro documental e información de las personas físicas o jurídicas que ejercen actividades de hospedaje en España.
 
-## ¿Qué exige la normativa?
+Si gestionas un alojamiento turístico —hotel, apartamento, casa rural o cualquier alojamiento reglado— esta normativa te afecta directamente.
 
-Desde la entrada en vigor de la obligación de envío telemático en **diciembre de 2024**, todos los establecimientos de hospedaje deben:
+## Real Decreto 933/2021: entrada en vigor y a quién obliga
+
+El decreto se publicó en 2021. La obligación de **envío telemático** a través de SES.HOSPEDAJES entró en vigor en **diciembre de 2024**.
+
+Obliga a todas las personas físicas y jurídicas que prestan servicios de hospedaje. La lista práctica:
+
+- Hoteles, hostales, pensiones.
+- Apartamentos turísticos y viviendas de uso turístico (VUT).
+- Casas rurales, albergues, refugios, campings.
+- Alquiler turístico particular en plataformas (Airbnb, Booking, VRBO, Vrbo, etc.) si se ofrece como hospedaje turístico.
+- Alquiler de temporada con servicios de hospedaje.
+
+¿Aplica al alquiler de temporada puro (sin servicios de hospedaje)? La interpretación administrativa actual es que sí, cuando hay rotación turística. La frontera se decide caso por caso. Si tienes dudas, consulta con tu asesor.
+
+## Qué exige la normativa en términos prácticos
+
+Desde diciembre de 2024, todos los alojamientos deben:
 
 1. **Recoger los datos de cada viajero** que se aloje en sus instalaciones.
-2. **Enviar un parte de viajeros** al Ministerio del Interior a través de la plataforma SES.HOSPEDAJES.
+2. **Enviar un parte de viajeros** al Ministerio del Interior a través de SES.HOSPEDAJES.
 3. **Comunicar la reserva de hospedaje** con los datos de la estancia (fechas, número de huéspedes, tipo de alojamiento).
 
-Todo esto debe hacerse de forma telemática — ya no se aceptan los antiguos partes en papel.
+Todo esto, telemáticamente. Ya no se aceptan los antiguos partes en papel.
 
-## ¿Qué datos se deben recoger de cada huésped?
+## Qué datos hay que recoger del huésped
 
-La normativa exige recopilar, como mínimo:
+La norma exige, como mínimo:
 
-- **Nombre completo** (nombre, primer apellido y segundo apellido para documentos españoles)
-- **Sexo y fecha de nacimiento**
-- **Nacionalidad**
-- **Tipo y número de documento de identidad** (DNI, NIE, pasaporte o documento de identidad del país de origen)
-- **Número de soporte** (obligatorio para DNI español)
-- **Dirección de residencia habitual**
-- **Teléfono y/o email de contacto**
-- **Parentesco** con un adulto acompañante, para menores entre 14 y 17 años
+- **Nombre completo** (nombre, primer apellido y segundo apellido para documentos españoles).
+- **Sexo y fecha de nacimiento**.
+- **Nacionalidad**.
+- **Tipo y número de documento de identidad** (DNI, NIE, pasaporte o documento del país de origen).
+- **Número de soporte** (obligatorio para DNI español).
+- **Dirección de residencia habitual**.
+- **Teléfono y/o email de contacto**.
+- **Parentesco** con un adulto acompañante, para menores entre 14 y 17 años.
 
-Los menores de 14 años están exentos de la obligación de registro individual, aunque deben constar como acompañantes. Profundizamos en cómo aplica la norma a niños y adolescentes en [Menores en el registro de viajeros](/blog/menores-registro-viajeros/).
+Para la **reserva de hospedaje** se añaden datos del contrato y, en algunos supuestos, del **medio de pago**: tipo (tarjeta, transferencia, efectivo), titular, los últimos cuatro dígitos en tarjeta. La obligatoriedad del medio de pago depende del tipo de hospedaje y de la duración de la estancia. Si tienes apartamentos turísticos, la posición administrativa actual es que el dato de pago se incluye.
 
-## ¿Qué es SES.HOSPEDAJES?
+Los menores de 14 años están exentos del registro individual, aunque deben constar como acompañantes. Profundizamos en cómo aplica la norma a niños y adolescentes en [Menores en el registro de viajeros](/blog/menores-registro-viajeros/).
 
-**SES.HOSPEDAJES** es la plataforma del Ministerio del Interior (gestionada por la Secretaría de Estado de Seguridad) a la que los alojamientos deben enviar los partes de viajeros y las reservas de hospedaje.
+## RD 933/2021: plazo de envío del parte de viajeros
 
-El proceso de envío es complejo y no es viable hacerlo manualmente — la mayoría de alojamientos necesitan un software que automatice la generación y el envío de los partes.
+Pregunta frecuente. La norma exige la comunicación **en el momento del check-in** o en las **24 horas siguientes** al inicio del hospedaje.
 
-Para acceder a SES.HOSPEDAJES necesitas:
+En la práctica:
 
-- Un **código de arrendador** proporcionado por las autoridades.
+- **El parte de viajeros** se envía al Ministerio dentro de las primeras horas de la estancia.
+- **La reserva de hospedaje** se puede enviar antes (con la reserva confirmada) o junto al parte.
+- **La cancelación** se comunica si la reserva ya se había enviado y el huésped no llega.
+
+Mandar el parte una semana después es una comunicación extemporánea. Sancionable.
+
+## Cuántos días hay que guardar los datos del huésped
+
+**Tres años**.
+
+Pasado ese plazo, los datos deben eliminarse o anonimizarse. La retención está fijada por la norma, no es discrecional. Conservarlos más tiempo sin base jurídica adicional sería una infracción del RGPD.
+
+Tu software debe purgar automáticamente. Confiar en hacerlo a mano es no hacerlo.
+
+## Qué es SES.HOSPEDAJES
+
+**SES.HOSPEDAJES** es la plataforma del Ministerio del Interior, gestionada por la Secretaría de Estado de Seguridad. Es a quien envías los partes de viajeros y las reservas de hospedaje.
+
+El proceso es complejo y no es viable manualmente. La mayoría de alojamientos necesitan un software que automatice generación y envío.
+
+Para acceder necesitas:
+
+- Un **código de arrendador** asignado por el sistema al darte de alta.
 - Un **código de establecimiento** para cada propiedad.
-- **Credenciales de acceso** (usuario y contraseña) proporcionadas por la Policía Nacional o la Guardia Civil.
+- **Credenciales de acceso** (usuario y contraseña SOAP) para el envío automático.
 
-Explicamos cómo solicitar cada uno de estos elementos en la guía [Cómo obtener las credenciales de SES.HOSPEDAJES paso a paso](/blog/credenciales-ses-hospedajes/).
+Lo desglosamos en [Cómo obtener las credenciales de SES.HOSPEDAJES paso a paso](/blog/credenciales-ses-hospedajes/).
 
-## ¿Qué se envía al Ministerio?
+## Qué se envía al Ministerio
 
 Cada envío incluye dos comunicaciones:
 
 - **Parte de viajeros**: los datos personales de cada huésped registrado.
-- **Reserva de hospedaje**: las fechas de entrada y salida, número de huéspedes, tipo de contrato y datos del alojamiento.
+- **Reserva de hospedaje**: fechas, número de huéspedes, tipo de contrato y datos del alojamiento.
 
-Ambas se envían juntas al Ministerio. Una vez procesadas, recibes una confirmación de si la comunicación fue aceptada o si contiene errores que debes corregir.
+Ambas se envían juntas. Una vez procesadas, recibes confirmación de aceptación o, si hay errores, el detalle para corregirlos.
 
-## ¿Qué pasa si no cumplo?
+## RD 933/2021 y datos de la tarjeta de pago: ¿obligatorio?
 
-El incumplimiento de las obligaciones del RD 933/2021 puede acarrear **sanciones administrativas**. La cuantía depende de la gravedad y reiteración de la infracción, pero se enmarca en la legislación de seguridad ciudadana. Las cuantías empiezan en 601 € para infracciones leves y pueden escalar a varios miles — desglosamos los tramos y supuestos en [Sanciones por incumplir el RD 933/2021](/blog/sanciones-rd-933-2021/).
+Esta pregunta sale en cada conversación con propietarios.
 
-Más allá de las sanciones, el registro correcto de viajeros es una obligación legal que contribuye a la seguridad pública y es responsabilidad de todo titular de alojamiento turístico.
+La norma incluye datos del medio de pago entre los campos exigidos para la reserva de hospedaje. Sí. Eso significa que tienes que recoger:
 
-## ¿Qué comunidades autónomas tienen normativa propia?
+- **Tipo** de medio de pago (tarjeta, transferencia, efectivo, etc.).
+- **Titular** del medio.
+- **Identificación** del medio (los últimos cuatro dígitos en el caso de tarjeta).
 
-La mayoría de comunidades autónomas utilizan SES.HOSPEDAJES del Ministerio del Interior. Sin embargo, existen excepciones:
+No se piden todos los dígitos de la tarjeta. Tampoco el CVV, ni la fecha de expiración. Solo lo suficiente para identificar el medio. Si recoges más, es un problema de minimización RGPD.
 
-- **Cataluña**: los alojamientos deben comunicar los datos a los **Mossos d'Esquadra** a través de su propio sistema.
-- **País Vasco**: la comunicación se realiza a la **Ertzaintza**.
+## Qué pasa si no cumplo
 
-Si tu alojamiento está en alguna de estas comunidades, necesitarás utilizar los sistemas específicos de cada cuerpo policial autonómico. Profundizamos en el porqué del régimen especial y en cómo gestionar el cumplimiento si tu cartera incluye propiedades allí en [Registro de viajeros en Cataluña y País Vasco](/blog/cataluna-pais-vasco-registro-viajeros/).
+El incumplimiento puede acarrear **sanciones administrativas**.
+
+La cuantía depende de la gravedad y la reiteración. Se enmarca en la legislación de seguridad ciudadana (LO 4/2015). Cuantías desde 100 € (leve) hasta 600.000 € (muy grave). Lo desglosamos en [Sanciones por incumplir el RD 933/2021](/blog/sanciones-rd-933-2021/).
+
+Más allá de las multas, el registro correcto es responsabilidad del titular del alojamiento.
+
+## Qué comunidades autónomas tienen normativa propia
+
+La mayoría usan SES.HOSPEDAJES del Ministerio. Hay dos excepciones:
+
+- **Cataluña**: la comunicación se hace a los **Mossos d'Esquadra** a través del sistema de la Generalitat.
+- **País Vasco**: a la **Ertzaintza** a través del sistema del Gobierno Vasco.
+
+Si tu alojamiento está en alguna de estas comunidades, necesitas el sistema regional. Profundizamos en [Registro de viajeros en Cataluña y País Vasco](/blog/cataluna-pais-vasco-registro-viajeros/).
 
 ## Cómo simplifica RegistroViajero el cumplimiento
 
-[RegistroViajero](https://registroviajero.com) automatiza todo el proceso de cumplimiento del RD 933/2021:
+[RegistroViajero](https://registroviajero.com) automatiza el proceso completo:
 
-1. **Check-in digital**: cada huésped recibe un enlace único en su móvil. Rellena sus datos, sube una foto de su documento y firma una declaración de veracidad. Disponible en 9 idiomas.
-2. **Validación automática**: el sistema comprueba que todos los campos obligatorios están completos y son válidos antes de permitir el envío.
-3. **Envío directo a SES.HOSPEDAJES**: genera y envía automáticamente los partes al Ministerio con un clic. Sin intervención manual.
-4. **Seguimiento del estado**: consulta automáticamente el resultado de cada envío y te notifica si hay errores o rechazos.
-5. **Importación de reservas**: sincroniza automáticamente tus reservas desde Booking.com, Airbnb, VRBO, Expedia, Tripadvisor y Google Calendar. Aprende [cómo sincronizar los portales vía iCal](/blog/ical-sincronizar-booking-airbnb/).
+1. **Check-in digital**: cada huésped recibe un enlace único en su móvil. Rellena datos, sube foto del documento y firma. 9 idiomas.
+2. **Validación automática**: el sistema comprueba que los campos obligatorios están completos y son válidos antes de permitir el envío.
+3. **Envío directo a SES.HOSPEDAJES**: genera y envía con un clic. Sin intervención manual.
+4. **Seguimiento**: consulta el resultado de cada envío y te avisa de errores o rechazos.
+5. **Importación de reservas**: sincroniza con Booking.com, Airbnb, VRBO, Expedia, Tripadvisor y Google Calendar. Aquí tienes [cómo sincronizar los portales vía iCal](/blog/ical-sincronizar-booking-airbnb/).
 
-Si quieres ver el flujo completo extremo a extremo —de la reserva al envío al Ministerio— sin entrar todavía en la herramienta, lo desglosamos en [cómo automatizar el registro de viajeros](/blog/automatizar-registro-viajeros/).
+Si quieres ver el flujo extremo a extremo —de la reserva al envío al Ministerio— sin entrar todavía en la herramienta, lo desglosamos en [cómo automatizar el registro de viajeros](/blog/automatizar-registro-viajeros/).
 
-Si gestionas alojamientos turísticos en España y quieres cumplir con la normativa sin complicaciones, puedes [crear una cuenta gratuita](https://app.registroviajero.com/register) y probar el servicio durante 15 días sin compromiso.
+Si gestionas alojamientos en España, puedes [crear una cuenta gratuita](https://app.registroviajero.com/register) y probar 15 días sin compromiso.
