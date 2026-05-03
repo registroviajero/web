@@ -122,6 +122,7 @@ const PLATFORMS = [
   { name: 'Expedia', slug: 'expedia' },
   { name: 'Tripadvisor', slug: 'tripadvisor' },
   { name: 'Google Calendar', slug: 'google-calendar' },
+  { name: 'Holidu', slug: 'holidu' },
 ]
 
 export const LANDING: Record<Locale, LandingContent> = {
