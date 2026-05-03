@@ -18,7 +18,6 @@ Plan Pro: 5 € por alojamiento activo al mes, facturación mensual, sin mínimo
 ## Funcionalidades clave
 
 - Check-in digital con enlace único por huésped en 9 idiomas (español, inglés, francés, alemán, italiano, portugués, gallego, euskera, catalán)
-- Subida de foto del documento de identidad desde la cámara del móvil
 - Firma digital de declaración de veracidad por el huésped
 - Importación automática de reservas vía iCal (Booking.com, Airbnb, VRBO, Expedia, Tripadvisor, Google Calendar)
 - Generación y envío automático de partes de viajeros y reservas de hospedaje a SES.HOSPEDAJES

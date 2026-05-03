@@ -43,6 +43,10 @@ interface Props {
   ogImageHeight?: number
   /** Alt text for og:image:alt. Defaults to the page title. */
   ogImageAlt?: string
+  /** Absolute URL for rel=prev on paginated pages. */
+  prevUrl?: string
+  /** Absolute URL for rel=next on paginated pages. */
+  nextUrl?: string
 }
 
 const {
@@ -61,6 +65,8 @@ const {
   ogImageWidth = 1200,
   ogImageHeight = 630,
   ogImageAlt,
+  prevUrl,
+  nextUrl,
 } = Astro.props
 
 const locale: Locale = localeProp ?? getLocaleFromUrl(Astro.url)
@@ -129,6 +135,8 @@ const rssTitle = locale === 'es' ? 'Blog — RegistroViajero' : 'Blog — Regist
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex,follow" />}
     <link rel="canonical" href={canonicalUrl} />
+    {prevUrl && <link rel="prev" href={prevUrl} />}
+    {nextUrl && <link rel="next" href={nextUrl} />}
 
     {alternates.map((alt) => (
       <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />

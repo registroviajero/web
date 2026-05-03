@@ -112,6 +112,9 @@ type UIStrings = {
     listTitleMeta: string
     listDescriptionMeta: string
     postTitleSuffix: string
+    previousPage: string
+    nextPage: string
+    pageXOfY: (current: number, total: number) => string
   }
   notFound: {
     title: string
@@ -184,6 +187,9 @@ export const UI: Record<Locale, UIStrings> = {
       listTitleMeta: 'Blog — RegistroViajero',
       listDescriptionMeta: 'Artículos sobre registro de viajeros, normativa turística y gestión de alojamientos en España.',
       postTitleSuffix: 'Blog RegistroViajero',
+      previousPage: '← Anterior',
+      nextPage: 'Siguiente →',
+      pageXOfY: (current, total) => `Página ${current} de ${total}`,
     },
     notFound: {
       title: 'Página no encontrada — RegistroViajero',
@@ -260,6 +266,9 @@ export const UI: Record<Locale, UIStrings> = {
       listTitleMeta: 'Blog — RegistroViajero',
       listDescriptionMeta: 'Articles on guest registration, Spanish tourism regulations, and accommodation management.',
       postTitleSuffix: 'RegistroViajero Blog',
+      previousPage: '← Previous',
+      nextPage: 'Next →',
+      pageXOfY: (current, total) => `Page ${current} of ${total}`,
     },
     notFound: {
       title: 'Page not found — RegistroViajero',

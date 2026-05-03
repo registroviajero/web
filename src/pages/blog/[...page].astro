@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import LocaleBanner from '../../components/LocaleBanner.astro'
+import { SITE_URL } from '../../i18n/config'
+import { UI } from '../../i18n/ui'
+import { absoluteUrl, formatDate, localizedPath } from '../../i18n/utils'
+import { getPostsByLocale, getSlug } from '../../i18n/blog'
+
+export async function getStaticPaths({ paginate }: { paginate: any }) {
+  const posts = await getPostsByLocale('es')
+  return paginate(posts, { pageSize: 6 })
+}
+
+const locale = 'es' as const
+const t = UI[locale].blog
+const { page } = Astro.props
+
+const blogPath = localizedPath(locale, '/blog')
+const isPaginated = page.currentPage > 1
+
+const pageTitle = isPaginated
+  ? `${t.indexHeading} — Página ${page.currentPage}`
+  : t.indexHeading
+
+const pageCanonical = isPaginated
+  ? `${SITE_URL}${blogPath}${page.currentPage}/`
+  : `${SITE_URL}${blogPath}`
+
+const prevUrl = page.url.prev ? `${SITE_URL}${page.url.prev}` : undefined
+const nextUrl = page.url.next ? `${SITE_URL}${page.url.next}` : undefined
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: t.breadcrumbHome, item: absoluteUrl(locale, '/') },
+    { '@type': 'ListItem', position: 2, name: t.breadcrumbBlog, item: absoluteUrl(locale, '/blog') },
+  ],
+}
+---
+
+<Layout
+  title={isPaginated ? `${pageTitle} — ${t.postTitleSuffix}` : t.listTitleMeta}
+  description={t.listDescriptionMeta}
+  locale={locale}
+  logicalPath="/blog"
+  canonical={pageCanonical}
+  prevUrl={prevUrl}
+  nextUrl={nextUrl}
+>
+  <Nav locale={locale} />
+  <LocaleBanner locale={locale} />
+
+  <main id="main-content" class="pt-28 pb-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">{pageTitle}</h1>
+      <p class="mt-3 text-lg text-gray-600">{t.indexIntro}</p>
+      <p class="mt-2 text-sm text-gray-400">{page.total} {page.total === 1 ? 'artículo' : 'artículos'}</p>
+
+      <div class="mt-12 space-y-8">
+        {page.data.map((post: any) => (
+          <article class="group">
+            <a href={`${blogPath}${getSlug(post)}/`} data-astro-prefetch class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
+              {post.data.cover && (
+                <img
+                  src={post.data.cover}
+                  alt={post.data.coverAlt ?? post.data.title}
+                  width="800"
+                  height="800"
+                  loading="lazy"
+                  class="w-full aspect-square sm:w-56 sm:h-56 sm:aspect-auto object-cover rounded-xl sm:flex-shrink-0"
+                />
+              )}
+              <div class="flex-1 min-w-0">
+                <time datetime={post.data.date.toISOString().split('T')[0]} class="text-sm text-gray-500">
+                  {formatDate(locale, post.data.date)}
+                </time>
+                <h2 class="mt-2 text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-150">
+                  {post.data.title}
+                </h2>
+                <p class="mt-2 text-gray-600 leading-relaxed">{post.data.description}</p>
+                <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary-600">
+                  {t.readMore}
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                </span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      {page.data.length === 0 && (
+        <p class="mt-12 text-gray-500 text-center">{t.empty}</p>
+      )}
+
+      {page.lastPage > 1 && (
+        <nav aria-label="Paginación" class="mt-16 flex items-center justify-between">
+          <div>
+            {page.url.prev ? (
+              <a href={page.url.prev} class="inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:underline">
+                {t.previousPage}
+              </a>
+            ) : (
+              <span class="text-sm text-gray-300">{t.previousPage}</span>
+            )}
+          </div>
+          <span class="text-sm text-gray-500">{t.pageXOfY(page.currentPage, page.lastPage)}</span>
+          <div>
+            {page.url.next ? (
+              <a href={page.url.next} class="inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:underline">
+                {t.nextPage}
+              </a>
+            ) : (
+              <span class="text-sm text-gray-300">{t.nextPage}</span>
+            )}
+          </div>
+        </nav>
+      )}
+    </div>
+  </main>
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <Footer locale={locale} />
+</Layout>

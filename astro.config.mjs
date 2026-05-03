@@ -72,6 +72,14 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
+  // Catch route conflicts at build time (e.g. two rest-param routes
+  // in the same directory) instead of silently resolving.
+  prerenderConflictBehavior: 'error',
+  // Prefetch links on hover for near-instant page navigation.
+  // Use data-astro-prefetch on individual links to opt in.
+  prefetch: {
+    defaultStrategy: 'hover',
+  },
   // Cross-locale slug confusion appearing as 404s in Search Console — likely
   // URLs Google fabricated from hreflang pairs (EN prefix + ES slug, or vice
   // versa). One entry per redirect; `trailingSlash: 'always'` generates the

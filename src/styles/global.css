@@ -16,6 +16,12 @@
 
 html { scroll-behavior: smooth; }
 
+/* Browser-native cross-document view transitions: smooth crossfade between
+   pages in supported browsers (Chrome), zero JS, graceful degradation. */
+@view-transition {
+  navigation: auto;
+}
+
 /* Scroll-reveal: elements with [data-animate] start hidden and fade up
    when the IntersectionObserver in Landing.astro adds .is-visible. */
 [data-animate] {
