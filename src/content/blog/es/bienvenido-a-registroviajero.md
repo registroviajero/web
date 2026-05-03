@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "es"
 translationKey: "welcome"
+cover: "/blog/bienvenido-a-registroviajero.webp"
+coverAlt: "Una mujer se despereza en una habitación mediterránea soleada con pijama de lino y persianas de madera abiertas"
 ---
 
 Hoy lanzamos **RegistroViajero**.

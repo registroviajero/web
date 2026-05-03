@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "en"
 translationKey: "rd-933-2021"
+cover: "/blog/rd-933-2021-registro-viajeros.webp"
+coverAlt: "A traveler with a suitcase pauses at the door of a whitewashed Spanish villa at golden hour; a cat watches from the balcony"
 ---
 
 **Royal Decree 933/2021** sets the documentary registration and reporting obligations for individuals and legal entities carrying out lodging activities in Spain.

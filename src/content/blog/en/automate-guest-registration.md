@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "en"
 translationKey: "automate"
+cover: "/blog/automatizar-registro-viajeros.webp"
+coverAlt: "A character beside a small handcrank machine on a Spanish patio; papers feed in one side and emerge neatly tied with twine on the other"
 ---
 
 If you manage a tourist accommodation in Spain, you already know the routine.

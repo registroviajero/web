@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "en"
 translationKey: "welcome"
+cover: "/blog/welcome-to-registroviajero.webp"
+coverAlt: "A woman stretches awake in a sun-filled Mediterranean bedroom with linen pyjamas and open wooden shutters"
 ---
 
 Today we're launching **RegistroViajero**.

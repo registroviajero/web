@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "es"
 translationKey: "regional-systems"
+cover: "/blog/cataluna-pais-vasco-registro-viajeros.webp"
+coverAlt: "Un viajero estudia un mapa en un cruce donde un camino baja a la costa mediterránea y otro sube a colinas de pinos; un perro espera a sus pies"
 ---
 
 Si gestionas un alojamiento turístico en **Cataluña** o **País Vasco** y has investigado cómo cumplir el [Real Decreto 933/2021](/blog/rd-933-2021-registro-viajeros/), te has topado con el mismo callejón sin salida que muchos compañeros.

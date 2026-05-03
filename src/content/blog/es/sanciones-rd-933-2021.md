@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "es"
 translationKey: "penalties"
+cover: "/blog/sanciones-rd-933-2021.webp"
+coverAlt: "Un adulto camina sobre una cuerda de ropa tendida entre tejados de terracota en una calle española estrecha"
 ---
 
 Desde que el **Real Decreto 933/2021** hizo obligatorio el envío telemático de los partes de viajeros a través de SES.HOSPEDAJES, muchos propietarios y agencias se hacen la misma pregunta.

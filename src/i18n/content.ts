@@ -4,6 +4,30 @@ type Step = { num: string; title: string; desc: string }
 type Feature = { title: string; desc: string; icon: string }
 type Segment = { title: string; desc: string }
 type Faq = { q: string; a: string; html?: string }
+/** Keys map to imported assets in Landing.astro. New mockup → add the key
+ * here and the corresponding `import` + `mockupMap` entry in Landing.astro. */
+export type MockupKey =
+  | 'checkin'
+  | 'asistente'
+  | 'audit'
+  | 'reservas'
+  | 'alojamiento'
+  | 'dashboard'
+
+type Spotlight = {
+  eyebrow: string
+  title: string
+  body: string
+  imageKey: MockupKey
+  imageAlt: string
+  bullets: string[]
+}
+type TourCard = {
+  imageKey: MockupKey
+  imageAlt: string
+  title: string
+  desc: string
+}
 
 type LandingContent = {
   meta: { title: string; description: string }
@@ -15,6 +39,14 @@ type LandingContent = {
     ctaPrimary: string
     ctaSecondary: string
     disclaimer: string
+    phoneAlt: string
+  }
+  spotlights: Spotlight[]
+  tour: {
+    id: string
+    title: string
+    intro: string
+    cards: TourCard[]
   }
   sections: {
     featuresId: string
@@ -59,7 +91,7 @@ type LandingContent = {
   steps: Step[]
   features: Feature[]
   segments: Segment[]
-  platforms: { name: string; color: string }[]
+  platforms: { name: string; slug: string }[]
   faqs: Faq[]
   schema: {
     softwareDescription: string
@@ -84,12 +116,12 @@ const ICON = {
 }
 
 const PLATFORMS = [
-  { name: 'Booking.com', color: '#003580' },
-  { name: 'Airbnb', color: '#FF5A5F' },
-  { name: 'VRBO', color: '#3B5998' },
-  { name: 'Expedia', color: '#00355F' },
-  { name: 'Tripadvisor', color: '#34E0A1' },
-  { name: 'Google Calendar', color: '#4285F4' },
+  { name: 'Booking.com', slug: 'booking' },
+  { name: 'Airbnb', slug: 'airbnb' },
+  { name: 'Vrbo', slug: 'vrbo' },
+  { name: 'Expedia', slug: 'expedia' },
+  { name: 'Tripadvisor', slug: 'tripadvisor' },
+  { name: 'Google Calendar', slug: 'google-calendar' },
 ]
 
 export const LANDING: Record<Locale, LandingContent> = {
@@ -99,13 +131,74 @@ export const LANDING: Record<Locale, LandingContent> = {
       description: 'Automatiza el registro de viajeros y los partes de hospedaje del RD 933/2021. Tus huéspedes se registran desde su móvil; tú validas y envías a SES.HOSPEDAJES con un clic. 15 días gratis, sin tarjeta.',
     },
     hero: {
-      pill: 'Real Decreto 933/2021',
+      pill: 'Cumple RD 933/2021 · Envío directo a SES.HOSPEDAJES',
       title1: 'Automatiza el registro',
       titleAccent: 'de viajeros',
       subhead: 'Tus huéspedes se registran desde su móvil. Tú validas y envías los partes a SES.HOSPEDAJES con un clic. Sin papeles, sin errores, sin complicaciones.',
       ctaPrimary: 'Empieza gratis — 15 días',
       ctaSecondary: 'Cómo funciona',
       disclaimer: 'Sin tarjeta de crédito. Acceso ilimitado durante la prueba.',
+      phoneAlt: 'Panel de control de RegistroViajero',
+    },
+    spotlights: [
+      {
+        eyebrow: 'CHECK-IN DIGITAL',
+        title: 'Tus huéspedes hacen el check-in solos, en su idioma',
+        body: 'Generamos un enlace único por huésped que puedes compartir por email, WhatsApp o el canal que prefieras. Sin app, sin registro, sin descargas. Rellenan sus datos, firman desde el móvil y el parte queda listo para enviar al Ministerio.',
+        imageKey: 'checkin',
+        imageAlt: 'Pantalla de check-in del huésped en el móvil',
+        bullets: [
+          '9 idiomas: español, inglés, francés, alemán, italiano, portugués, gallego, euskera y catalán',
+          'Validación en tiempo real para DNI, NIE, pasaporte y documentos UE',
+          'Firma digital de la declaración de veracidad',
+          'Guarda el progreso automáticamente — el huésped puede continuar más tarde',
+        ],
+      },
+      {
+        eyebrow: 'ASISTENTE INTEGRADO',
+        title: 'ReVi te resuelve dudas y te lleva donde necesitas',
+        body: 'Pregúntale por errores del Ministerio, datos incompletos o estadísticas de tu cuenta. ReVi conoce tu contexto, pero nunca ve datos personales de tus huéspedes — solo metadatos y estadísticas.',
+        imageKey: 'asistente',
+        imageAlt: 'Asistente ReVi en la aplicación de RegistroViajero',
+        bullets: [
+          'Respuestas en tu idioma, basadas en el centro de ayuda',
+          'Te lleva a la pantalla correcta con un clic',
+          'Datos sensibles redactados antes de cada consulta',
+          'Cumple GDPR — no entrenamos modelos con tu información',
+        ],
+      },
+      {
+        eyebrow: 'REGISTRO DE AUDITORÍA',
+        title: 'Cada cambio queda registrado, para siempre',
+        body: 'Cada acción —añadir un huésped, editar un dato, enviar al Ministerio o recibir una confirmación— queda registrada con fecha, autor y contexto. La pista es inmutable: nunca se modifica, nunca se elimina. Lo que necesitas si una inspección pregunta qué pasó, cuándo y quién lo hizo.',
+        imageKey: 'audit',
+        imageAlt: 'Registro de auditoría de una reserva',
+        bullets: [
+          'Inmutable: las filas nunca se modifican ni se borran',
+          'Acciones del huésped, del equipo y del sistema diferenciadas',
+          'Visible en cada reserva, alojamiento y panel',
+          'Cada envío a SES.HOSPEDAJES queda asociado a su lote y respuesta del Ministerio',
+        ],
+      },
+    ],
+    tour: {
+      id: 'tour',
+      title: 'Y mucho más en cada pantalla',
+      intro: 'Cada parte del flujo está pensada para reducir clics y errores.',
+      cards: [
+        {
+          imageKey: 'reservas',
+          imageAlt: 'Lista de reservas con plataformas de origen y estados',
+          title: 'Reservas',
+          desc: 'Lista densa con plataforma de origen, estado, advertencias de overbooking y progreso de huéspedes. Filtra por fecha, alojamiento y estado en un instante.',
+        },
+        {
+          imageKey: 'alojamiento',
+          imageAlt: 'Página de detalle de un alojamiento',
+          title: 'Alojamientos',
+          desc: 'Una página por propiedad con foto, dirección, credenciales SES y todas las reservas. Edita un alojamiento y los datos se actualizan en todos los partes pendientes.',
+        },
+      ],
     },
     sections: {
       featuresId: 'funcionalidades',
@@ -231,13 +324,74 @@ export const LANDING: Record<Locale, LandingContent> = {
       description: 'Software for Royal Decree 933/2021 compliance. Your guests register from their phone. You review and send to SES.HOSPEDAJES in one click. 15-day free trial.',
     },
     hero: {
-      pill: 'Royal Decree 933/2021',
+      pill: 'Royal Decree 933/2021 · Direct submission to SES.HOSPEDAJES',
       title1: 'Automatic guest',
       titleAccent: 'registration',
       subhead: 'Your guests register from their phone. You review and send reports to SES.HOSPEDAJES in one click. No paperwork, no typos, no hassle.',
       ctaPrimary: 'Start free — 15 days',
       ctaSecondary: 'See how it works',
       disclaimer: 'No credit card. Full access during the trial.',
+      phoneAlt: 'RegistroViajero control panel',
+    },
+    spotlights: [
+      {
+        eyebrow: 'GUEST CHECK-IN',
+        title: 'Your guests check themselves in, in their own language',
+        body: 'We generate a unique link per guest that you share over email, WhatsApp or any channel you already use. No app, no sign-up, no downloads. They fill in their details, sign on their phone, and the report is ready to file with the Ministry.',
+        imageKey: 'checkin',
+        imageAlt: 'Guest check-in screen on a mobile device',
+        bullets: [
+          '9 languages: Spanish, English, French, German, Italian, Portuguese, Galician, Basque and Catalan',
+          'Real-time validation for DNI, NIE, passport and EU documents',
+          'Digital signature of the truthfulness declaration',
+          'Progress saves automatically — guests can pick up where they left off',
+        ],
+      },
+      {
+        eyebrow: 'BUILT-IN ASSISTANT',
+        title: 'ReVi answers your questions and takes you where you need to be',
+        body: 'Ask about Ministry errors, incomplete data or account statistics. ReVi knows your context but never sees your guests\' personal data — only metadata and aggregates.',
+        imageKey: 'asistente',
+        imageAlt: 'ReVi assistant inside the RegistroViajero app',
+        bullets: [
+          'Replies in your language, grounded in the help centre',
+          'Navigates you to the right screen with one click',
+          'Sensitive data redacted before every request',
+          'GDPR compliant — we never train models on your data',
+        ],
+      },
+      {
+        eyebrow: 'AUDIT LOG',
+        title: 'Every change is logged, forever',
+        body: 'Every action — adding a guest, editing a field, submitting to the Ministry, receiving a confirmation — is logged with timestamp, actor and context. The trail is immutable: never modified, never deleted. Exactly what you need when an inspection asks what happened, when and who did it.',
+        imageKey: 'audit',
+        imageAlt: 'Audit timeline for a reservation',
+        bullets: [
+          'Immutable: rows are never modified or deleted',
+          'Distinguishes guest, team and system actions',
+          'Visible on every reservation, property and dashboard',
+          'Every SES.HOSPEDAJES submission tied to its lote and Ministry response',
+        ],
+      },
+    ],
+    tour: {
+      id: 'tour',
+      title: 'And more on every screen',
+      intro: 'Every part of the workflow is designed to cut clicks and prevent errors.',
+      cards: [
+        {
+          imageKey: 'reservas',
+          imageAlt: 'Reservations list with source platforms and statuses',
+          title: 'Reservations',
+          desc: 'Dense list with source platform, status, overbooking warnings and per-guest progress. Filter by date, property and status in one tap.',
+        },
+        {
+          imageKey: 'alojamiento',
+          imageAlt: 'Property detail page',
+          title: 'Properties',
+          desc: 'One page per property with photo, address, SES credentials and all reservations. Edit a property and the data flows through to every pending report.',
+        },
+      ],
     },
     sections: {
       featuresId: 'features',

@@ -5,6 +5,8 @@ date: 2026-05-01
 author: "RegistroViajero"
 lang: "en"
 translationKey: "ai-revi"
+cover: "/blog/inteligencia-artificial-registro-viajeros.webp"
+coverAlt: "A traveler seated on a stone bench in a Spanish plaza with a small bird perched on their shoulder whispering; they hold an open notebook"
 ---
 
 Running a holiday rental in Spain is good work. The paperwork is not.

@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "es"
 translationKey: "automate"
+cover: "/blog/automatizar-registro-viajeros.webp"
+coverAlt: "Un personaje junto a una pequeña máquina de manivela en un patio español; papeles entran por un lado y salen ordenados y atados con hilo"
 ---
 
 Si gestionas un alojamiento turístico en España, ya conoces la rutina. El **RD 933/2021** te obliga a recoger una lista larga de datos de cada huésped y mandarlos al Ministerio del Interior por **SES.HOSPEDAJES**.

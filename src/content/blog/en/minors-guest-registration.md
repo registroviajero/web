@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "en"
 translationKey: "minors"
+cover: "/blog/menores-registro-viajeros.webp"
+coverAlt: "An adult traveler with a passport and two children walking down a Spanish stone alley; one child carries a small paper boat"
 ---
 
 A family with children walks into the apartment.

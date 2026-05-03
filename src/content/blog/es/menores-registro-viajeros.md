@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "es"
 translationKey: "minors"
+cover: "/blog/menores-registro-viajeros.webp"
+coverAlt: "Un viajero adulto con pasaporte y dos niños caminan por una calle española empedrada; uno lleva un barco de papel"
 ---
 
 Llega una familia con niños al apartamento.

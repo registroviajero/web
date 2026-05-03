@@ -6,7 +6,7 @@ import LocaleBanner from '../components/LocaleBanner.astro'
 import { APP_URL, DEFAULT_LOCALE, LOCALE_META, LOCALES, SITE_URL, type Locale } from '../i18n/config'
 import { absoluteUrl, buildLocalePaths, formatDate, localizedPath, type LocalePaths } from '../i18n/utils'
 import { UI } from '../i18n/ui'
-import { findTranslation, getSlug } from '../i18n/blog'
+import { findTranslation, getPostsByLocale, getSlug } from '../i18n/blog'
 
 interface Props {
   title: string
@@ -18,9 +18,16 @@ interface Props {
   slug: string
   locale: Locale
   translationKey: string
+  /** Root-relative path under /public, e.g. "/blog/nrua.webp". 1200x630
+   *  landscape source — displayed in-page as a square via CSS crop, and
+   *  used at its native aspect for og:image. */
+  cover?: string
+  coverAlt?: string
 }
 
-const { title, description, date, updated, author, readingTime, slug, locale, translationKey } = Astro.props
+const { title, description, date, updated, author, readingTime, slug, locale, translationKey, cover, coverAlt } = Astro.props
+
+const coverUrl = cover ? absoluteUrl(locale, cover) : undefined
 
 const t = UI[locale].blog
 
@@ -50,6 +57,8 @@ const formattedUpdated = updated ? formatDate(locale, updated) : null
 const blogIndex = localizedPath(locale, '/blog')
 const homePath = localizedPath(locale, '/')
 
+const otherPosts = (await getPostsByLocale(locale)).filter((p) => getSlug(p) !== slug).slice(0, 3)
+
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -72,6 +81,7 @@ const breadcrumbSchema = {
   logicalPath={logicalPath}
   localePaths={localePaths}
   availableLocales={availableLocales}
+  ogImage={cover}
 >
   <Nav locale={locale} localePaths={localePaths} />
   <LocaleBanner locale={locale} localePaths={localePaths} />
@@ -111,11 +121,56 @@ const breadcrumbSchema = {
           )}
         </div>
       </header>
+      {cover && (
+        <img
+          src={cover}
+          alt={coverAlt ?? title}
+          width="1200"
+          height="630"
+          loading="eager"
+          fetchpriority="high"
+          class="w-full aspect-square object-cover rounded-2xl mb-10"
+        />
+      )}
       <article class="prose prose-gray max-w-none prose-headings:font-bold prose-a:text-primary-600 prose-a:no-underline prose-a:hover:underline prose-img:rounded-xl">
         <slot />
       </article>
     </div>
   </main>
+
+  {otherPosts.length > 0 && (
+    <section class="py-16 border-t border-gray-100">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-8">
+          {locale === 'es' ? 'Más artículos' : 'More articles'}
+        </h2>
+        <div class="grid sm:grid-cols-3 gap-6">
+          {otherPosts.map((post) => (
+            <article class="group">
+              <a href={`${blogIndex}${getSlug(post)}/`} class="block">
+                {post.data.cover && (
+                  <img
+                    src={post.data.cover}
+                    alt={post.data.coverAlt ?? post.data.title}
+                    width="1000"
+                    height="630"
+                    loading="lazy"
+                    class="w-full aspect-square object-cover rounded-xl mb-3"
+                  />
+                )}
+                <time datetime={post.data.date.toISOString().split('T')[0]} class="text-xs text-gray-500">
+                  {formatDate(locale, post.data.date)}
+                </time>
+                <h3 class="mt-1 text-sm font-semibold text-gray-900 group-hover:text-primary-600 transition-colors duration-150 leading-snug">
+                  {post.data.title}
+                </h3>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="py-16 bg-primary-600">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
@@ -146,7 +201,7 @@ const breadcrumbSchema = {
       "logo": { "@type": "ImageObject", "url": `${SITE_URL}/logo.svg` }
     },
     "mainEntityOfPage": postUrl,
-    "image": `${SITE_URL}/og-image.png`,
+    "image": coverUrl ?? `${SITE_URL}/og-image.webp`,
     "inLanguage": LOCALE_META[locale].htmlLang
   })} />
 

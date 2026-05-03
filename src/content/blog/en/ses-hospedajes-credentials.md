@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "en"
 translationKey: "ses-credentials"
+cover: "/blog/credenciales-ses-hospedajes.webp"
+coverAlt: "A traveler at a heavy Spanish wooden door with three large iron keys floating in an arc around their hand; a cat watches from a flowerpot"
 ---
 
 Before you can send a single guest report to the Spanish Ministry of the Interior, you need three things. A **lessor code** (código de arrendador). An **establishment code** for each property. **Access credentials** (username and password) for the SES.HOSPEDAJES platform.

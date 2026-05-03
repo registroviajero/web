@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "en"
 translationKey: "regional-systems"
+cover: "/blog/cataluna-pais-vasco-registro-viajeros.webp"
+coverAlt: "A traveler studies a hand-drawn map at a crossroads where one path leads to a Mediterranean shore and another rises into pine-covered hills"
 ---
 
 If you manage a tourist accommodation in **Catalonia** or the **Basque Country** and you've researched how to comply with [Royal Decree 933/2021](/en/blog/royal-decree-933-2021-guide/), you've likely hit the same dead end.

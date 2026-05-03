@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "en"
 translationKey: "penalties"
+cover: "/blog/sanciones-rd-933-2021.webp"
+coverAlt: "An adult walks along a clothesline strung between terracotta rooftops on a narrow Spanish street"
 ---
 
 Since **Royal Decree 933/2021** made electronic submission of guest reports through SES.HOSPEDAJES mandatory, agencies and owners ask the same question.

@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "es"
 translationKey: "ical-sync"
+cover: "/blog/ical-sincronizar-booking-airbnb.webp"
+coverAlt: "Un personaje en una terraza junto al mar ordena tres sobres flotantes hacia una maleta abierta; costa mediterránea al fondo en la tarde cálida"
 ---
 
 Si gestionas un alojamiento turístico, conoces el dolor.

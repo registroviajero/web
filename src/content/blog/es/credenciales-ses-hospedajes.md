@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "es"
 translationKey: "ses-credentials"
+cover: "/blog/credenciales-ses-hospedajes.webp"
+coverAlt: "Un viajero frente a una puerta de madera española con tres grandes llaves de hierro flotando en arco alrededor de su mano; un gato observa desde una maceta"
 ---
 
 Antes de poder enviar un solo parte de viajeros, necesitas tres cosas. Un **código de arrendador**. Un **código de establecimiento** por cada propiedad. Y **credenciales de acceso** (usuario y contraseña) a la plataforma SES.HOSPEDAJES.

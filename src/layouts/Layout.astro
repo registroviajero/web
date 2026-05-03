@@ -31,6 +31,12 @@ interface Props {
    * alternates entirely. Used for 404 and other pages that must not be indexed.
    */
   noindex?: boolean
+  /**
+   * Absolute URL or root-relative path for og:image / twitter:image. Falls
+   * back to the site-wide /og-image.webp when omitted. Root-relative paths
+   * are upgraded to absolute against SITE_URL.
+   */
+  ogImage?: string
 }
 
 const {
@@ -45,6 +51,7 @@ const {
   localePaths: localePathsProp,
   availableLocales,
   noindex = false,
+  ogImage: ogImageProp,
 } = Astro.props
 
 const locale: Locale = localeProp ?? getLocaleFromUrl(Astro.url)
@@ -53,7 +60,9 @@ const meta = LOCALE_META[locale]
 const logicalPath = logicalPathProp ?? stripLocalePrefix(Astro.url.pathname)
 const localePaths: LocalePaths = localePathsProp ?? buildLocalePaths(logicalPath)
 const canonicalUrl = canonical || `${SITE_URL}${localePaths[locale]}`
-const ogImage = `${SITE_URL}/og-image.png`
+const ogImage = ogImageProp
+  ? (ogImageProp.startsWith('http') ? ogImageProp : `${SITE_URL}${ogImageProp}`)
+  : `${SITE_URL}/og-image.webp`
 
 const alternates = noindex ? [] : getAlternates(locale, localePaths, availableLocales)
 

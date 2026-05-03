@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "en"
 translationKey: "ical-sync"
+cover: "/blog/ical-sincronizar-booking-airbnb.webp"
+coverAlt: "A character on a sea terrace sorting three floating envelopes toward an open suitcase; Mediterranean coastline softly visible in warm afternoon light"
 ---
 
 If you manage a tourist accommodation, you probably know the pain.

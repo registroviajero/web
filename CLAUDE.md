@@ -193,6 +193,7 @@ These must match the app + help center:
 - End with a CTA where natural. The layout already appends a CTA section for blog posts — don't duplicate it at the bottom of the body.
 - Dates in the body: `abril 2026` style. Dates in frontmatter: ISO `YYYY-MM-DD`.
 - **Cross-link between posts.** New posts should link to 2–3 related posts where the user would naturally want more depth. Internal linking is how SEO traffic compounds.
+- **Cover image** is optional but strongly preferred. Frontmatter fields `cover` (root-relative path under `public/`, e.g. `/blog/<slug>.webp` — always WebP, never PNG) and `coverAlt` (required when `cover` is set; written in the post's locale). When set, the cover renders as the post hero and overrides the site-wide `og:image` / `twitter:image` / `BlogPosting` JSON-LD `image`. Style and batch-generation protocol are pinned in [`docs/cover-style.md`](./docs/cover-style.md) — follow that recipe so the blog index stays visually coherent over time. Don't freestyle cover styles per post.
 
 ### Landing page (`index.astro`)
 
@@ -204,9 +205,13 @@ These must match the app + help center:
 
 ### Images and assets
 
-- Drop static assets into `public/`, reference as root-relative (`/logo.svg`, `/og-image.png`).
-- `og-image.png` is 1200×630. If you replace it, keep the dimensions or update every layout that references it.
+- **All raster assets are WebP.** Never commit PNG or JPEG. WebP is universally supported and runs 50-85% smaller. Use `cwebp -lossless -mt` for flat illustrations / line art / logos exported as raster, and `cwebp -q 85 -mt` for photographic / complex content (mockups, hero photos). Convert before committing — `for f in *.png; do cwebp -q 85 -mt -quiet "$f" -o "${f%.png}.webp" && rm "$f"; done` is the batch one-liner. SVG stays SVG (it's already vector).
+- Drop static assets into `public/`, reference as root-relative (`/logo.svg`, `/og-image.webp`).
+- `og-image.webp` is 1200×630. If you replace it, keep the dimensions or update every layout that references it.
 - Logo is SVG. If you change the logo, test it at the sizes used (`h-8` in nav, `h-8 brightness-0 invert opacity-80` in footer).
+- **Blog cover images** live at `public/blog/<slug>.webp`, dimensions 1200×630, generated via the recipe in [`docs/cover-style.md`](./docs/cover-style.md). Style is architectural-blueprint (white linework on deep navy with cream + terracotta accents). Always batch-generate following the seed-anchor protocol in that doc — drift across sessions is the enemy of brand coherence. Wire each cover into the post via `cover:` + `coverAlt:` frontmatter (see Blog section above). Use `cwebp -lossless -mt` since the style is flat-vector.
+- **Mockup images** (iPhone-framed product screenshots used in `Landing.astro` spotlights and tour) live at `public/mockups/<feature>.webp`. Use `cwebp -q 85 -mt` (lossy is fine — they are continuous-tone screenshots, lossless gives no perceptible benefit and 5x the file size). Re-shoot when the underlying UI changes; the seed in the main app repo (`src/db/seed.ts`) is curated to produce shoot-ready data.
+- **Platform logos** (`public/platforms/<slug>.svg`) are mark-only SVGs used in the "Importa reservas" row on the landing. Sources: simple-icons.org (CC0) for Airbnb, Booking, Expedia, Tripadvisor, Google Calendar; Vrbo V-mark extracted from vrbo.com's public header (kept in sync with the app's `frontend/src/components/PlatformIcon.vue`).
 - Do not inline base64 images in markdown or Astro templates.
 
 ## Things not to do

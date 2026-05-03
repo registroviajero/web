@@ -6,6 +6,8 @@ updated: 2026-05-01
 author: "RegistroViajero"
 lang: "es"
 translationKey: "rd-933-2021"
+cover: "/blog/rd-933-2021-registro-viajeros.webp"
+coverAlt: "Un viajero con maleta se detiene en la puerta de una villa española al atardecer; un gato observa desde el balcón"
 ---
 
 El **Real Decreto 933/2021** establece las obligaciones de registro documental e información de las personas físicas o jurídicas que ejercen actividades de hospedaje en España.

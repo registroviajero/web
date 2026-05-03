@@ -5,6 +5,8 @@ date: 2026-05-01
 author: "RegistroViajero"
 lang: "es"
 translationKey: "ai-revi"
+cover: "/blog/inteligencia-artificial-registro-viajeros.webp"
+coverAlt: "Una viajera sentada en un banco de piedra en una plaza española con un pequeño pájaro posado en su hombro susurrándole; sostiene un cuaderno abierto"
 ---
 
 Gestionar un alojamiento turístico en España es un buen trabajo. El papeleo, no tanto.

@@ -25,6 +25,8 @@ const { Content } = await render(post)
   slug={getSlug(post)}
   locale="es"
   translationKey={post.data.translationKey}
+  cover={post.data.cover}
+  coverAlt={post.data.coverAlt}
 >
   <Content />
 </BlogPost>
