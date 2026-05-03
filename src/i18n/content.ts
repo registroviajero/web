@@ -263,7 +263,7 @@ export const LANDING: Record<Locale, LandingContent> = {
       { num: '5', title: 'Envía al Ministerio', desc: 'Con un clic, genera y envía los partes a SES.HOSPEDAJES automáticamente.' },
     ],
     features: [
-      { title: 'Check-in digital', desc: 'Enlace único por huésped. Formulario adaptado a móvil en 9 idiomas. Subida de fotos del documento desde la cámara.', icon: ICON.link },
+      { title: 'Check-in digital', desc: 'Enlace único por huésped. Formulario adaptado a móvil en 9 idiomas. Firma digital de la declaración de exactitud.', icon: ICON.link },
       { title: 'Importación iCal', desc: 'Sincroniza reservas cada 15 minutos desde Booking.com, Airbnb, VRBO, Expedia, Tripadvisor y Google Calendar.', icon: ICON.calendar },
       { title: 'Envío directo al Ministerio', desc: 'Genera y envía automáticamente los partes de viajeros y reservas de hospedaje a SES.HOSPEDAJES con un clic.', icon: ICON.send },
       { title: 'Equipo y roles', desc: 'Propietario, administrador y miembro. Cada uno con su propio acceso y permisos.', icon: ICON.team },
@@ -456,7 +456,7 @@ export const LANDING: Record<Locale, LandingContent> = {
       { num: '5', title: 'Submit to the Ministry', desc: 'One click generates and submits the reports to SES.HOSPEDAJES automatically.' },
     ],
     features: [
-      { title: 'Digital check-in', desc: 'Unique link per guest. Mobile-first form in 9 languages. Photo capture for ID documents straight from the camera.', icon: ICON.link },
+      { title: 'Digital check-in', desc: 'Unique link per guest. Mobile-first form in 9 languages. Digital signature of the accuracy declaration.', icon: ICON.link },
       { title: 'iCal import', desc: 'Sync reservations every 15 minutes from Booking.com, Airbnb, VRBO, Expedia, Tripadvisor and Google Calendar.', icon: ICON.calendar },
       { title: 'Direct Ministry submission', desc: 'Automatically generate and submit guest reports and lodging reservations to SES.HOSPEDAJES with one click.', icon: ICON.send },
       { title: 'Team and roles', desc: 'Owner, administrator, and member. Each with their own access and permissions.', icon: ICON.team },
