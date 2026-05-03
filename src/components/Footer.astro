@@ -42,7 +42,7 @@ const rssHref = locale === 'es' ? '/rss.xml' : `/${locale}/rss.xml`
         </p>
       </div>
       <div>
-        <h4 class="text-white font-semibold text-sm mb-4">{t.productHeading}</h4>
+        <h3 class="text-white font-semibold text-sm mb-4">{t.productHeading}</h3>
         <ul class="space-y-2 text-sm">
           <li><a href={featuresHash} class="text-gray-400 hover:text-white transition-colors duration-150">{UI[locale].nav.features}</a></li>
           <li><a href={pricingHash} class="text-gray-400 hover:text-white transition-colors duration-150">{UI[locale].nav.pricing}</a></li>
@@ -59,7 +59,7 @@ const rssHref = locale === 'es' ? '/rss.xml' : `/${locale}/rss.xml`
         </ul>
       </div>
       <div>
-        <h4 class="text-white font-semibold text-sm mb-4">{t.legalHeading}</h4>
+        <h3 class="text-white font-semibold text-sm mb-4">{t.legalHeading}</h3>
         <ul class="space-y-2 text-sm">
           {legalPages.map((p) => (
             <li><a href={p.href} class="text-gray-400 hover:text-white transition-colors duration-150">{p.label}</a></li>
@@ -67,14 +67,14 @@ const rssHref = locale === 'es' ? '/rss.xml' : `/${locale}/rss.xml`
         </ul>
       </div>
       <div>
-        <h4 class="text-white font-semibold text-sm mb-4">{t.accessHeading}</h4>
+        <h3 class="text-white font-semibold text-sm mb-4">{t.accessHeading}</h3>
         <ul class="space-y-2 text-sm">
           <li><a href={`${APP_URL}/login`} class="text-gray-400 hover:text-white transition-colors duration-150">{t.login}</a></li>
           <li><a href={`${APP_URL}/register`} data-umami-event="cta-footer-register" class="text-gray-400 hover:text-white transition-colors duration-150">{t.createAccount}</a></li>
         </ul>
       </div>
     </div>
-    <div class="mt-12 pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+    <div class="mt-12 pt-8 border-t border-gray-800 text-sm text-gray-400 text-center">
       {t.copyright(year)}
     </div>
   </div>
