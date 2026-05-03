@@ -27,7 +27,7 @@ const banners = LOCALES
 ---
 
 <div id="locale-banner" data-current={current} hidden class="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 backdrop-blur-md shadow-lg">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center gap-3 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-3 pb-3 flex flex-wrap items-center gap-3 text-sm" style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom))">
     {banners.map((b) => (
       <div data-locale-banner-for={b.locale} hidden class="flex flex-wrap items-center gap-3 w-full">
         <span class="text-gray-700 flex-1 min-w-0">{b.message}</span>

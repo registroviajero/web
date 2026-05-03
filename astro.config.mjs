@@ -24,6 +24,9 @@ const LOCALE_PAIRS = [
   ['/blog/automatizar-registro-viajeros/', '/en/blog/automate-guest-registration/'],
   ['/blog/cataluna-pais-vasco-registro-viajeros/', '/en/blog/catalonia-basque-country-guest-registration/'],
   ['/blog/inteligencia-artificial-registro-viajeros/', '/en/blog/ai-vacation-rental-management/'],
+  ['/blog/nrua-numero-registro-unico/', '/en/blog/nrua-spain-tourist-rental-registration/'],
+  ['/blog/vau-1560-2025-deposito-arrendamientos/', '/en/blog/vau-1560-2025-short-term-rental-annual-report/'],
+  ['/blog/errores-ses-hospedajes-codigos/', '/en/blog/ses-hospedajes-error-codes/'],
   // Legal pages with locale-specific slugs
   ['/legal/aviso-legal/', '/en/legal/legal-notice/'],
   ['/legal/privacidad/', '/en/legal/privacy/'],
@@ -71,14 +74,12 @@ export default defineConfig({
   },
   // Cross-locale slug confusion appearing as 404s in Search Console — likely
   // URLs Google fabricated from hreflang pairs (EN prefix + ES slug, or vice
-  // versa). Both trailing-slash variants because the source URL in GSC has no
-  // slash but `trailingSlash: 'always'` would also miss the slashed form.
+  // versa). One entry per redirect; `trailingSlash: 'always'` generates the
+  // non-slash → slash normalisation automatically (defining both causes a
+  // router collision that will become a hard error in a future Astro release).
   redirects: {
-    '/en/blog/sanciones-rd-933-2021': '/en/blog/royal-decree-933-2021-penalties/',
     '/en/blog/sanciones-rd-933-2021/': '/en/blog/royal-decree-933-2021-penalties/',
-    '/blog/minors-guest-registration': '/blog/menores-registro-viajeros/',
     '/blog/minors-guest-registration/': '/blog/menores-registro-viajeros/',
-    '/en/blog/menores-registro-viajeros': '/en/blog/minors-guest-registration/',
     '/en/blog/menores-registro-viajeros/': '/en/blog/minors-guest-registration/',
   },
   i18n: {
@@ -97,7 +98,6 @@ export default defineConfig({
       filter: (page) => !page.includes('/404'),
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date(),
       i18n: {
         defaultLocale: 'es',
         locales: {
@@ -124,7 +124,8 @@ export default defineConfig({
           item.changefreq = 'yearly';
         }
 
-        // Per-post lastmod from frontmatter, else fall back to build time.
+        // Per-post lastmod from frontmatter. Non-blog pages omit lastmod
+        // so Google doesn't see them as "updated on every deploy".
         const postStamp = POST_LASTMOD.get(fullPath);
         if (postStamp) {
           item.lastmod = postStamp;

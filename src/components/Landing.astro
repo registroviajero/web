@@ -112,6 +112,7 @@ const howToSchema = {
 <Nav locale={locale} />
 <LocaleBanner locale={locale} />
 
+<main id="main-content">
 <section class="pt-28 pb-20 sm:pt-36 sm:pb-24 overflow-hidden">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
@@ -386,8 +387,8 @@ const howToSchema = {
                 <img
                   src={post.data.cover}
                   alt={post.data.coverAlt ?? post.data.title}
-                  width="1000"
-                  height="630"
+                  width="800"
+                  height="800"
                   loading="lazy"
                   class="w-full aspect-square object-cover rounded-xl mb-4"
                 />
@@ -425,6 +426,8 @@ const howToSchema = {
     </a>
   </div>
 </section>
+
+</main>
 
 <Footer locale={locale} />
 

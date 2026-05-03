@@ -92,12 +92,12 @@ La Ley 12/2023 creó el marco legal para el **Registro Único de Arrendamientos 
 
 Para los gestores de alojamiento, el impacto práctico es que el número que ya tienes de tu CCAA quedará conectado al sistema nacional. Si ya estás inscrito en tu comunidad autónoma, no necesitarás hacer un trámite adicional.
 
-## Lista de comprobación antes de la temporada
+## Antes de la temporada: deja cerrados estos cinco puntos
 
-- [ ] Tengo el número de inscripción en el registro turístico de mi CCAA
-- [ ] El número está publicado en mis anuncios de Airbnb, Booking y VRBO
-- [ ] Tengo el código de arrendador y las credenciales de SES.HOSPEDAJES ([cómo obtenerlas](/blog/credenciales-ses-hospedajes/))
-- [ ] El check-in digital recoge los datos del RD 933/2021 antes de la llegada
-- [ ] Los partes de viajeros se envían a SES.HOSPEDAJES en el plazo legal
+- Tener el número de inscripción en el registro turístico de tu CCAA.
+- Publicarlo correctamente en tus anuncios de Airbnb, Booking y VRBO.
+- Disponer del código de arrendador y las credenciales de SES.HOSPEDAJES ([cómo obtenerlas](/blog/credenciales-ses-hospedajes/)).
+- Recoger los datos del RD 933/2021 antes de la llegada mediante check-in digital.
+- Enviar los partes de viajeros a SES.HOSPEDAJES dentro del plazo legal.
 
-Con RegistroViajero, los tres últimos puntos son automáticos. El primero sigue siendo tu gestión con la CCAA — pero solo lo haces una vez.
+El registro turístico depende de tu comunidad autónoma y se gestiona una vez por alojamiento. A partir de ahí, RegistroViajero te ayuda con la parte repetitiva: check-in digital, datos obligatorios del RD 933/2021, credenciales SES.HOSPEDAJES y envío de partes al Ministerio sin volver a copiar información a mano.

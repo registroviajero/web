@@ -57,6 +57,28 @@ It's about knowing how Spanish tourist accommodation actually works. The documen
 
 That context is the difference between a generic chatbot and an assistant that saves real time.
 
+## How it changes your workflow: a real example
+
+Picture this. It's 10:30 pm. A German guest has just checked in. You get a notification: the Ministry rejected the communication. You open the registration and see the error message.
+
+Without AI: you search forums, the help centre, a Ministry PDF. Fifteen minutes later you find that the problem is the country code format — the system wanted three letters (`DEU`) and you sent two (`DE`). You fix it. You resubmit. It's nearly midnight.
+
+With ReVi: you ask directly. "Why did the Ministry reject the communication for this booking?" In thirty seconds you have the cause, the exact field, and what to change. You don't leave the product. You don't search anything. You fix it and resubmit in under a minute.
+
+The time saved per incident looks small. Add it up across a high-season month, with several properties and guests from a dozen countries, and it stops being small.
+
+## What ReVi doesn't do
+
+Knowing what it doesn't do is just as important.
+
+ReVi doesn't make decisions on your behalf. If a guest's data needs correcting, the manager does it. If a communication needs resubmitting, the manager confirms it. The AI suggests and guides. The action is always yours.
+
+ReVi doesn't access your guests' personal data. It only sees the structure of what's failing — "this field is empty", "this format is wrong" — never the guest's name, document number, or address. That was a design decision from the start.
+
+ReVi doesn't replace human support for complex situations. If you have an issue beyond a product question — a dispute with the Ministry, a billing discrepancy, something that doesn't fit any known pattern — the human team is the right path.
+
+What ReVi does eliminate is the layer of repeated questions, known errors, and navigation uncertainty that builds up week after week and shouldn't require either human support or external searches.
+
 ## Meet ReVi: your assistant inside Registro Viajero
 
 **ReVi** is our new in-app assistant, built for property managers using Registro Viajero. You'll find it at the top-right of the admin panel, next to the bell.

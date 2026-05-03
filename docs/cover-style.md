@@ -8,13 +8,10 @@ This is the brand-asset recipe for blog post cover images. Treat it as a contrac
 
 **Tooling:** Midjourney v6+ handles this style natively and is the recommended generator. nano banana / Gemini 2.5 Flash Image works but takes more iteration — Gemini is photo-tuned, editorial illustration is its second skill, not its first. Either is acceptable.
 
-**Output:** single 1000×630 landscape WebP per post, saved to `public/blog/<slug>.webp`. The same file is:
+**Output:** single 800×800 square WebP per post, saved to `public/blog/<slug>.webp`. The same file is:
 
-- Displayed in-page as a **square** via CSS (`aspect-square` + `object-cover` shows the centred 630×630 band of the landscape) — because center-heavy editorial compositions look great square.
-- Displayed as a **16:9 thumbnail** in the blog list and homepage cards via `aspect-video` + `object-cover`.
-- Used as **og:image** at its native landscape aspect — Facebook and Twitter accept any landscape image; 1000×630 is fine.
-
-One asset, two contexts. No per-format duplication.
+- Displayed in-page and in blog list cards as a **square** via CSS (`aspect-square` + `object-cover`) — source is already square so the crop is lossless.
+- Used as **og:image** — Facebook, Twitter/X, and LinkedIn all handle 1:1 images; 800×800 is within spec on every platform.
 
 ---
 
@@ -64,15 +61,12 @@ Avoid:
 - Watermarks or AI signature marks
 
 Composition:
-- 1200×630 landscape format.
-- **The main subject must be fully contained in the centre of the
-  frame.** Describe the left third and right third of the image
-  explicitly as background/environment only — no part of the focal
-  element (figure, object, tool) should extend into those thirds.
-  If the subject has horizontal reach (a pole, outstretched arms,
-  a wide object), keep it short: it should extend no further than
-  one figure-width beyond the subject's shoulders on each side.
-  The goal is that a square crop of the centre survives intact.
+- 1:1 square format (800×800).
+- **The main subject must be fully contained within the central 60%
+  of the frame.** The outer 20% on each side is background and
+  environment only — no part of the focal element (figure, object,
+  tool) should reach the frame edges. A mild crop from any edge
+  must not cut the subject.
 - Single coherent scene, not a collage.
 
 Subject: [PASTE SUBJECT LINE HERE]
@@ -102,6 +96,8 @@ Future posts (subjects reserved):
 | Slug | Subject |
 |------|---------|
 | `nrua-numero-registro-unico` | A traveler hangs a small numbered tag on a hook beside the door of a whitewashed Spanish apartment building. The tag dangles from a thin ribbon. A cat on a step nearby observes carefully. |
+| `vau-1560-2025-deposito-arrendamientos` | A character passes a folded document through a small arched stone taquilla window set into a whitewashed wall — the kind found at a Spanish plaza de toros or old town hall. A uniformed hand inside the booth brings down a heavy rubber stamp on it with ceremony. A scruffy dog sits at the character's feet, looking up. Warm afternoon light, terracotta tiles above the window, a fig tree to one side. Composition: figure offset to the right third, more environmental detail on the left. |
+| `errores-ses-hospedajes-codigos` | A traveller mid-stumble on a narrow Spanish stone alley: body pitched forward at an angle, one foot raised behind them, free arm flung out for balance. A sheaf of papers has burst from under their arm and hangs in the air around them — some sheets still rising, others beginning to drift down. Their face reads pure surprise. A brand-blue travel bag swings wildly from their shoulder. A cat on a nearby window ledge watches with aristocratic calm. Whitewashed walls, warm terracotta rooftops, late afternoon light. The cobblestone street is just a surface — do not draw a single prominent rock. Composition: figure slightly left of centre, papers arcing into the right third. |
 | `deposito-arrendamientos-app-n2` | A character carefully lowers a folded letter into a small wooden chest on a terrace overlooking a Spanish town at twilight. A few letters are already neatly stacked beside the chest. |
 | `errores-ses-hospedajes-catalogo` | A traveler stands at a wall of small wooden mailbox slots, all roughly identical, with two slots gently glowing warm orange. The character studies the glowing ones thoughtfully. |
 | `ses-hospedajes-no-funciona` | A character at a small writing desk on a Spanish balcony looks up from a tangled string of yarn, gently following the loose end with one finger. A cat plays with the other end on the floor. |
@@ -160,10 +156,10 @@ For each post:
 Convert each generation to WebP at the final path. Use ImageMagick — it handles the resize, center-crop, and watermark removal in one pass:
 
 ```sh
-magick input.png -resize x630 -gravity Center -extent 1000x630 -quality 82 public/blog/<slug>.webp
+magick input.png -resize 900x900^ -gravity Center -extent 800x800 -quality 82 public/blog/<slug>.webp
 ```
 
-`-resize x630` scales to 630px height maintaining aspect ratio. `-gravity Center -extent 1000x630` center-crops to 1000px wide, trimming equal amounts from both sides (which removes Gemini's bottom-right watermark zone from the right edge).
+`-resize 900x900^` scales so the shortest dimension reaches at least 900px (maintaining aspect ratio). `-gravity Center -extent 800x800` center-crops to exactly 800×800, trimming ~50px from each edge — enough to remove Gemini's corner watermark zone.
 
 Then add to the post's frontmatter:
 
@@ -175,7 +171,7 @@ coverAlt: "Un viajero con maleta llega a la puerta de una villa española al ata
 `cover` is root-relative under `public/`. `coverAlt` is required when `cover` is set — write it in the post's locale (Spanish in `es/`, English in `en/`). The plumbing in `src/layouts/BlogPost.astro` and `src/layouts/Layout.astro` then:
 
 - Renders the image as the post hero, displayed **square** via CSS (`aspect-square` + `object-cover` crops to the centre band)
-- Switches `og:image` and `twitter:image` to the cover URL at its native landscape aspect (1200×630)
+- Switches `og:image` and `twitter:image` to the cover URL (800×800 square)
 - Updates the `BlogPosting` JSON-LD `image` field
 
 When `cover` is omitted, the site-wide `/og-image.webp` falls back automatically.
@@ -184,7 +180,7 @@ When `cover` is omitted, the site-wide `/og-image.webp` falls back automatically
 
 ## Watermark check
 
-Gemini sometimes adds a small sparkle/watermark in the bottom-right corner. The Phase 4 recipe handles this automatically: `-gravity Center -extent 1000x630` trims ~96px from each side, which cuts the bottom-right watermark zone out of the right edge. No separate strip step needed — the single magick command above does it all.
+Gemini sometimes adds a small sparkle/watermark in the bottom-right corner. The Phase 4 recipe handles this automatically: `-resize 900x900^` overshoots to at least 900px on each side, then `-gravity Center -extent 800x800` trims ~50px from every edge, cutting the corner watermark zone out. No separate strip step needed — the single magick command above does it all.
 
 ---
 

@@ -48,7 +48,7 @@ const disclaimer = UI[locale].legalDisclaimer
   <Nav locale={locale} localePaths={localePaths} />
   <LocaleBanner locale={locale} localePaths={localePaths} />
 
-  <main class="pt-28 pb-20">
+  <main id="main-content" class="pt-28 pb-20">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
       {showDisclaimer && disclaimer.title && (
         <aside class="mb-8 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900" role="note" aria-label={disclaimer.title}>

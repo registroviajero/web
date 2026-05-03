@@ -57,6 +57,28 @@ Va de conocer cómo funciona de verdad un alojamiento turístico español. Los t
 
 Ese contexto es la diferencia entre un chatbot genérico y un asistente que ahorra tiempo de verdad.
 
+## Cómo cambia el flujo de trabajo con IA: un ejemplo real
+
+Imagina este escenario. Son las 22:30. Un huésped alemán acaba de hacer el check-in. Recibes una notificación: el Ministerio ha rechazado su comunicación. Abres el registro y ves el mensaje de error.
+
+Sin IA: buscas el código en foros, en el centro de ayuda, en el PDF del Ministerio. Quince minutos después descubres que el problema es el formato del código de país — el sistema esperaba tres letras (`DEU`) y tú enviaste dos (`DE`). Corriges. Reenvías. Ya es medianoche.
+
+Con ReVi: preguntas directamente. "¿Por qué rechazó el Ministerio la comunicación de esta reserva?" En treinta segundos tienes la causa, el campo exacto y lo que tienes que cambiar. No sales del producto. No buscas nada. Corriges y reenvías antes de que pase un minuto.
+
+El tiempo ahorrado por incidencia parece pequeño. Sumado sobre un mes de temporada alta, con varias propiedades y huéspedes de diez países distintos, deja de ser pequeño.
+
+## Qué no hace ReVi
+
+Tan importante como saber qué hace es saber qué no hace.
+
+ReVi no toma decisiones en tu nombre. Si hay que corregir los datos de un huésped, lo hace el gestor. Si hay que reenviar una comunicación al Ministerio, la confirma el gestor. La IA sugiere y guía. La acción sigue siendo tuya.
+
+ReVi no accede a los datos personales de tus huéspedes. Solo ve la estructura de lo que está fallando — "este campo está vacío", "este formato es incorrecto" — nunca el nombre, el documento ni la dirección del huésped. Eso lo decidimos así desde el principio.
+
+ReVi no reemplaza al soporte humano para situaciones complejas. Si tienes un problema que va más allá de una pregunta sobre el producto — una discrepancia con el Ministerio, una incidencia de facturación, un caso que no encaja en ningún patrón conocido — el equipo humano es la vía correcta.
+
+Lo que ReVi sí elimina es esa capa de preguntas repetidas, errores conocidos y dudas de navegación que se acumulan semana a semana y que no deberían necesitar soporte humano ni búsquedas externas.
+
 ## Te presentamos ReVi: tu asistente dentro de Registro Viajero
 
 **ReVi** es nuestro nuevo asistente integrado, pensado para gestores de alojamientos que usan Registro Viajero. Lo encuentras arriba a la derecha del panel, al lado de la campana de notificaciones.

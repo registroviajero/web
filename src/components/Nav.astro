@@ -25,6 +25,9 @@ const isBlog = pathname.startsWith(blogPath)
 // we get '/#section' or '/en/#section' rather than '//#section'.
 const homePrefix = homePath === '/' ? '' : homePath.replace(/\/$/, '')
 const anchor = (hash: string) => (isHome ? `#${hash}` : `${homePrefix}/#${hash}`)
+
+const menuLabel = locale === 'es' ? 'Abrir menú' : 'Open menu'
+const closeLabel = locale === 'es' ? 'Cerrar menú' : 'Close menu'
 ---
 
 <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
@@ -36,7 +39,7 @@ const anchor = (hash: string) => (isHome ? `#${hash}` : `${homePrefix}/#${hash}`
       <a href={anchor(sections.featuresId)} class="hover:text-gray-900 transition-colors duration-150">{t.features}</a>
       <a href={anchor(sections.howItWorksId)} class="hover:text-gray-900 transition-colors duration-150">{t.howItWorks}</a>
       <a href={anchor(sections.pricingId)} class="hover:text-gray-900 transition-colors duration-150">{t.pricing}</a>
-      <a href={blogPath} class={isBlog ? 'text-gray-900' : 'hover:text-gray-900 transition-colors duration-150'}>{t.blog}</a>
+      <a href={blogPath} aria-current={isBlog ? 'page' : undefined} class={isBlog ? 'text-gray-900' : 'hover:text-gray-900 transition-colors duration-150'}>{t.blog}</a>
       <a href={HELP_URL} class="hover:text-gray-900 transition-colors duration-150">{t.help}</a>
     </div>
     <div class="flex items-center gap-3">
@@ -45,6 +48,72 @@ const anchor = (hash: string) => (isHome ? `#${hash}` : `${homePrefix}/#${hash}`
       <a href={`${APP_URL}/register`} data-umami-event="cta-nav-register" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors duration-150">
         {t.register}
       </a>
+      <button
+        id="mobile-menu-toggle"
+        aria-label={menuLabel}
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="sm:hidden flex items-center justify-center w-9 h-9 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-150"
+      >
+        <svg id="nav-hamburger" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <svg id="nav-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="hidden sm:hidden border-t border-gray-100 bg-white/95 backdrop-blur-md"
+    aria-hidden="true"
+  >
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-1 text-sm font-medium">
+      <a href={anchor(sections.featuresId)} class="px-3 py-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150">{t.features}</a>
+      <a href={anchor(sections.howItWorksId)} class="px-3 py-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150">{t.howItWorks}</a>
+      <a href={anchor(sections.pricingId)} class="px-3 py-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150">{t.pricing}</a>
+      <a
+        href={blogPath}
+        aria-current={isBlog ? 'page' : undefined}
+        class={`px-3 py-2 rounded-md hover:bg-gray-50 transition-colors duration-150 ${isBlog ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
+      >{t.blog}</a>
+      <a href={HELP_URL} class="px-3 py-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150">{t.help}</a>
+      <div class="border-t border-gray-100 mt-2 pt-2 flex flex-col gap-1">
+        <a href={`${APP_URL}/login`} class="px-3 py-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150">{t.login}</a>
+        <a href={`${APP_URL}/register`} data-umami-event="cta-nav-mobile-register" class="px-3 py-2 rounded-md text-center text-white bg-primary-600 hover:bg-primary-700 transition-colors duration-150">{t.register}</a>
+      </div>
     </div>
   </div>
 </nav>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle') as HTMLButtonElement | null
+  const menu = document.getElementById('mobile-menu')
+  const hamburger = document.getElementById('nav-hamburger')
+  const closeIcon = document.getElementById('nav-close')
+
+  function openMenu() {
+    menu?.classList.remove('hidden')
+    menu?.setAttribute('aria-hidden', 'false')
+    toggle?.setAttribute('aria-expanded', 'true')
+    hamburger?.classList.add('hidden')
+    closeIcon?.classList.remove('hidden')
+  }
+
+  function closeMenu() {
+    menu?.classList.add('hidden')
+    menu?.setAttribute('aria-hidden', 'true')
+    toggle?.setAttribute('aria-expanded', 'false')
+    hamburger?.classList.remove('hidden')
+    closeIcon?.classList.add('hidden')
+  }
+
+  toggle?.addEventListener('click', () => {
+    toggle.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu()
+  })
+
+  // Close when any link inside the mobile menu is clicked
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu))
+</script>

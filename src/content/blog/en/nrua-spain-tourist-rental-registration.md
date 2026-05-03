@@ -92,12 +92,12 @@ The Housing Act created the legal framework for a **national Rental Registration
 
 For accommodation managers, the practical impact is that your existing regional registration number will be connected to the national system. If you are already registered with your autonomous community, you will not need a separate national procedure.
 
-## Pre-season checklist
+## Before the season: close these five points
 
-- [ ] I have the registration number from my autonomous community's tourist registry
-- [ ] The number is published on all my Airbnb, Booking, and VRBO listings
-- [ ] I have the lessor code (código de arrendador) and SES.HOSPEDAJES credentials ([how to get them](/en/blog/ses-hospedajes-credentials/))
-- [ ] The digital check-in collects all data required by RD 933/2021 before arrival
-- [ ] Guest reports are submitted to SES.HOSPEDAJES within the legal deadline
+- Hold the registration number from your autonomous community's tourist registry.
+- Publish it correctly on your Airbnb, Booking, and VRBO listings.
+- Have your lessor code (código de arrendador) and SES.HOSPEDAJES credentials ([how to get them](/en/blog/ses-hospedajes-credentials/)).
+- Collect the RD 933/2021 guest data before arrival through digital check-in.
+- Submit guest reports to SES.HOSPEDAJES within the legal deadline.
 
-With RegistroViajero, the last three points are automatic. The first is still your process with the autonomous community — but you only do it once.
+Tourist registration is handled by your autonomous community and is usually done once per accommodation. After that, RegistroViajero helps with the recurring work: digital check-in, RD 933/2021 required data, SES.HOSPEDAJES credentials, and guest-report submission to the Ministry without copying information by hand.

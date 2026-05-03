@@ -1,60 +1,65 @@
 ---
-title: "Welcome to RegistroViajero: A Guest Registration App for Hosts in Spain"
-description: "Introducing RegistroViajero, the SES.HOSPEDAJES app and guest registration software for tourist accommodations in Spain. Comply with RD 933/2021 without logging into the Ministry's portal."
+title: "Who We Are and Why We Built RegistroViajero"
+description: "RegistroViajero was built by vacation rental managers who were tired of the existing solutions. This is our story, our mission, and what makes us different from the alternatives."
 date: 2026-04-16
-updated: 2026-05-01
+updated: 2026-05-03
 author: "RegistroViajero"
 lang: "en"
 translationKey: "welcome"
 cover: "/blog/welcome-to-registroviajero.webp"
-coverAlt: "A woman stretches awake in a sun-filled Mediterranean bedroom with linen pyjamas and open wooden shutters"
+coverAlt: "Editorial illustration: a property manager wakes up in a sun-filled Mediterranean room with open wooden shutters, ready to start the day"
 ---
 
-Today we're launching **RegistroViajero**.
+We are not a software company that discovered a niche in vacation rentals. We are vacation rental managers who spent too long depending on tools that were not built for us, and who eventually decided to build our own.
 
-It's the platform that tourist accommodation agencies in Spain were asking for. A way to comply with Royal Decree 933/2021 without paperwork eating the week.
+## The problem we lived through every night
 
-## Why we built RegistroViajero
+If you manage properties in Spain, you know the ritual. A reservation comes in. The guest arrives. Before they can get through the door, someone — you, a receptionist, a trusted person — has to open SES.HOSPEDAJES, log in with the web service credentials, fill in a form with the document details, submit it, wait for the receipt, and hope that no cryptic error code comes back with no explanation attached.
 
-Since December 2024, every accommodation in Spain has had to send guest data to the Ministry of the Interior electronically. The process is cumbersome. Long forms. Specific formats. A platform —**SES.HOSPEDAJES**— that is anything but intuitive.
+Multiply that by four properties, fifteen nights in July, the guest who arrived late and the system that took thirty seconds to respond, and you've got an hour of administrative work each night that adds value to nobody.
 
-**SES.HOSPEDAJES: what is it, and who has to use it?** It's the Ministry's portal for submitting guest reports under RD 933/2021. Every regulated lodging in Spain has to use it (with the regional exceptions of Catalonia and the Basque Country). Hotels, hostels, tourist apartments, vacation rentals on Airbnb or Booking, rural houses, campsites, the lot.
+The tools that existed didn't solve this. The big platforms for hotels were designed for 200-room PMS systems, with annual contracts and two-day onboarding sessions. Browser plugins were patches that automated clicks but still required someone sitting in front of a computer. And none of them had thought about the manager with three apartments on Booking, working alone, handling an incident in the flat downstairs at eleven at night.
 
-We talked to a dozen managers before building anything. The complaint was unanimous: "isn't there a programme to send guest reports without logging into the portal every night?". There wasn't. So we built one.
+## The decision
 
-## Who this tool is for
+In late 2024, with the implementation of [Royal Decree 933/2021](/en/blog/royal-decree-933-2021-guide/) and the definitive obligation to report to SES.HOSPEDAJES, the situation reached a tipping point. The fines for non-compliance are real. The system is real. And the tools were still inadequate.
 
-You, if you manage:
+So we started building what we wanted to use ourselves.
 
-- Tourist apartments in Madrid, Andalusia, Valencia, Galicia, Castilla y León, or any other community using SES.HOSPEDAJES.
-- A vacation rental listed on Booking, Airbnb, or VRBO.
-- A medium or large portfolio with check-ins split across several people.
-- A small hotel or guesthouse where the receptionist still fills reports by hand.
+The most important design decision came early: **check-in has to belong to the guest, not the manager**. The underlying problem wasn't "how do we submit data to the Ministry faster". It was "why is it still the manager's job to collect the guest's data in the first place". If a guest can check in at a hotel from their phone, they can do it at a vacation rental too.
 
-If you've been searching for the **best guest registration software for Spanish vacation rentals**, the comparison points are simple: direct API submission to SES.HOSPEDAJES, multi-language guest check-in, immutable audit log, GDPR-compliant retention. Anything missing one of those is not a serious option.
+That's where RegistroViajero as it exists today came from: the manager creates the reservation, the system generates a unique link for the guest, the guest fills in their details in their own language from any device, signs the accuracy declaration, and the system submits the communication to SES.HOSPEDAJES without anyone having to log into the Ministry portal.
 
-## What you can do with RegistroViajero
+## What we learned building it
 
-- **Digital check-in.** The guest fills in their details from their phone, in their own language. 9 languages available.
-- **Automatic reservation import.** Connect iCal feeds from Booking.com, Airbnb, VRBO, Expedia, and more. Reservations come in on their own.
-- **Direct Ministry submission.** With one click, the system builds the XML, signs it, and sends it to SES.HOSPEDAJES. The receipt arrives in seconds.
-- **Team management.** Invite your team with distinct roles. Each person sees what they need.
+Working directly with the SES.HOSPEDAJES API — not through the web portal, but with the Ministry's web service — was revealing. The documentation is inconsistent. [Error responses are cryptic or absent](/en/blog/ses-hospedajes-error-codes/). The system rejects communications for reasons that appear in no manual: the phone prefix format, the support number on the back of the DNI, the nationality ISO code needing three letters not two.
+
+We came to understand that the problem isn't just the SES.HOSPEDAJES interface. It's that the entire process — from data collection to Ministry confirmation — has too many things that can fail silently. An accepted submission is not the same as a registered guest. The difference can surface hours later, in an asynchronous result that nobody checks.
+
+Building the system as managers who live this ourselves forced us to solve those invisible parts: notifying you when a guest hasn't completed check-in and arrival is tomorrow, showing you exactly which piece of data the Ministry rejected and why, and not marking a communication as sent until we have real confirmation.
+
+## Our mission
+
+RegistroViajero's mission is to eliminate the administrative compliance work that adds no value. [Royal Decree 933/2021](/en/blog/royal-decree-933-2021-guide/) exists for legitimate reasons — public safety requires that accommodations report who is staying. But that process requiring an hour of manual nightly work is a tooling problem, not a legal requirement.
+
+We want managers to spend their time on their guests and their properties, not on a Ministry form.
+
+## Who RegistroViajero is for
+
+Any accommodation that uses SES.HOSPEDAJES as its submission channel: tourist apartments, vacation rentals, small hotels, guesthouses, rural houses. It works from a single property up to portfolios of several dozen. If your properties are exclusively in Catalonia or the Basque Country, we're not for you yet — those regions have their own systems ([Mossos d'Esquadra and Ertzaintza](/en/blog/catalonia-basque-country-guest-registration/)) and we're still working on those integrations.
+
+What you can expect:
+
+- **Digital check-in in 9 languages.** The guest fills in their details from their phone. No PDFs, no paper forms, no WhatsApps with photos of documents.
+- **Reservation sync.** Connect iCal feeds from Booking.com, Airbnb, VRBO, Expedia, or any iCal source. Reservations come in on their own.
+- **Direct submission to SES.HOSPEDAJES.** XML generated and signed automatically. The Ministry receipt is saved.
+- **Real-time notifications.** You know the moment a guest completes check-in — or when they haven't and arrival is tomorrow.
 - **Full audit trail.** Every operation is logged, downloadable, ready for any inspection.
 
-It's a clean **alternative to manual SES.HOSPEDAJES upload**: the work that used to mean an hour at the portal becomes 30 seconds of validation per reservation.
+## One thing we particularly care about
 
-## Is it the right pick for your vacation rental?
+We don't block guest check-in if your subscription lapses. Our position is that legal compliance cannot be held hostage to a delayed payment. If there's ever a billing issue, the platform keeps working while we sort it out.
 
-Your call. What we can say with hand on heart:
+---
 
-- Guest check-in is never blocked if your subscription lapses. Your compliance doesn't break over a delayed payment.
-- We don't look at your guests' data, except to send it to the Ministry. Encrypted at rest, hosted in the EEA.
-- We're upfront about what we don't do. We don't yet integrate with Mossos d'Esquadra or Ertzaintza. If all your properties are in Catalonia or the Basque Country, we're not for you yet.
-
-## Start for free
-
-15-day free trial with full access to every feature. No credit card. No commitment.
-
-[Create a free account](https://app.registroviajero.com/register)
-
-Questions? Drop by our [Help Center](https://help.registroviajero.com).
+If you have questions or want to see how it works before signing up, visit our [Help Center](https://help.registroviajero.com) or start a [15-day free trial](https://app.registroviajero.com/register) — no credit card required.

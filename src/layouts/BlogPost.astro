@@ -18,9 +18,9 @@ interface Props {
   slug: string
   locale: Locale
   translationKey: string
-  /** Root-relative path under /public, e.g. "/blog/nrua.webp". 1200x630
-   *  landscape source — displayed in-page as a square via CSS crop, and
-   *  used at its native aspect for og:image. */
+  /** Root-relative path under /public, e.g. "/blog/nrua.webp". 800x800
+   *  square source — displayed in-page and in list cards as a square,
+   *  and used as og:image. */
   cover?: string
   coverAlt?: string
 }
@@ -82,11 +82,14 @@ const breadcrumbSchema = {
   localePaths={localePaths}
   availableLocales={availableLocales}
   ogImage={cover}
+  ogImageWidth={cover ? 800 : undefined}
+  ogImageHeight={cover ? 800 : undefined}
+  ogImageAlt={coverAlt}
 >
   <Nav locale={locale} localePaths={localePaths} />
   <LocaleBanner locale={locale} localePaths={localePaths} />
 
-  <main class="pt-28 pb-20">
+  <main id="main-content" class="pt-28 pb-20">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
       <nav aria-label="Breadcrumb" class="mb-6 text-sm">
         <ol class="flex flex-wrap items-center gap-2 text-gray-500">
@@ -125,8 +128,8 @@ const breadcrumbSchema = {
         <img
           src={cover}
           alt={coverAlt ?? title}
-          width="1200"
-          height="630"
+          width="800"
+          height="800"
           loading="eager"
           fetchpriority="high"
           class="w-full aspect-square object-cover rounded-2xl mb-10"
@@ -152,8 +155,8 @@ const breadcrumbSchema = {
                   <img
                     src={post.data.cover}
                     alt={post.data.coverAlt ?? post.data.title}
-                    width="1000"
-                    height="630"
+                    width="800"
+                    height="800"
                     loading="lazy"
                     class="w-full aspect-square object-cover rounded-xl mb-3"
                   />
